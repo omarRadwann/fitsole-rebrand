@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Journal — Halo</title>
+<meta name="description" content="Field notes — operating writing from inside the Halo practice. Editorial on positioning, brand systems, and the slower edge of marketing." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" />
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<style>
+  :root {
+    --ink: oklch(96% 0.012 85); --ink-dim: oklch(78% 0.012 85); --ink-mute: oklch(58% 0.012 250);
+    --paper: oklch(10% 0.014 260); --paper-2: oklch(13.5% 0.016 260); --paper-3: oklch(17.5% 0.018 260);
+    --rule: color-mix(in oklch, var(--ink) 14%, transparent);
+    --rule-2: color-mix(in oklch, var(--ink) 22%, transparent);
+    --accent: oklch(76% 0.18 70); --accent-2: oklch(72% 0.16 245);
+    --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --serif: "Instrument Serif", ui-serif, Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --fs-mono: clamp(.7rem, .55rem + .35vw, .8rem);
+    --fs-body: clamp(.95rem, .85rem + .4vw, 1.05rem);
+    --fs-lead: clamp(1.1rem, .95rem + .8vw, 1.4rem);
+    --fs-h2: clamp(2.4rem, 1.4rem + 3.2vw, 4.6rem);
+    --fs-hero: clamp(3rem, 1.4rem + 6vw, 7.2rem);
+    --ease-smooth: cubic-bezier(.22,1,.36,1);
+    --ease-expressive: cubic-bezier(.32,.72,0,1);
+    --gutter: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+    --maxw: 1480px;
+  }
+
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: .55s;
+    animation-timing-function: cubic-bezier(.22,1,.36,1);
+  }
+  .topbar        { view-transition-name: halo-topbar; }
+  .wordmark      { view-transition-name: halo-wordmark; }
+  .footer__brand { view-transition-name: halo-footer-brand; }
+
+  *,*::before,*::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--fs-body); font-weight: 360; line-height: 1.55; letter-spacing: -0.005em; overflow-x: clip; cursor: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+  @media (hover: none), (pointer: coarse) { body, a, button { cursor: auto; } }
+  ::selection { background: var(--accent); color: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+  img, svg, canvas { display: block; max-width: 100%; }
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  body::after { content: ""; position: fixed; inset: -10%; pointer-events: none; z-index: 9999; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 .25 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.4'/></svg>"); opacity: .07; mix-blend-mode: overlay; }
+
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9000; will-change: transform; }
+  .cursor-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-left: -3px; margin-top: -3px; transition: transform .25s var(--ease-smooth); }
+  .cursor-ring { width: 36px; height: 36px; border-radius: 50%; border: 1px solid color-mix(in oklch, var(--ink) 50%, transparent); margin-left: -18px; margin-top: -18px; transition: width .35s var(--ease-smooth), height .35s var(--ease-smooth), margin .35s var(--ease-smooth), border-color .35s, opacity .3s; }
+  .cursor-ring__label { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); opacity: 0; transition: opacity .2s; }
+  .cursor-ring.is-hover { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; border-color: var(--accent); background: color-mix(in oklch, var(--accent) 8%, transparent); }
+  .cursor-ring.has-label .cursor-ring__label { opacity: 1; }
+  .is-cursor-hidden .cursor-dot, .is-cursor-hidden .cursor-ring { opacity: 0; }
+  @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Topbar */
+  .topbar { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: clamp(1rem, 1.4vw, 1.5rem) var(--gutter); background: color-mix(in oklch, var(--paper) 70%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--rule); }
+  .wordmark { font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: .55rem; color: var(--ink); }
+  .wordmark::before { content: "●"; color: var(--accent); font-size: .9rem; animation: dotPulse 3.4s ease-in-out infinite; }
+  @keyframes dotPulse { 0%, 100% { opacity: .65; transform: scale(1); } 50% { opacity: 1; transform: scale(1.16); } }
+  .nav { display: flex; gap: 1.5rem; justify-self: center; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
+  .nav a { position: relative; padding: .25rem 0; transition: color .3s; }
+  .nav a::after { content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background: var(--accent); transform: scaleX(0); transform-origin: right center; transition: transform .45s var(--ease-expressive), transform-origin 0s .45s; }
+  .nav a:hover, .nav a:focus-visible, .nav a.is-current { color: var(--ink); }
+  .nav a:hover::after, .nav a:focus-visible::after, .nav a.is-current::after { transform: scaleX(1); transform-origin: left center; transition: transform .45s var(--ease-expressive), transform-origin 0s 0s; }
+  .topbar__right { justify-self: end; display: flex; align-items: center; gap: 1.25rem; }
+  .clock { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
+  .audio-toggle { display: inline-flex; align-items: center; gap: .55rem; border: 1px solid var(--rule-2); padding: .5rem .85rem; border-radius: 999px; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
+  .audio-toggle .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; }
+  .audio-toggle .eq span { width: 2px; background: currentColor; transition: height .25s; }
+  .audio-toggle.is-on { color: var(--ink); border-color: var(--ink-dim); }
+  @media (max-width: 720px) { .nav { display: none; } .topbar { grid-template-columns: 1fr auto; } }
+
+  .page-hero { padding: clamp(6rem, 10vw, 11rem) 0 clamp(3.5rem, 5vw, 5rem); border-bottom: 1px solid var(--rule); position: relative; overflow: hidden; }
+  .page-hero__3d {
+    position: absolute;
+    right: clamp(-8vw, -4vw, 0vw);
+    top: 50%;
+    width: clamp(320px, 38vw, 540px);
+    height: clamp(320px, 38vw, 540px);
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease-smooth);
+    z-index: 0;
+  }
+  .page-hero__3d.is-ready { opacity: .92; }
+  .page-hero__3d canvas { width: 100%; height: 100%; display: block; }
+  .page-hero .wrap { position: relative; z-index: 1; }
+  @media (max-width: 880px) {
+    .page-hero__3d { width: 70vw; height: 70vw; right: -20vw; opacity: 0 !important; }
+    .page-hero__3d.is-ready { opacity: .35 !important; }
+  }
+  @media (prefers-reduced-motion: reduce) { .page-hero__3d { display: none; } }
+  .page-hero__eyebrow { display: inline-flex; align-items: center; gap: .9rem; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 1.5rem; }
+  .page-hero__eyebrow .line { width: 32px; height: 1px; background: var(--rule-2); display: inline-block; }
+  .page-hero__h1 { font-family: var(--serif); font-size: var(--fs-hero); line-height: .95; letter-spacing: -0.025em; font-weight: 400; margin: 0 0 clamp(2rem, 3vw, 3rem); max-width: 18ch; text-wrap: balance; }
+  .page-hero__h1 .it { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 35%); }
+  .page-hero__lede { max-width: 60ch; font-family: var(--serif); font-size: clamp(1.2rem, 1rem + .8vw, 1.6rem); line-height: 1.45; color: var(--ink-dim); margin: 0 0 clamp(2.5rem, 4vw, 4rem); text-wrap: pretty; }
+  .page-hero__meta { display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 3vw, 3rem); font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .page-hero__meta strong { color: var(--ink-dim); font-weight: 500; }
+
+  /* Featured essay */
+  .featured {
+    padding: clamp(5rem, 8vw, 8rem) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .featured__head {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: clamp(2rem, 4vw, 5rem); align-items: start;
+    margin-bottom: clamp(3rem, 5vw, 5rem);
+  }
+  .featured__kicker {
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .featured__h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 1.8rem + 2.6vw, 4.4rem);
+    line-height: .98; letter-spacing: -0.025em;
+    font-weight: 400; margin: 0;
+    max-width: 18ch; text-wrap: balance;
+  }
+  .featured__h2 em { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 30%); }
+  .featured__meta {
+    display: flex; flex-direction: column; gap: 1rem;
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-mute);
+    padding-top: 1.4rem; border-top: 1px solid var(--rule);
+  }
+  .featured__meta strong { color: var(--ink-dim); font-weight: 500; }
+  .featured__body {
+    max-width: 64ch; margin: 0 auto;
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, .95rem + .55vw, 1.4rem);
+    line-height: 1.55; color: var(--ink-dim);
+    letter-spacing: -0.005em;
+  }
+  .featured__body p { margin: 0 0 1.6rem; text-wrap: pretty; }
+  .featured__body p:last-of-type { margin-bottom: 0; }
+  .featured__body em { font-style: italic; color: var(--ink); }
+  .featured__body strong { color: var(--ink); font-weight: 500; }
+  .featured__body blockquote {
+    margin: 2rem 0; padding: 0 0 0 1.4rem;
+    border-left: 2px solid var(--accent);
+    font-style: italic; color: var(--ink);
+    font-size: 1.1em;
+  }
+  .featured__sign {
+    margin-top: 2.8rem; padding-top: 1.4rem;
+    border-top: 1px solid var(--rule-2);
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  @media (max-width: 880px) {
+    .featured__head { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* Archive index */
+  .archive { padding: clamp(5rem, 8vw, 8rem) 0; }
+  .archive__head {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: clamp(2rem, 4vw, 5rem); align-items: end;
+    margin-bottom: clamp(3rem, 5vw, 4rem);
+  }
+  .archive__small {
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .archive__h2 {
+    font-family: var(--serif); font-size: var(--fs-h2);
+    line-height: 1; letter-spacing: -0.02em;
+    font-weight: 400; margin: 1rem 0 0;
+    text-wrap: balance;
+  }
+  .archive__h2 em { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 30%); }
+  .archive__intro {
+    max-width: 50ch; font-family: var(--serif);
+    font-size: var(--fs-lead); line-height: 1.5;
+    color: var(--ink-dim); margin: 0;
+  }
+  @media (max-width: 880px) {
+    .archive__head { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  .entries { list-style: none; padding: 0; margin: 0; }
+  .entry {
+    display: grid;
+    grid-template-columns: 110px 1fr 280px;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding: clamp(1.8rem, 3vw, 2.5rem) 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+    transition: background-color .4s var(--ease-smooth);
+  }
+  .entry:last-child { border-bottom: 1px solid var(--rule); }
+  .entry:hover { background: color-mix(in oklch, var(--paper-2) 30%, transparent); }
+  .entry__date {
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .entry__title {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 1.05rem + 1.1vw, 2rem);
+    line-height: 1.15; margin: 0;
+    color: var(--ink); letter-spacing: -0.015em;
+  }
+  .entry__title em { font-style: italic; }
+  .entry__dek {
+    font-family: var(--serif);
+    font-size: 1rem; line-height: 1.5;
+    color: var(--ink-dim); margin-top: .5rem;
+    max-width: 56ch; text-wrap: pretty;
+  }
+  .entry__aside {
+    display: flex; flex-direction: column; gap: .5rem;
+    align-self: start;
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-mute); text-align: right;
+  }
+  .entry__cat { color: var(--accent); }
+  .entry__read {
+    margin-top: .8rem; padding-top: .8rem;
+    border-top: 1px solid var(--rule);
+  }
+  @media (max-width: 880px) {
+    .entry { grid-template-columns: 1fr; gap: .8rem; }
+    .entry__aside { text-align: left; }
+  }
+
+  /* Newsletter sign-up CTA */
+  .signup {
+    padding: clamp(5rem, 8vw, 8rem) 0;
+    border-top: 1px solid var(--rule);
+    background: color-mix(in oklch, var(--paper-2) 50%, transparent);
+  }
+  .signup__inner {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 4vw, 5rem); align-items: center;
+  }
+  .signup__small {
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-mute); margin-bottom: 1rem;
+  }
+  .signup__h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 1.4rem + 2vw, 3.4rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+    font-weight: 400; margin: 0; text-wrap: balance;
+  }
+  .signup__h2 em { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 30%); }
+  .signup__form {
+    display: flex; gap: .8rem; margin-top: 1.4rem;
+    flex-wrap: wrap;
+  }
+  .signup__copy {
+    font-family: var(--serif); font-size: var(--fs-lead);
+    line-height: 1.5; color: var(--ink-dim);
+    max-width: 50ch; margin: 0 0 1.5rem; text-wrap: pretty;
+  }
+  .signup__input {
+    flex: 1; min-width: 220px;
+    padding: 1rem 1.2rem;
+    background: var(--paper); border: 1px solid var(--rule-2);
+    border-radius: 999px;
+    font-family: var(--serif); font-size: 1.1rem; font-style: italic;
+    color: var(--ink);
+    transition: border-color .3s;
+  }
+  .signup__input::placeholder { color: var(--ink-mute); font-style: italic; }
+  .signup__input:focus { outline: none; border-color: var(--accent); }
+  .signup__submit {
+    padding: 1rem 1.6rem;
+    background: var(--ink); color: var(--paper);
+    border-radius: 999px;
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .14em; text-transform: uppercase;
+    cursor: none; transition: background-color .3s;
+  }
+  .signup__submit:hover { background: var(--accent); color: var(--paper); }
+  .signup__note {
+    margin-top: 1rem;
+    font-family: var(--mono); font-size: var(--fs-mono);
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  @media (max-width: 880px) {
+    .signup__inner { grid-template-columns: 1fr; }
+  }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease-smooth), transform .9s var(--ease-smooth); }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* Footer (same) */
+  footer { padding: clamp(3rem, 5vw, 5rem) 0 clamp(1.5rem, 2vw, 2rem); border-top: 1px solid var(--rule); }
+  .footer__ascii { display: block; font-family: var(--mono); font-size: 9px; line-height: 1; color: color-mix(in oklch, var(--ink-mute) 65%, var(--accent) 35%); margin: 0 0 clamp(2.8rem, 4.5vw, 4.5rem); white-space: pre; overflow: hidden; text-align: center; user-select: none; opacity: .82; text-shadow: 0 0 12px color-mix(in oklch, var(--accent) 40%, transparent); }
+  @media (max-width: 720px) { .footer__ascii { font-size: 7px; } }
+  .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; padding-bottom: clamp(2rem, 4vw, 4rem); }
+  @media (max-width: 780px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+  .footer__brand { font-family: var(--serif); font-style: italic; font-size: clamp(2rem, 1.4rem + 1.8vw, 3rem); line-height: .95; letter-spacing: -0.025em; }
+  .footer__col h4 { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); margin: 0 0 1.2rem; font-weight: 500; }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .55rem; }
+  .footer__col a { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-dim); transition: color .3s; }
+  .footer__col a:hover { color: var(--ink); }
+  .footer__bottom { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; padding-top: clamp(1.5rem, 2.5vw, 2rem); border-top: 1px solid var(--rule); font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+    .cursor-dot, .cursor-ring { display: none; }
+    body { cursor: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span class="cursor-ring__label" id="cursorLabel">View</span></div>
+
+<header class="topbar" role="banner">
+  <a href="./index.html" class="wordmark" aria-label="Halo — home">Halo</a>
+  <nav class="nav" aria-label="Primary">
+    <a href="./work.html">Work</a>
+    <a href="./studio.html">Studio</a>
+    <a href="./journal.html" class="is-current">Journal</a>
+    <a href="./index.html#contact">Contact</a>
+  </nav>
+  <div class="topbar__right">
+    <span class="clock" id="clock">— Lisbon</span>
+    <button class="audio-toggle" id="audioToggle" aria-pressed="false" aria-label="Toggle ambient sound">
+      <span class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span>Sound</span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="page-hero__3d" id="pageHero3d" aria-hidden="true"><canvas></canvas></div>
+  <div class="wrap">
+    <div class="page-hero__eyebrow reveal">
+      <span class="line"></span>
+      <span>⌜MMXXVI⌝ — Field notes from the practice</span>
+    </div>
+    <h1 class="page-hero__h1 reveal" data-delay="1">
+      Operating writing <span class="it">from inside</span> the practice.
+    </h1>
+    <p class="page-hero__lede reveal" data-delay="2">
+      Field notes is the closest thing we keep to a public archive. We
+      publish maybe eight or nine pieces a year — never more, sometimes
+      fewer — each written by a partner working on the actual question.
+      No SEO, no calendar pressure, no “thought leadership.”
+    </p>
+    <div class="page-hero__meta reveal" data-delay="3">
+      <span><strong>Volumes</strong> 11</span>
+      <span><strong>Pieces published</strong> 67 since 2019</span>
+      <span><strong>Cadence</strong> 8—9 per year</span>
+      <span><strong>Subscribers</strong> 8,400</span>
+    </div>
+  </div>
+</section>
+
+<section class="featured">
+  <div class="wrap">
+    <div class="featured__head">
+      <div>
+        <div class="featured__kicker reveal">Featured · June ’26</div>
+        <h2 class="featured__h2 reveal" data-delay="1">The funnel was always <em>a metaphor.</em></h2>
+      </div>
+      <div class="featured__meta reveal" data-delay="2">
+        <span><strong>Author</strong> Eloísa Marçal</span>
+        <span><strong>Volume</strong> XI · No. 04</span>
+        <span><strong>Reading time</strong> ≈ 7 min</span>
+      </div>
+    </div>
+    <div class="featured__body">
+      <p class="reveal" data-delay="3">
+        We borrowed it from physics, then drew it badly. A real funnel
+        narrows what passes through to a specific outlet. A marketing
+        funnel was supposed to describe how strangers became customers —
+        but somewhere in the last decade it became the entire
+        <em>vocabulary</em>, then the entire <em>operating manual</em>,
+        then the entire <em>strategy</em>.
+      </p>
+      <p class="reveal" data-delay="4">
+        The result is the marketing many of you live inside: bid prices
+        that never settle, creative testing that never compounds,
+        attribution that doesn’t agree with revenue. The funnel narrative
+        implies the work is to widen the top — to find <em>more
+        strangers</em> — but the brands we know best win on the other end
+        of the sentence: by being the kind of presence people end up at
+        without having to be sent.
+      </p>
+      <blockquote class="reveal" data-delay="5">
+        “Brands are like that: gravitational. The work, then, is not to
+        chase but to be — and the practice we run is the slow
+        construction of that mass.”
+      </blockquote>
+      <p class="reveal" data-delay="6">
+        We use the word <em>field</em> for that. It is not a clever name.
+        It is what physics calls a region of space within which an object
+        exerts force on the things inside it. Brands are like that:
+        gravitational. The work, then, is not to chase but to <em>be</em>
+        — and the practice we run is the slow construction of that mass.
+        We are willing to be wrong about this in public. We are very
+        rarely wrong in private.
+      </p>
+      <p class="reveal" data-delay="7">
+        A practical implication: the org chart most marketing functions
+        run on was designed for the funnel. If you stay inside the
+        metaphor, you’ll keep buying the same paid-acquisition machinery,
+        the same brief, the same kind of agency. If you leave it, the
+        machinery has to change too — different hires, different
+        cadences, different KPI shape. The reason most teams don’t leave
+        the metaphor isn’t intellectual disagreement; it’s that the
+        change of operating model is genuinely uncomfortable.
+      </p>
+      <p class="reveal" data-delay="8">
+        We’ve found that the brands willing to make the change tend to
+        share three things: a principal who reads, a willingness to lose
+        a quarter to get a year, and a CFO who has already privately
+        stopped trusting paid-acquisition reporting. Those are the
+        engagements we run for. The rest, with respect, are someone
+        else’s.
+      </p>
+      <div class="featured__sign reveal" data-delay="9">
+        — Eloísa Marçal · Lisbon, June ’26
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="archive">
+  <div class="wrap">
+    <div class="archive__head">
+      <div>
+        <div class="archive__small reveal">The archive</div>
+        <h2 class="archive__h2 reveal" data-delay="1">Sixty-seven pieces, <em>eleven volumes.</em></h2>
+      </div>
+      <p class="archive__intro reveal" data-delay="2">
+        We don’t maintain categories or tags — pieces are listed by date.
+        A small selection from the last two years follows.
+      </p>
+    </div>
+    <ol class="entries">
+
+      <li class="entry reveal">
+        <div class="entry__date">2026 · 05</div>
+        <div>
+          <h3 class="entry__title">On the value of <em>staying small.</em></h3>
+          <p class="entry__dek">
+            Why we haven’t hired in four years, what we’ve turned down
+            because of it, and the financial argument for refusing growth
+            you could fund.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Operating notes</span>
+          <span>Joshua Kerr</span>
+          <span class="entry__read">≈ 6 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="1">
+        <div class="entry__date">2026 · 03</div>
+        <div>
+          <h3 class="entry__title">Three quiet metrics we <em>ignore</em>.</h3>
+          <p class="entry__dek">
+            Brand-search lift, organic share-of-voice, and inbound enquiry
+            quality — the three numbers we run for, and the metrics we’ve
+            stopped pretending matter.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Measurement</span>
+          <span>Hari Devraj</span>
+          <span class="entry__read">≈ 9 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="2">
+        <div class="entry__date">2026 · 01</div>
+        <div>
+          <h3 class="entry__title">The case against paid acquisition <em>for premium brands</em>.</h3>
+          <p class="entry__dek">
+            A long version of an argument we’ve had with every client
+            we’ve taken on since 2022. With actual numbers, on the
+            record.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Field reports</span>
+          <span>Eloísa Marçal</span>
+          <span class="entry__read">≈ 12 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="3">
+        <div class="entry__date">2025 · 11</div>
+        <div>
+          <h3 class="entry__title">Brand systems vs. campaigns: <em>a working definition.</em></h3>
+          <p class="entry__dek">
+            The vocabulary the practice runs on, and why we’ve become
+            allergic to the word "campaign". The version we re-write
+            every two years.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Operating notes</span>
+          <span>Sofia Køhler</span>
+          <span class="entry__read">≈ 7 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="4">
+        <div class="entry__date">2025 · 09</div>
+        <div>
+          <h3 class="entry__title">Q3 field notes — <em>what we’re seeing.</em></h3>
+          <p class="entry__dek">
+            Quarterly pattern memo from the partners — what worked
+            across the book, what didn’t, and where the macro is moving.
+            The version institutional readers actually print.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Field reports</span>
+          <span>The partners</span>
+          <span class="entry__read">≈ 15 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="5">
+        <div class="entry__date">2025 · 06</div>
+        <div>
+          <h3 class="entry__title">When to refuse <em>a great brief</em>.</h3>
+          <p class="entry__dek">
+            A short essay on the engagements we’ve turned down and the
+            shape of the regret afterwards. Mostly the regret of the
+            client, not ours.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Operating notes</span>
+          <span>Camille Levi</span>
+          <span class="entry__read">≈ 5 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="6">
+        <div class="entry__date">2025 · 03</div>
+        <div>
+          <h3 class="entry__title">The editorial-system <em>build kit</em>.</h3>
+          <p class="entry__dek">
+            How we set up an owned content system inside a client — the
+            cadence, the staffing, the rituals, and the one mistake that
+            ruins it every time.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Briefings</span>
+          <span>Ana Teles</span>
+          <span class="entry__read">≈ 11 min</span>
+        </aside>
+      </li>
+
+      <li class="entry reveal" data-delay="7">
+        <div class="entry__date">2024 · 12</div>
+        <div>
+          <h3 class="entry__title">Annual letter, <em>volume X.</em></h3>
+          <p class="entry__dek">
+            The 2024 annual — what we shipped, what we lost, what we
+            charged, what we paid the partners, and the bet we’re making
+            in 2025.
+          </p>
+        </div>
+        <aside class="entry__aside">
+          <span class="entry__cat">Annual letter</span>
+          <span>The partners</span>
+          <span class="entry__read">≈ 22 min</span>
+        </aside>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+<section class="signup">
+  <div class="wrap">
+    <div class="signup__inner">
+      <div>
+        <div class="signup__small reveal">Field notes, by post</div>
+        <h2 class="signup__h2 reveal" data-delay="1">A letter in your inbox, <em>once a month, never more.</em></h2>
+      </div>
+      <div>
+        <p class="signup__copy reveal" data-delay="2">
+          The same writing as the archive — published one piece at a
+          time, on the first Monday of the month. No tracking, no funnel,
+          no upsell. Unsubscribe is one click and we won’t notice.
+        </p>
+        <form class="signup__form reveal" data-delay="3" onsubmit="event.preventDefault(); this.querySelector('.signup__submit').textContent='Subscribed';">
+          <input type="email" class="signup__input" placeholder="you@somewhere.com" aria-label="Email" required />
+          <button type="submit" class="signup__submit" data-cursor="say-hi">Subscribe</button>
+        </form>
+        <div class="signup__note reveal" data-delay="4">8,400 readers · 0 ads · 0 sponsorships</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <pre class="footer__ascii" id="footerAscii" aria-hidden="true">.</pre>
+    <div class="footer__grid">
+      <div class="footer__brand">Halo.<br/>Practice.</div>
+      <div class="footer__col">
+        <h4>Practice</h4>
+        <ul>
+          <li><a href="./work.html">Casework</a></li>
+          <li><a href="./studio.html">Studio</a></li>
+          <li><a href="./journal.html">Journal</a></li>
+          <li><a href="./index.html#process">Engagement</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@halo.studio">hello@halo.studio</a></li>
+          <li><a href="#">+351 21 000 000</a></li>
+          <li><a href="#">Travessa do Mar 14</a></li>
+          <li><a href="#">Lisbon, 1200-001</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="#">Are.na</a></li>
+          <li><a href="#">Substack</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">X / Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© MMXXVI · Halo Practice Lda.</span>
+      <span>Built in Lisbon · Run everywhere</span>
+      <span><span style="color:var(--accent)">●</span> All systems nominal</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer  = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+(function() {
+  const supportsXdocVT = (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('view-transition-name', 'halo-topbar'));
+  if (supportsXdocVT || reduceMotion) return;
+  document.body.style.opacity = '0';
+  requestAnimationFrame(() => {
+    document.body.style.transition = 'opacity .42s cubic-bezier(.22,1,.36,1)';
+    document.body.style.opacity = '1';
+  });
+  addEventListener('click', (e) => {
+    const a = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+    let u; try { u = new URL(href, location.href); } catch { return; }
+    if (u.origin !== location.origin) return;
+    if (!/\.html$/i.test(u.pathname)) return;
+    e.preventDefault();
+    document.body.style.transition = 'opacity .32s cubic-bezier(.22,1,.36,1)';
+    document.body.style.opacity = '0';
+    setTimeout(() => { location.href = u.href; }, 320);
+  });
+  addEventListener('pageshow', (e) => { if (e.persisted) document.body.style.opacity = '1'; });
+})();
+
+const clockEl = document.getElementById('clock');
+const fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Lisbon' });
+const tickClock = () => { if (clockEl) clockEl.textContent = `${fmt.format(new Date())} — Lisbon`; };
+tickClock(); setInterval(tickClock, 30_000);
+
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+const ringLabel = document.getElementById('cursorLabel');
+let dx=-200,dy=-200,rx=dx,ry=dy,tx=dx,ty=dy,cursorAwake=false;
+if (finePointer && !reduceMotion) {
+  document.body.classList.add('is-cursor-hidden');
+  addEventListener('pointermove', (e) => {
+    if (!cursorAwake) { cursorAwake=true; dx=rx=tx=e.clientX; dy=ry=ty=e.clientY; document.body.classList.remove('is-cursor-hidden'); }
+    else { tx=e.clientX; ty=e.clientY; }
+  }, { passive: true });
+  addEventListener('pointerleave', () => document.body.classList.add('is-cursor-hidden'));
+  addEventListener('pointerenter', () => document.body.classList.remove('is-cursor-hidden'));
+  const cursorTick = () => {
+    dx += (tx-dx)*0.5; dy += (ty-dy)*0.5; rx += (tx-rx)*0.18; ry += (ty-ry)*0.18;
+    dot.style.transform  = `translate3d(${dx}px, ${dy}px, 0)`;
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+    requestAnimationFrame(cursorTick);
+  };
+  cursorTick();
+  document.querySelectorAll('a, button, [data-cursor]').forEach(el => {
+    const k = el.getAttribute('data-cursor');
+    el.addEventListener('pointerenter', () => {
+      dot.classList.add('is-hover'); ring.classList.add('is-hover');
+      if (k) { ring.classList.add('has-label'); ringLabel.textContent = k==='view'?'View':k==='open'?'Open':k==='say-hi'?'Say hi':k; }
+    });
+    el.addEventListener('pointerleave', () => { dot.classList.remove('is-hover'); ring.classList.remove('is-hover','has-label'); });
+  });
+}
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      const delay = parseInt(e.target.getAttribute('data-delay')||'0',10);
+      setTimeout(() => e.target.classList.add('is-in'), delay*100);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+const audioToggle = document.getElementById('audioToggle');
+let audioOn = localStorage.getItem('apogee:audio') === '1';
+function setAudioVisual(on) { audioToggle.classList.toggle('is-on', on); audioToggle.setAttribute('aria-pressed', String(on)); }
+setAudioVisual(audioOn);
+audioToggle.addEventListener('click', () => { audioOn=!audioOn; localStorage.setItem('apogee:audio', audioOn?'1':'0'); setAudioVisual(audioOn); });
+const eqBars = audioToggle.querySelectorAll('.eq span'); let eqT=0;
+function eqTick(){ eqT+=0.06; eqBars.forEach((b,i)=>{ const v=audioOn?4+Math.abs(Math.sin(eqT+i))*8:4+Math.sin(eqT*0.3+i)*1; b.style.height=`${v}px`; }); requestAnimationFrame(eqTick); }
+eqTick();
+
+function initFooterAscii() {
+  const el = document.getElementById('footerAscii');
+  if (!el || reduceMotion) return;
+  const RAMP=' .:·-+*#%@', COLS=96, ROWS=14;
+  let raf=0,last=0,visible=false;
+  function render(timeMs) {
+    if (!visible) { raf=0; return; }
+    if (timeMs-last<200) { raf=requestAnimationFrame(render); return; }
+    last=timeMs;
+    const grid=new Float32Array(ROWS*COLS), t=timeMs*0.0003;
+    const cosT=Math.cos(t),sinT=Math.sin(t),cosP=Math.cos(t*0.4),sinP=Math.sin(t*0.4);
+    const N=1600;
+    for (let i=0;i<N;i++) {
+      const u=(i/N)*Math.PI*2, cqu=Math.cos(5*u), cpu=Math.cos(2*u);
+      const r=(2+cqu)*0.5;
+      const x0=r*cpu, y0=r*Math.sin(2*u), z0=r*0.5*Math.sin(5*u);
+      const x2=x0*cosT-z0*sinT, z2=x0*sinT+z0*cosT;
+      const y2=y0*cosP-z2*sinP, z3=y0*sinP+z2*cosP;
+      const depth=3.6+z3;
+      const px=Math.round(COLS/2+(x2/depth)*COLS*0.85);
+      const py=Math.round(ROWS/2-(y2/depth)*ROWS*1.7);
+      if (px>=0&&px<COLS&&py>=0&&py<ROWS) {
+        const b=Math.max(0.12,1-(z3+1)*0.32);
+        const k=py*COLS+px;
+        if (b>grid[k]) grid[k]=b;
+      }
+    }
+    let out='';
+    for (let r=0;r<ROWS;r++){ let line=''; for(let c=0;c<COLS;c++){ const v=grid[r*COLS+c]; const idx=Math.min(RAMP.length-1,Math.floor(v*(RAMP.length-0.4))); line+=RAMP[idx]; } out+=line+(r<ROWS-1?'\n':''); }
+    el.textContent=out;
+    raf=requestAnimationFrame(render);
+  }
+  const ioF = new IntersectionObserver((entries) => {
+    const wasVisible=visible;
+    visible=entries[0].isIntersecting;
+    if (visible && !wasVisible && !raf) raf=requestAnimationFrame(render);
+  }, { rootMargin: '20% 0px' });
+  ioF.observe(el);
+}
+initFooterAscii();
+</script>
+
+<script type="module">
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const container = document.getElementById('pageHero3d');
+    const canvas = container?.querySelector('canvas');
+    if (canvas) {
+      try {
+        const THREE = await import('three');
+        const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+        const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
+        const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
+        renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
+        const fit = () => { const w=container.clientWidth,h=container.clientHeight; renderer.setSize(w,h,false); return [w,h]; };
+        const [w0,h0]=fit();
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(35, w0/h0, 0.1, 100);
+        // Journal ribbon is long horizontal — adjust camera + framing
+        camera.position.set(0, 0.0, 4.0);
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+        const mat = new THREE.MeshPhysicalMaterial({
+          color: 0xffffff, metalness: 0, roughness: 0.08,
+          ior: 1.45, thickness: 1.2,
+          transmission: 1, transparent: true,
+          iridescence: 0.9, iridescenceIOR: 1.3,
+          iridescenceThicknessRange: [160, 480],
+          clearcoat: 1, clearcoatRoughness: 0.04,
+          attenuationColor: new THREE.Color(0xffd29a),
+          attenuationDistance: 1.4,
+          envMapIntensity: 1.15,
+          side: THREE.DoubleSide,
+        });
+        // Procedural fallback: a small twisted-band stand-in via TorusGeometry
+        let mesh = new THREE.Mesh(new THREE.TorusGeometry(1.0, 0.04, 32, 200), mat);
+        scene.add(mesh);
+        scene.add(new THREE.DirectionalLight(0xfff0d6, 1.5).position.set(2, 3, 2));
+        scene.add(new THREE.DirectionalLight(0x88aaff, 0.7).position.set(-2, 1, -2));
+        const draco = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+        new GLTFLoader().setDRACOLoader(draco).load('./blender/apogee_journal.glb',
+          (gltf) => { let b=null; gltf.scene.traverse(o => { if(!b && o.isMesh) b=o; }); if(b){ mesh.geometry.dispose(); mesh.geometry=b.geometry; } },
+          undefined, (err) => console.warn('[journal-3d] glb failed', err)
+        );
+        addEventListener('resize', () => { const [w,h]=fit(); camera.aspect=w/h; camera.updateProjectionMatrix(); });
+        let running = true;
+        addEventListener('visibilitychange', () => { running = !document.hidden; });
+        const start = performance.now();
+        function tick(now) {
+          if (running) {
+            const t = (now - start) * 0.001;
+            // The journal ribbon turns slowly on its long axis (Z) so the twist reads
+            mesh.rotation.y = t * 0.25;
+            mesh.rotation.z = Math.sin(t * 0.18) * 0.14;
+            renderer.render(scene, camera);
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        container.classList.add('is-ready');
+      } catch (e) { console.warn('[journal-3d] init failed', e); }
+    }
+  }
+</script>
+
+</body>
+</html>

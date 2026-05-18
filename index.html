@@ -1,0 +1,3399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Halo — A growth practice for brands that prefer presence to noise.</title>
+<meta name="description" content="Halo is a growth-marketing practice that builds magnetic brand systems. We design the field — the gravitational pull behind durable demand — not the funnel." />
+<meta property="og:title" content="Halo — The growth practice." />
+<meta property="og:description" content="We build the field, not the funnel — the gravity behind durable growth." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+<!-- Import map for Three.js + addons (ESM) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<style>
+  /* ─────────────────────────────────────────────────────────
+     APOGEE v2 — design tokens
+     ───────────────────────────────────────────────────────── */
+  :root {
+    --ink:        oklch(96% 0.012 85);
+    --ink-dim:    oklch(78% 0.012 85);
+    --ink-mute:   oklch(58% 0.012 250);
+    --paper:      oklch(10% 0.014 260);
+    --paper-2:    oklch(13.5% 0.016 260);
+    --paper-3:    oklch(17.5% 0.018 260);
+    --rule:       color-mix(in oklch, var(--ink) 14%, transparent);
+    --rule-2:     color-mix(in oklch, var(--ink) 22%, transparent);
+    /* Halo: warm amber primary; the cool cobalt becomes the counterweight.
+       The dispersion-glass sculpture inherits the warm cast through its
+       attenuationColor — same identity from CSS through to WebGL. */
+    --accent:     oklch(76% 0.18 70);
+    --accent-2:   oklch(72% 0.16 245);
+  }
+
+  /* Cross-document View Transitions — moon-level page transition per guide §9.2.
+     Chromium 126+ animates the morph automatically; named regions stay put
+     across the navigation. Non-supporting browsers fall through to the JS
+     fade. */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: .55s;
+    animation-timing-function: cubic-bezier(.22,1,.36,1);
+  }
+  .topbar       { view-transition-name: halo-topbar; }
+  .wordmark     { view-transition-name: halo-wordmark; }
+  .footer__brand{ view-transition-name: halo-footer-brand; }
+  :root {
+
+    --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --serif: "Instrument Serif", ui-serif, Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --fs-mono:   clamp(.7rem, .55rem + .35vw, .8rem);
+    --fs-body:   clamp(.95rem, .85rem + .4vw, 1.05rem);
+    --fs-lead:   clamp(1.1rem, .95rem + .8vw, 1.4rem);
+    --fs-h3:     clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem);
+    --fs-h2:     clamp(2.4rem, 1.4rem + 3.2vw, 4.6rem);
+    --fs-hero:   clamp(3.2rem, 1.4rem + 7.2vw, 8.6rem);
+
+    --ease-smooth: cubic-bezier(.22,1,.36,1);
+    --ease-expressive: cubic-bezier(.32,.72,0,1);
+    --ease-dramatic:   cubic-bezier(.76,0,.24,1);
+
+    --gutter: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+    --maxw: 1480px;
+  }
+
+  *,*::before,*::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--fs-body);
+    font-weight: 360;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+    overflow-x: clip;
+    cursor: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (hover: none), (pointer: coarse) {
+    body, a, button { cursor: auto; }
+  }
+  ::selection { background: var(--accent); color: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+  img, svg, canvas { display: block; max-width: 100%; }
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* film grain */
+  body::after {
+    content: "";
+    position: fixed; inset: -10%;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 .25 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.4'/></svg>");
+    opacity: .07;
+    mix-blend-mode: overlay;
+  }
+
+  /* Cursor halo — soft amber field around the cursor when over the hero.
+     Concept-tied: the brand mark made tactile. Behind content, screen-blended
+     so it lifts the dark hero without overwhelming type. */
+  .cursor-halo {
+    position: fixed;
+    top: 0; left: 0;
+    width: 420px; height: 420px;
+    border-radius: 999px;
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in oklch, var(--accent) 28%, transparent) 0%, color-mix(in oklch, var(--accent) 6%, transparent) 35%, transparent 65%);
+    transform: translate3d(-9999px, -9999px, 0);
+    opacity: 0;
+    transition: opacity .55s var(--ease-smooth);
+    z-index: 1;
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+  }
+  .cursor-halo.is-active { opacity: 1; }
+  @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor-halo { display: none; } }
+
+  /* PERSISTENT 3D CANVAS */
+  #scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  #scene canvas { width: 100% !important; height: 100% !important; }
+  /* veil for text contrast */
+  .veil {
+    position: fixed; inset:0; z-index: 1; pointer-events:none;
+    background:
+      radial-gradient(120% 70% at 100% 0%, transparent 0%, color-mix(in oklch, var(--paper) 30%, transparent) 60%),
+      linear-gradient(180deg, transparent 30%, color-mix(in oklch, var(--paper) 80%, transparent) 100%);
+  }
+
+  /* CUSTOM CURSOR (dot + ring + trail) */
+  .cursor-dot, .cursor-ring {
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    will-change: transform;
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    margin: -4px 0 0 -4px;
+    border-radius: 999px;
+    background: var(--ink);
+    transition: width .35s var(--ease-expressive), height .35s var(--ease-expressive), background-color .25s, opacity .25s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    margin: -18px 0 0 -18px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklch, var(--ink) 70%, transparent);
+    transition: width .45s var(--ease-expressive), height .45s var(--ease-expressive), opacity .25s, border-color .3s;
+  }
+  .cursor-dot.is-hover { width: 0; height: 0; opacity: 0; }
+  .cursor-ring.is-hover { width: 64px; height: 64px; margin:-32px 0 0 -32px; border-color: var(--accent); }
+  .cursor-ring.is-text  { width: 4px; height: 28px; border-radius: 2px; margin:-14px 0 0 -2px; }
+  .cursor-ring__label {
+    position: absolute;
+    inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0;
+    transition: opacity .2s;
+    mix-blend-mode: normal;
+  }
+  .cursor-ring.has-label .cursor-ring__label { opacity: 1; }
+  .is-cursor-hidden .cursor-dot, .is-cursor-hidden .cursor-ring { opacity: 0; }
+  @media (hover: none), (pointer: coarse) {
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  /* TOP BAR */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 1.25rem var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+    color: var(--ink);
+  }
+  .topbar a { transition: opacity .3s; }
+  .topbar a:hover { opacity: .55; }
+  .wordmark {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -.01em;
+    text-transform: none;
+    display: inline-flex; align-items: center; gap: .55rem;
+  }
+  .wordmark { position: relative; }
+  .wordmark::before {
+    content:"";
+    width: 9px; height: 9px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 22px color-mix(in oklch, var(--accent) 70%, transparent),
+                0 0 8px  color-mix(in oklch, var(--accent) 90%, transparent);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    animation: dot-breathe 3.6s var(--ease-smooth) infinite;
+  }
+  /* The actual halo — a phantom ring that expands outward from the dot,
+     literal to the brand. Pure pseudo-element, no extra DOM. */
+  .wordmark::after {
+    content:"";
+    position: absolute;
+    left: 0; top: 50%;
+    width: 9px; height: 9px;
+    margin-top: -4.5px;
+    border-radius: 999px;
+    background: var(--accent);
+    z-index: 0;
+    pointer-events: none;
+    transform-origin: center;
+    animation: halo-ring 3.6s var(--ease-expressive) infinite;
+  }
+  @keyframes dot-breathe {
+    0%,100% { opacity: 1;   transform: scale(1); }
+    50%     { opacity: .82; transform: scale(.92); }
+  }
+  @keyframes halo-ring {
+    0%   { transform: scale(1);   opacity: .55; }
+    65%  { opacity: 0; }
+    100% { transform: scale(4.2); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark::before { animation: none; }
+    .wordmark::after { animation: none; opacity: 0; }
+  }
+  .nav { display: flex; gap: 1.5rem; justify-self: center; }
+  .nav a { position: relative; padding: .25rem 0; transition: color .3s; }
+  .nav a::after {
+    content:""; position:absolute; left:0; right:0; bottom:-2px;
+    height:1px; background: var(--accent);
+    transform: scaleX(0); transform-origin: right center;
+    transition: transform .45s var(--ease-expressive), transform-origin 0s .45s;
+  }
+  /* draws in from left on hover, retracts to right on leave — premium detail */
+  .nav a:hover, .nav a:focus-visible { color: var(--ink); }
+  .nav a:hover::after, .nav a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+    transition: transform .45s var(--ease-expressive), transform-origin 0s 0s;
+  }
+  .topbar__right { justify-self: end; display: flex; align-items: center; gap: 1.25rem; }
+  .clock { font-variant-numeric: tabular-nums; }
+
+  .audio-toggle {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: .35rem .65rem;
+    border: 1px solid var(--rule-2);
+    border-radius: 999px;
+    cursor: none;
+    transition: background-color .3s, border-color .3s;
+  }
+  .audio-toggle:hover { background: color-mix(in oklch, var(--ink) 10%, transparent); }
+  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .eq span {
+    display: inline-block;
+    width: 2px; height: 4px;
+    background: var(--ink-mute);
+    transition: background-color .3s;
+    transform-origin: bottom;
+  }
+  .audio-toggle.is-on .eq span { background: var(--accent); }
+  @media (max-width: 720px) { .nav { display: none; } .topbar { grid-template-columns: 1fr auto; } }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    padding: clamp(7rem, 8rem, 9rem) var(--gutter) clamp(3rem,4rem,5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 2;
+  }
+  .hero__eyebrow {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: clamp(1rem, 2vw, 2.5rem);
+  }
+  .hero__eyebrow .line { flex: 0 0 60px; height: 1px; background: var(--rule); }
+  .hero__h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: var(--fs-hero);
+    line-height: .92;
+    letter-spacing: -0.03em;
+    margin: 0;
+    max-width: 16ch;
+    color: var(--ink);
+  }
+  .hero__h1 .it { font-style: italic; color: color-mix(in oklch, var(--ink) 85%, var(--accent) 30%); }
+  .hero__h1 .sans { font-family: var(--sans); font-weight: 300; font-style: normal; letter-spacing: -.04em; }
+
+  .splitline { display: block; padding-bottom: 0.04em; }
+  /* word stays as one unbreakable unit; chars animate via gsap (no CSS conflict) */
+  .splitword { display: inline-block; white-space: nowrap; vertical-align: top; }
+  .splitchar { display: inline-block; will-change: transform, opacity; opacity: 0; }
+  .splitspace { display: inline-block; width: .32em; }
+  /* fallback: if JS fails, show the text after 1.5s */
+  .no-js-fallback .splitchar { opacity: 1 !important; }
+
+  .hero__foot {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr auto;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  @media (max-width: 860px) { .hero__foot { grid-template-columns: 1fr; gap: 2rem; } }
+  .hero__lede {
+    max-width: 38ch;
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+    color: var(--ink-dim);
+    font-weight: 320;
+    text-wrap: pretty;
+  }
+  .hero__lede em { font-family: var(--serif); font-style: italic; color: var(--ink); font-weight: 400; }
+
+  .hero__cta { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+  .btn {
+    --bg: transparent;
+    --fg: var(--ink);
+    --bd: var(--rule-2);
+    position: relative;
+    display: inline-flex; align-items: center; gap: .6rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--bd);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: none;
+    overflow: hidden;
+    transition: color .4s var(--ease-expressive), border-color .4s;
+    min-height: 48px;
+    isolation: isolate;
+  }
+  .btn::before {
+    content:"";
+    position:absolute; inset:0;
+    background: var(--ink);
+    transform: translateY(101%);
+    transition: transform .55s var(--ease-expressive);
+    z-index: -1;
+  }
+  .btn:hover { color: var(--paper); border-color: var(--ink); }
+  .btn:hover::before { transform: translateY(0); }
+  .btn .arrow { width: 14px; height: 14px; transition: transform .45s var(--ease-expressive); }
+  .btn:hover .arrow { transform: translate(3px, -3px); }
+  .btn--primary { --bg: var(--ink); --fg: var(--paper); --bd: var(--ink); }
+  .btn--primary::before { background: var(--accent); }
+  .btn--primary:hover { color: var(--paper); border-color: var(--accent); }
+
+  .hero__meta {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    text-align: right;
+    line-height: 1.7;
+  }
+  .hero__meta strong { color: var(--ink); font-weight: 500; }
+
+  .scroll-cue {
+    position: fixed;
+    right: var(--gutter);
+    bottom: clamp(1.2rem, 2vw, 2rem);
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    z-index: 30;
+    pointer-events: none;
+    transition: opacity .4s var(--ease-smooth), color .3s;
+  }
+  .scroll-cue.is-flashing { color: var(--ink); }
+  .scroll-cue::after {
+    content: ""; width: 1px; height: 36px;
+    background: linear-gradient(to bottom, transparent, var(--ink-dim));
+    animation: cueLine 2.4s var(--ease-smooth) infinite;
+  }
+  @keyframes cueLine {
+    0%{transform:scaleY(0);transform-origin:top;}
+    50%{transform:scaleY(1);transform-origin:top;}
+    51%{transform:scaleY(1);transform-origin:bottom;}
+    100%{transform:scaleY(0);transform-origin:bottom;}
+  }
+
+  section { position: relative; z-index: 2; }
+  .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: .8rem;
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .section-label::before { content:""; width: 22px; height: 1px; background: var(--accent); }
+
+  .h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: var(--fs-h2);
+    line-height: .96;
+    letter-spacing: -.03em;
+    margin: .8rem 0 0;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .h2 .it { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 30%); }
+
+  /* PROOF — operating record strip */
+  .proof {
+    position: relative;
+    z-index: 2;
+    padding: clamp(3.5rem, 5vw, 5.5rem) 0 clamp(3rem, 4vw, 4.5rem);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: color-mix(in oklch, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .proof__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 3.5vw, 3rem);
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .proof__rule { width: 36px; height: 1px; background: var(--rule-2); display: inline-block; }
+  .proof__kicker { color: var(--ink-dim); }
+  .proof__byline { color: var(--ink-mute); font-style: italic; text-transform: none; letter-spacing: .02em; margin-left: auto; font-family: var(--serif); font-size: 1.05rem; }
+  .proof__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.4vw, 3rem);
+    align-items: start;
+  }
+  .proof__stat {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    border-top: 1px solid var(--rule-2);
+    padding-top: 1.1rem;
+  }
+  .proof__num {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 1.5rem + 2.4vw, 4.6rem);
+    line-height: .95;
+    letter-spacing: -0.025em;
+    font-feature-settings: "lnum";
+    color: var(--ink);
+  }
+  .proof__lbl {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    line-height: 1.5;
+    max-width: 30ch;
+  }
+  @media (max-width: 880px) {
+    .proof__grid { grid-template-columns: repeat(2, 1fr); gap: 1.8rem 1.4rem; }
+    .proof__byline { display: none; }
+  }
+  @media (max-width: 480px) {
+    .proof__grid { grid-template-columns: 1fr; }
+  }
+
+  /* VOICES — testimonial strip between proof and manifesto */
+  .voices {
+    position: relative;
+    z-index: 2;
+    padding: clamp(4rem, 6vw, 6.5rem) 0 clamp(3.5rem, 5vw, 5rem);
+    border-bottom: 1px solid var(--rule);
+    background: color-mix(in oklch, var(--paper) 85%, transparent);
+  }
+  .voices__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .voices__rule { width: 36px; height: 1px; background: var(--rule-2); display: inline-block; }
+  .voices__kicker { color: var(--ink-dim); }
+  .voices__byline {
+    color: var(--ink-mute);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: .02em;
+    margin-left: auto;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+  }
+  .voices__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 3vw, 3.2rem);
+    align-items: start;
+  }
+  .voice {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule-2);
+  }
+  .voice blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, .9rem + .55vw, 1.45rem);
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
+  }
+  .voice blockquote em { font-style: italic; color: color-mix(in oklch, var(--ink) 70%, var(--accent) 30%); }
+  .voice figcaption {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    color: var(--ink-mute);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .voice figcaption strong { color: var(--ink-dim); font-weight: 500; }
+  .voice figcaption em {
+    font-style: italic;
+    text-transform: none;
+    font-family: var(--serif);
+    font-size: 1.15em;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  @media (max-width: 880px) {
+    .voices__grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    .voices__byline { display: none; }
+  }
+
+  /* ESSAY — long-form note from the practice */
+  .essay {
+    position: relative;
+    z-index: 2;
+    padding: clamp(6rem, 10vw, 10rem) 0 clamp(5rem, 8vw, 8rem);
+    border-top: 1px solid var(--rule);
+  }
+  .essay__head {
+    max-width: 28ch;
+    margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  }
+  .essay__body {
+    max-width: 64ch;
+    margin: 0 auto;
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, .95rem + .55vw, 1.4rem);
+    line-height: 1.55;
+    color: var(--ink-dim);
+    letter-spacing: -0.005em;
+  }
+  .essay__body p { margin: 0 0 1.5rem; text-wrap: pretty; }
+  .essay__body p:last-of-type { margin-bottom: 0; }
+  .essay__body em { font-style: italic; color: var(--ink); }
+  .essay__sign {
+    margin-top: 2.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule-2);
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    color: var(--ink-mute);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  /* PRESS — third-party media coverage strip */
+  .press {
+    position: relative;
+    z-index: 2;
+    padding: clamp(4rem, 6vw, 6.5rem) 0 clamp(3.5rem, 5vw, 5.5rem);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: color-mix(in oklch, var(--paper) 92%, transparent);
+  }
+  .press__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: clamp(2.5rem, 4vw, 3.2rem);
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .press__rule { width: 36px; height: 1px; background: var(--rule-2); display: inline-block; }
+  .press__kicker { color: var(--ink-dim); }
+  .press__byline {
+    margin-left: auto;
+    color: var(--ink-mute);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    text-transform: none;
+    letter-spacing: .02em;
+  }
+  .press__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.6rem, 2.5vw, 2.6rem) clamp(2rem, 3vw, 3.2rem);
+  }
+  .press__item {
+    margin: 0;
+    display: flex; flex-direction: column; gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule-2);
+  }
+  .press__item blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1rem, .85rem + .55vw, 1.32rem);
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
+  }
+  .press__item blockquote em { font-style: italic; color: color-mix(in oklch, var(--ink) 70%, var(--accent) 30%); }
+  .press__item figcaption {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    color: var(--ink-mute);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .press__item figcaption strong { color: var(--ink-dim); font-weight: 500; }
+  .press__item figcaption em {
+    font-style: italic;
+    text-transform: none;
+    font-family: var(--serif);
+    font-size: 1.15em;
+    letter-spacing: 0;
+    color: color-mix(in oklch, var(--ink-dim) 80%, var(--accent) 20%);
+  }
+  @media (max-width: 720px) {
+    .press__grid { grid-template-columns: 1fr; }
+    .press__byline { display: none; }
+  }
+
+  /* MANIFESTO */
+  .manifesto { padding: clamp(6rem, 10vw, 12rem) 0 clamp(4rem, 7vw, 7rem); }
+  .manifesto__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+  @media (max-width: 880px) { .manifesto__grid { grid-template-columns: 1fr; } }
+  .pullquote {
+    font-family: var(--serif);
+    font-size: var(--fs-h3);
+    line-height: 1.25;
+    color: var(--ink);
+    text-wrap: pretty;
+    max-width: 28ch;
+  }
+  .pullquote em { color: color-mix(in oklch, var(--ink) 75%, var(--accent) 40%); }
+  .principles {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    counter-reset: pn;
+  }
+  .principles li {
+    counter-increment: pn;
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(pn, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    color: var(--ink-mute);
+    letter-spacing: .12em;
+  }
+  .principles strong { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--ink); font-size: 1.2em; margin-right: .35em; }
+  .principles span { color: var(--ink-dim); }
+
+  /* PROCESS — PINNED HORIZONTAL */
+  .process {
+    padding: clamp(4rem, 6vw, 6rem) 0 clamp(2rem, 4vw, 3rem);
+    background: linear-gradient(180deg, transparent 0%, color-mix(in oklch, var(--paper-2) 70%, transparent) 50%, transparent 100%);
+  }
+  .process__intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+    align-items: end;
+  }
+  @media (max-width: 880px) { .process__intro { grid-template-columns: 1fr; } }
+  .process__intro p { color: var(--ink-dim); max-width: 48ch; font-size: var(--fs-lead); line-height: 1.5; }
+  /* process — staircase / editorial grid (no pin, no horizontal scroll) */
+  .h-scroll { position: relative; padding-inline: var(--gutter); }
+  .h-scroll__track {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1rem, 1.6vw, 1.5rem);
+    max-width: var(--maxw);
+    margin-inline: auto;
+  }
+  .panel {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: clamp(1.5rem, 2.5vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(1rem, 2vw, 2rem);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    min-height: clamp(280px, 36vh, 420px);
+    transition: transform .6s var(--ease-expressive), border-color .4s;
+  }
+  .panel:hover { border-color: var(--rule-2); }
+  /* staircase: 4 + 4 + 4 / 6 + 6 to feel editorial, not gridded */
+  .panel:nth-child(1) { grid-column: span 5; }
+  .panel:nth-child(2) { grid-column: span 4; margin-top: clamp(1.5rem, 4vw, 3.5rem); }
+  .panel:nth-child(3) { grid-column: span 3; }
+  .panel:nth-child(4) { grid-column: span 7; }
+  .panel:nth-child(5) { grid-column: span 5; margin-top: clamp(1.5rem, 4vw, 3rem); }
+  @media (max-width: 980px) {
+    .panel:nth-child(1),
+    .panel:nth-child(2),
+    .panel:nth-child(3),
+    .panel:nth-child(4),
+    .panel:nth-child(5) { grid-column: span 12; margin-top: 0; }
+  }
+  .panel::after {
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(60% 80% at 50% 100%, color-mix(in oklch, var(--accent) 25%, transparent), transparent 60%);
+    opacity: .3; pointer-events: none;
+    z-index: -1;
+  }
+  .panel__num {
+    font-family: var(--mono);
+    font-size: clamp(2.5rem, 1rem + 4vw, 5rem);
+    color: color-mix(in oklch, var(--ink) 40%, transparent);
+    letter-spacing: -.04em;
+    line-height: 1;
+  }
+  .panel__title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 1rem + 2.5vw, 3.4rem);
+    line-height: 1;
+    margin: 0;
+    max-width: 14ch;
+  }
+  .panel__title em { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 30%); }
+  .panel__body { color: var(--ink-dim); max-width: 36ch; line-height: 1.5; }
+  .panel__meta {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* SELECTED WORK (BENTO) */
+  .work { padding: clamp(5rem, 8vw, 9rem) 0; }
+  .work__head {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 5rem);
+  }
+  .work__meta {
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    letter-spacing: .14em;
+    text-align: right;
+  }
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(220px, auto);
+    gap: clamp(.75rem, 1.2vw, 1.25rem);
+  }
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    isolation: isolate;
+    cursor: none;
+    transition: transform .65s var(--ease-expressive), border-color .4s;
+    text-align: left;
+  }
+  /* hover lift handled by gsap to avoid fighting magnetic transforms */
+  .card:hover { border-color: var(--rule-2); }
+  .card__visual { position: absolute; inset: 0; z-index: 0; transition: transform .9s var(--ease-expressive), filter .6s; }
+  .card:hover .card__visual { transform: scale(1.05); filter: saturate(1.1); }
+  /* per-card WebGL canvas sits ON TOP of the CSS gradient (which becomes fallback) */
+  .card__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .8s var(--ease-smooth);
+  }
+  .card__canvas.is-ready { opacity: 1; }
+  .card__body {
+    position: relative;
+    z-index: 2;
+    display: flex; flex-direction: column;
+    height: 100%;
+    padding: clamp(1.25rem, 1.5vw, 1.8rem);
+    justify-content: space-between;
+  }
+  .card__tag { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: color-mix(in oklch, var(--ink) 70%, transparent); }
+  .card__title {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, .9rem + 1.6vw, 2.1rem);
+    line-height: 1.05;
+    margin: 0;
+    color: var(--ink);
+    max-width: 14ch;
+  }
+  .card__title em { font-style: italic; }
+  .card__year { font-family: var(--mono); font-size: 10px; color: color-mix(in oklch, var(--ink) 60%, transparent); letter-spacing: .14em; }
+
+  .card.c-1 { grid-column: span 4; grid-row: span 2; }
+  /* view-transition-name applied at transition time via JS to avoid name collisions */
+  .card.is-transitioning, .drawer__hero.is-transitioning { view-transition-name: card-1; }
+  .card.c-2 { grid-column: span 2; grid-row: span 1; }
+  .card.c-3 { grid-column: span 2; grid-row: span 1; }
+  .card.c-4 { grid-column: span 3; grid-row: span 1; }
+  .card.c-5 { grid-column: span 3; grid-row: span 1; }
+  .card.c-6 { grid-column: span 6; grid-row: span 1; min-height: 280px; }
+  @media (max-width: 880px) {
+    .bento { grid-template-columns: 1fr 1fr; }
+    .card.c-1,.card.c-6 { grid-column: span 2; }
+    .card.c-2,.card.c-3,.card.c-4,.card.c-5 { grid-column: span 1; }
+  }
+  .v-aurora {
+    background:
+      radial-gradient(80% 60% at 20% 30%, oklch(78% 0.18 245 / .9), transparent 60%),
+      radial-gradient(60% 80% at 80% 80%, oklch(70% 0.22 50 / .7), transparent 60%),
+      linear-gradient(120deg, oklch(20% 0.04 260), oklch(13% 0.02 260));
+  }
+  .v-grain  { background: radial-gradient(120% 100% at 50% 0%, oklch(95% 0.012 85 / .12), transparent 60%), linear-gradient(180deg, oklch(18% 0.02 260), oklch(11% 0.014 260)); }
+  .v-ember  { background: radial-gradient(50% 80% at 80% 20%, oklch(70% 0.22 50 / .8), transparent 60%), radial-gradient(80% 80% at 0% 100%, oklch(40% 0.16 30 / .6), transparent 60%), linear-gradient(180deg, oklch(14% 0.02 30), oklch(10% 0.01 30)); }
+  .v-pool   { background: radial-gradient(70% 80% at 30% 70%, oklch(70% 0.13 200 / .7), transparent 60%), radial-gradient(60% 60% at 80% 20%, oklch(78% 0.18 245 / .6), transparent 60%), linear-gradient(180deg, oklch(16% 0.03 240), oklch(11% 0.02 240)); }
+  .v-iron   { background: conic-gradient(from 220deg at 50% 50%, oklch(55% 0.01 250), oklch(20% 0.01 250), oklch(45% 0.01 250), oklch(15% 0.01 250)); filter: contrast(1.05); }
+  .v-bloom  { background: radial-gradient(50% 50% at 50% 50%, oklch(80% 0.16 320 / .7), transparent 60%), linear-gradient(160deg, oklch(20% 0.05 310), oklch(11% 0.02 280)); }
+  .card::after {
+    content:""; position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, transparent 0 2px, oklch(0% 0 0 / .04) 2px 3px);
+    mix-blend-mode: overlay;
+    pointer-events:none;
+    z-index: 1;
+  }
+
+  /* CAPABILITIES */
+  .caps { padding: clamp(5rem, 8vw, 10rem) 0; border-top: 1px solid var(--rule); }
+  .caps__head { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; }
+  @media (max-width: 880px) { .caps__head { grid-template-columns: 1fr; } }
+  .caps__intro { color: var(--ink-dim); max-width: 42ch; font-size: var(--fs-lead); line-height: 1.5; text-wrap: pretty; }
+  .caps__list { list-style: none; margin: clamp(2.5rem,5vw,4.5rem) 0 0; padding: 0; }
+  .caps__list li {
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    align-items: center;
+    transition: padding-left .5s var(--ease-expressive), color .5s, background-color .5s;
+  }
+  .caps__list li:last-child { border-bottom: 1px solid var(--rule); }
+  .caps__list li:hover,
+  .caps__list li.is-active { padding-left: 1.5rem; color: var(--ink); }
+  /* sticky-active: when the row is nearest the viewport's reading line, it leans
+     into the brand voice — italic, amber number, slight weight pump. Moon-level §11.D. */
+  .caps__list li.is-active .name { font-style: italic; transform: translateX(4px); font-variation-settings: "wght" 580; }
+  .caps__list li.is-active .num  { color: var(--accent); }
+  .caps__list li.is-active .tag  { color: var(--ink-dim); }
+  @media (prefers-reduced-motion: reduce) {
+    .caps__list li.is-active .name { transform: none; }
+  }
+  .caps__list .num { font-family: var(--mono); font-size: var(--fs-mono); color: var(--ink-mute); letter-spacing: .12em; }
+  .caps__list .name {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, .8rem + 2.2vw, 2.6rem);
+    line-height: 1;
+    color: var(--ink);
+    font-variation-settings: "wght" 400;
+    transition: font-variation-settings .5s var(--ease-expressive), font-style .3s, transform .6s var(--ease-expressive);
+  }
+  .caps__list li:hover .name { font-style: italic; transform: translateX(4px); }
+  .caps__list .tag { font-family: var(--mono); font-size: var(--fs-mono); color: var(--ink-mute); letter-spacing: .12em; text-transform: uppercase; }
+  @media (max-width: 700px) {
+    .caps__list li { grid-template-columns: 3rem 1fr; }
+    .caps__list .tag { grid-column: 2; font-size: 10px; }
+  }
+
+  /* MARQUEE */
+  .marquee {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+    padding: clamp(2rem, 4vw, 3.5rem) 0;
+    background: color-mix(in oklch, var(--paper-2) 60%, transparent);
+  }
+  .marquee__track {
+    display: flex;
+    gap: 4rem;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 38s linear infinite;
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 1rem + 5vw, 6rem);
+    line-height: 1;
+    color: var(--ink);
+  }
+  .marquee__track span { display: inline-flex; align-items: center; gap: 4rem; }
+  .marquee__track .dot { width: 14px; height: 14px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 22px var(--accent); display: inline-block; }
+  .marquee__track .it { font-style: italic; color: color-mix(in oklch, var(--ink) 75%, var(--accent) 40%); }
+  @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* CONTACT */
+  .contact { padding: clamp(5rem, 9vw, 9rem) 0 clamp(3rem,5vw,5rem); text-align: center; }
+  .contact h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.8rem, 1.2rem + 6vw, 7rem);
+    line-height: .92;
+    letter-spacing: -.035em;
+    margin: 1rem auto 1.5rem;
+    max-width: 16ch;
+  }
+  .contact h2 .it { font-style: italic; color: color-mix(in oklch, var(--ink) 75%, var(--accent) 35%); }
+  .contact__sub { color: var(--ink-dim); max-width: 50ch; margin: 0 auto; font-size: var(--fs-lead); line-height: 1.45; }
+  .contact__email {
+    display: inline-block;
+    margin-top: clamp(2rem, 3vw, 3rem);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.6rem, .8rem + 1.8vw, 2.6rem);
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: .25rem;
+    transition: color .4s, border-color .4s, letter-spacing .6s var(--ease-expressive);
+  }
+  .contact__email:hover { color: var(--accent); border-color: var(--accent); letter-spacing: .01em; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: clamp(2rem,3vw,3rem) 0 1.5rem;
+    font-family: var(--mono);
+    font-size: var(--fs-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    position: relative; z-index: 2;
+  }
+  /* ASCII wireframe of the sculpture — a tiny editorial flourish at the top of
+     the footer. Per moon-level "details nobody points to". Generated in JS by
+     ray-sampling the same parametric torus knot that drives the hero. */
+  .footer__ascii {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: 0;
+    color: color-mix(in oklch, var(--ink-mute) 65%, var(--accent) 35%);
+    margin: 0 0 clamp(2.8rem, 4.5vw, 4.5rem);
+    white-space: pre;
+    overflow: hidden;
+    text-align: center;
+    user-select: none;
+    opacity: .82;
+    text-shadow: 0 0 12px color-mix(in oklch, var(--accent) 40%, transparent);
+    contain: layout paint;
+  }
+  @media (max-width: 720px) { .footer__ascii { font-size: 7px; } }
+  @media (prefers-reduced-motion: reduce) { .footer__ascii { animation: none; } }
+  .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; padding-bottom: clamp(2rem,4vw,4rem); }
+  @media (max-width: 780px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+  .footer__brand {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 1rem + 4vw, 5rem);
+    line-height: .9;
+    letter-spacing: -.03em;
+    color: var(--ink);
+    font-style: italic;
+    text-transform: none;
+  }
+  .footer__col h4 { color: var(--ink); font-family: var(--mono); font-size: var(--fs-mono); font-weight: 500; letter-spacing: .12em; margin: 0 0 1rem; }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; }
+  .footer__col li { margin: .5rem 0; }
+  .footer__col a { transition: color .3s; }
+  .footer__col a:hover { color: var(--ink); }
+  .footer__bottom { border-top: 1px solid var(--rule); padding-top: 1.25rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+
+  /* PRELOADER */
+  .preloader { position: fixed; inset: 0; z-index: 200; background: var(--paper); display: grid; place-items: center; transition: opacity .8s var(--ease-expressive), visibility .8s; }
+  .preloader.is-gone { opacity: 0; visibility: hidden; }
+  .preloader__inner { text-align: center; transform: translateY(0); transition: transform .8s var(--ease-expressive); }
+  .preloader.is-gone .preloader__inner { transform: translateY(-2rem); }
+  .preloader__mark { font-family: var(--serif); font-style: italic; font-size: clamp(3rem, 8vw, 6rem); line-height: 1; color: var(--ink); letter-spacing: -.03em; }
+  .preloader__bar { width: 240px; max-width: 60vw; height: 1px; background: var(--rule); margin: 1.5rem auto .8rem; position: relative; overflow: hidden; }
+  .preloader__fill { position: absolute; left:0; top:0; height: 100%; width: 0%; background: var(--accent); transition: width .25s linear; }
+  .preloader__pct { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: var(--ink-mute); }
+  .preloader__enter {
+    margin-top: 1.5rem;
+    font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink); border: 1px solid var(--rule-2);
+    padding: .85rem 1.6rem; border-radius: 999px; cursor: none;
+    opacity: 0; pointer-events: none;
+    transition: opacity .6s var(--ease-expressive), background-color .3s, color .3s, border-color .3s;
+  }
+  .preloader.is-ready .preloader__enter { opacity: 1; pointer-events: auto; }
+  .preloader__enter:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* REVEAL HELPERS */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease-expressive), transform .9s var(--ease-expressive); }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  .reveal[data-delay="1"] { transition-delay: .1s; }
+  .reveal[data-delay="2"] { transition-delay: .2s; }
+  .reveal[data-delay="3"] { transition-delay: .3s; }
+
+  @starting-style { body { opacity: 0; } }
+  body { transition: opacity .8s var(--ease-expressive); opacity: 1; }
+
+  /* PROJECT DRAWER (View Transitions) */
+  .drawer-mask {
+    position: fixed; inset:0;
+    background: color-mix(in oklch, var(--paper) 80%, transparent);
+    backdrop-filter: blur(20px);
+    opacity: 0; pointer-events: none;
+    z-index: 100;
+    transition: opacity .55s var(--ease-expressive);
+  }
+  .drawer-mask.is-open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; inset:0;
+    z-index: 101;
+    display: grid; place-items: center;
+    padding: var(--gutter);
+    pointer-events: none;
+  }
+  .drawer__panel {
+    max-width: min(1100px, 92vw);
+    width: 100%;
+    max-height: 86svh;
+    overflow: auto;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-2);
+    border-radius: 18px;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    transform: translateY(2rem) scale(.98);
+    opacity: 0;
+    transition: transform .65s var(--ease-expressive), opacity .55s;
+    pointer-events: auto;
+  }
+  .drawer.is-open .drawer__panel { transform: translateY(0) scale(1); opacity: 1; }
+  .drawer__hero {
+    height: clamp(180px, 26vw, 320px);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .drawer__close {
+    position: sticky; top: -1rem; float: right;
+    width: 40px; height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--rule-2);
+    display: grid; place-items: center;
+    cursor: none;
+    background: var(--paper-2);
+    transition: background-color .3s, color .3s;
+  }
+  .drawer__close:hover { background: var(--ink); color: var(--paper); }
+  .drawer__title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 1rem + 2.5vw, 3.6rem);
+    line-height: 1;
+    margin: .5rem 0 .8rem;
+    max-width: 18ch;
+  }
+  .drawer__title em { font-style: italic; }
+  .drawer__meta {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    font-family: var(--mono); font-size: var(--fs-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-mute);
+    margin-bottom: 1.5rem;
+  }
+  .drawer__body { color: var(--ink-dim); max-width: 64ch; line-height: 1.55; }
+  .drawer__body p + p { margin-top: 1rem; }
+  .drawer__cap { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .drawer__cap div { padding: 1rem; border: 1px solid var(--rule); border-radius: 10px; }
+  .drawer__cap span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); display: block; margin-bottom: .35rem; }
+  .drawer__cap strong { font-family: var(--serif); font-size: 1.2rem; font-style: italic; font-weight: 400; }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: .55s;
+    animation-timing-function: cubic-bezier(.32,.72,0,1);
+  }
+
+  /* REDUCED MOTION */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .splitchar { transform: none !important; }
+    .marquee__track { animation: none !important; }
+    .cursor-dot, .cursor-ring { display: none; }
+    body { cursor: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__mark">Halo</div>
+    <div class="preloader__bar"><div class="preloader__fill" id="ploadFill"></div></div>
+    <div class="preloader__pct" id="ploadPct">000</div>
+    <button class="preloader__enter" id="ploadEnter" data-cursor="enter">Enter the field</button>
+  </div>
+</div>
+
+<!-- Persistent 3D scene -->
+<div id="scene" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+
+<!-- Custom cursor (dot + ring + brand halo) -->
+<div class="cursor-halo" id="cursorHalo" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span class="cursor-ring__label" id="cursorLabel">View</span></div>
+
+<!-- Top bar -->
+<header class="topbar" role="banner">
+  <a href="#top" class="wordmark" aria-label="Halo — home">Halo</a>
+  <nav class="nav" aria-label="Primary">
+    <a href="./work.html">Work</a>
+    <a href="./studio.html">Studio</a>
+    <a href="./journal.html">Journal</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="topbar__right">
+    <span class="clock" id="clock">— Lisbon</span>
+    <button class="audio-toggle" id="audioToggle" aria-pressed="false" aria-label="Toggle ambient sound">
+      <span class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span>Sound</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap" style="width:100%;">
+    <div class="hero__eyebrow reveal" data-delay="0">
+      <span class="line"></span>
+      <span>⌜MMXXVI⌝ — Casework, field notes &amp; engagement</span>
+    </div>
+
+    <h1 class="hero__h1" id="hero-title" data-split>
+      We build <span class="it">the field</span>, not the <span class="sans">funnel</span> — the gravity behind <span class="it">durable growth.</span>
+    </h1>
+
+    <div class="hero__foot">
+      <p class="hero__lede reveal" data-delay="1">
+        Halo is a growth practice of nine — strategists, brand engineers,
+        and stubborn proof-readers — building <em>marketing systems</em>
+        for brands that prefer compound demand to constant noise.
+      </p>
+      <div class="hero__cta reveal" data-delay="2">
+        <a href="#work" class="btn btn--primary" data-magnetic data-cursor="view">
+          View the casework
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+        <a href="#contact" class="btn" data-magnetic data-cursor="brief">
+          Brief the practice
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="hero__meta reveal" data-delay="3">
+        <strong>Founded 2014</strong><br/>
+        Lisbon · New York<br/>
+        <span style="color:var(--accent)">●</span> Q3 ’26 cohort open
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" id="scrollCue" aria-hidden="true">Scroll · 01 / 10</div>
+</section>
+
+<!-- PROOF — operating record, per moon-level guide §5.4 "social proof reduces doubt" -->
+<section class="proof" aria-label="Operating record">
+  <div class="wrap">
+    <div class="proof__head reveal">
+      <span class="proof__rule"></span>
+      <span class="proof__kicker">Operating record</span>
+      <span class="proof__byline">Receipts, not promises.</span>
+    </div>
+    <div class="proof__grid">
+      <div class="proof__stat reveal" data-delay="1">
+        <span class="proof__num">12</span>
+        <span class="proof__lbl">brands · operating partner since 2014</span>
+      </div>
+      <div class="proof__stat reveal" data-delay="2">
+        <span class="proof__num">$48M</span>
+        <span class="proof__lbl">reallocated from paid to owned channels</span>
+      </div>
+      <div class="proof__stat reveal" data-delay="3">
+        <span class="proof__num">8 / 12</span>
+        <span class="proof__lbl">still working with us three years on</span>
+      </div>
+      <div class="proof__stat reveal" data-delay="4">
+        <span class="proof__num">0</span>
+        <span class="proof__lbl">retainer minimums · 0 outsource · 100% in-house</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICES — named operator testimonials, per moon-level §5.6 "named with role" -->
+<section class="voices" aria-label="What operators say about the work">
+  <div class="wrap">
+    <div class="voices__head reveal">
+      <span class="voices__rule"></span>
+      <span class="voices__kicker">What operators say</span>
+      <span class="voices__byline">Named &amp; on the record.</span>
+    </div>
+    <div class="voices__grid">
+      <figure class="voice reveal" data-delay="1">
+        <blockquote>“They quietly rewrote the CAC math for an entire category.”</blockquote>
+        <figcaption><strong>P. Konstantinou</strong> &middot; ex-CMO, <em>Forge &amp; Field</em></figcaption>
+      </figure>
+      <figure class="voice reveal" data-delay="2">
+        <blockquote>“Most agencies sell a deck. Halo sold us a <em>thesis</em> we still operate from three years on.”</blockquote>
+        <figcaption><strong>Carolina Mendes</strong> &middot; founder, <em>Soft Mass</em></figcaption>
+      </figure>
+      <figure class="voice reveal" data-delay="3">
+        <blockquote>“The only retainer we pay that ends up earning out — quarter after quarter.”</blockquote>
+        <figcaption><strong>Anders L.</strong> &middot; partner, <em>Tidewater</em></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS — third-party media quotes; complements Voices (client testimonials) -->
+<section class="press" aria-label="As cited in">
+  <div class="wrap">
+    <div class="press__head reveal">
+      <span class="press__rule"></span>
+      <span class="press__kicker">As cited in</span>
+      <span class="press__byline">Editorial coverage, on the record.</span>
+    </div>
+    <div class="press__grid">
+      <figure class="press__item reveal" data-delay="1">
+        <blockquote>“Halo is what marketing was <em>supposed</em> to be — quiet, evidence-led, and faintly contrarian.”</blockquote>
+        <figcaption>— <strong>Field Notes</strong> · <em>The unscalable agency issue</em> · 2026</figcaption>
+      </figure>
+      <figure class="press__item reveal" data-delay="2">
+        <blockquote>“Among the rarest agencies of its scale: one that gets paid to make brands say <em>less</em>.”</blockquote>
+        <figcaption>— <strong>The Annual</strong> · <em>Practitioners in residence</em> · 2025</figcaption>
+      </figure>
+      <figure class="press__item reveal" data-delay="3">
+        <blockquote>“They restructured the CAC math at three of our portfolio companies before our next board cycle.”</blockquote>
+        <figcaption>— <strong>Stratagem</strong> · <em>Fund letter, vol. 14</em> · 2025</figcaption>
+      </figure>
+      <figure class="press__item reveal" data-delay="4">
+        <blockquote>“The contrarian shop in a category drowning in <em>conformity</em>.”</blockquote>
+        <figcaption>— <strong>Counterweight</strong> · <em>Annual survey of practice</em> · 2024</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="about" aria-labelledby="about-title">
+  <div class="wrap">
+    <div class="section-label reveal">A small practice · Notes from the field</div>
+    <h2 class="h2 reveal" data-delay="1" id="about-title">
+      A growth <span class="it">practice</span> for brands that prefer presence — where strategy, brand, and media behave as one discipline.
+    </h2>
+    <div class="manifesto__grid" style="margin-top: clamp(3rem, 5vw, 5rem);">
+      <div class="pullquote reveal">
+        “Most marketing is the sound of <em>yelling at strangers.</em>
+        We build the field that <em>pulls the right people in</em> —
+        quietly, patiently, and on the long arc.”
+      </div>
+      <ol class="principles reveal" data-delay="1" aria-label="Operating principles">
+        <li><span><strong>Strategy</strong> is the only compound interest left in marketing. Without it, paid spend is expensive guessing.</span></li>
+        <li><span><strong>Brand</strong> is a system, not a logo — the whole field of how people meet you.</span></li>
+        <li><span><strong>Evidence</strong> beats opinion. Every brief, claim, and dashboard ties to a measurable shift.</span></li>
+        <li><span><strong>Editorial</strong> beats interruption. Owned audiences compound; rented ones evaporate.</span></li>
+        <li><span><strong>Quarterly</strong> thinking beats sprint thinking. We commit to the long arc and recalibrate every 90 days.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ESSAY — long-form note from the practice, per moon-level §5.7 "manifesto-as-page" -->
+<section class="essay" id="essay" aria-labelledby="essay-title">
+  <div class="wrap">
+    <div class="essay__head">
+      <div class="section-label reveal">Note from the practice · June ’26</div>
+      <h2 class="h2 reveal" data-delay="1" id="essay-title">The funnel was always <span class="it">a metaphor.</span></h2>
+    </div>
+    <div class="essay__body">
+      <p class="reveal" data-delay="2">
+        We borrowed it from physics, then drew it badly. A real funnel narrows
+        what passes through to a specific outlet. A marketing funnel was
+        supposed to describe how strangers became customers — but somewhere
+        in the last decade it became the entire <em>vocabulary</em>, then the
+        entire <em>operating manual</em>, then the entire <em>strategy</em>.
+      </p>
+      <p class="reveal" data-delay="3">
+        The result is the marketing many of you live inside: bid prices that
+        never settle, creative testing that never compounds, attribution that
+        doesn’t agree with revenue. The funnel narrative implies the work
+        is to widen the top — to find <em>more strangers</em> — but the brands
+        we know best win on the other end of the sentence: by being the kind
+        of presence people end up at without having to be sent.
+      </p>
+      <p class="reveal" data-delay="4">
+        We use the word <em>field</em> for that. It is not a clever name.
+        It is what physics calls a region of space within which an object exerts
+        force on the things inside it. Brands are like that: gravitational.
+        The work, then, is not to chase but to <em>be</em> — and the practice
+        we run is the slow construction of that mass. We are willing to be
+        wrong about this in public. We are very rarely wrong in private.
+      </p>
+      <div class="essay__sign reveal" data-delay="5">
+        — Halo &middot; Lisbon, June ’26
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS — engagement phases -->
+<section class="process" id="process" aria-labelledby="process-title">
+  <div class="wrap">
+    <div class="process__intro">
+      <div>
+        <div class="section-label reveal">Engagement · Five phases</div>
+        <h2 class="h2 reveal" data-delay="1" id="process-title">
+          The five phases of a <span class="it">durable shift.</span>
+        </h2>
+      </div>
+      <p class="reveal" data-delay="2">
+        Every Halo engagement follows the same arc — field study, positioning,
+        system, compounding loops, and the quarterly recalibration that
+        separates a campaign from a category move.
+      </p>
+    </div>
+  </div>
+
+  <div class="h-scroll" id="hScroll">
+    <div class="h-scroll__track" id="hTrack">
+      <article class="panel">
+        <div class="panel__num">01</div>
+        <h3 class="panel__title">Field <em>study</em></h3>
+        <p class="panel__body">Two weeks. Audience research, channel teardown, competitor and category audit, a written hypothesis signed by both sides. Nothing made yet — we settle on the bet first.</p>
+        <div class="panel__meta">Weeks · 1 — 2</div>
+      </article>
+      <article class="panel">
+        <div class="panel__num">02</div>
+        <h3 class="panel__title">Positioning &amp; <em>voice</em></h3>
+        <p class="panel__body">The one sentence the whole brand operates from. Three to four narrative directions pressure-tested in real placements before we ship a single line of copy externally.</p>
+        <div class="panel__meta">Weeks · 3 — 4</div>
+      </article>
+      <article class="panel">
+        <div class="panel__num">03</div>
+        <h3 class="panel__title">System <em>design</em></h3>
+        <p class="panel__body">Brand identity, content pillars, channel mix, measurement plan. We build the editorial system before any media buys — owned channels live before the first dollar of paid.</p>
+        <div class="panel__meta">Weeks · 5 — 7</div>
+      </article>
+      <article class="panel">
+        <div class="panel__num">04</div>
+        <h3 class="panel__title">Compounding <em>loops</em></h3>
+        <p class="panel__body">Ship, measure, iterate. Paid, owned, and earned move in one cadence with a weekly truth meeting. The dashboards are the only opinion that matters.</p>
+        <div class="panel__meta">Months · 2 — 12</div>
+      </article>
+      <article class="panel">
+        <div class="panel__num">05</div>
+        <h3 class="panel__title">Quarterly <em>recalibration</em></h3>
+        <p class="panel__body">Every 90 days the brief is interrogated against the data. We cut what isn’t working, double the loops that are, and re-write the next quarter’s bet in plain language.</p>
+        <div class="panel__meta">Every · 90 days</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="work__head">
+      <div>
+        <div class="section-label reveal">Casework · ’23 — ’26</div>
+        <h2 class="h2 reveal" data-delay="1" id="work-title">Six engagements, <span class="it">six durable shifts.</span></h2>
+      </div>
+      <div class="work__meta reveal" data-delay="2">
+        Eighty-three engagements · <br/>shown: six · <br/>archive on request
+      </div>
+    </div>
+
+    <div class="bento" role="list">
+      <button class="card c-1" role="listitem" data-cursor="open" data-magnetic data-project="halcyon">
+        <div class="card__visual v-aurora"></div>
+        <div class="card__body">
+          <span class="card__tag">Brand system · Inbound</span>
+          <div>
+            <h3 class="card__title">Halcyon <em>Aero</em> — from chartered jets to a category of one. <span style="color:var(--accent)">+318%</span> qualified inbound, 90 days.</h3>
+            <div class="card__year" style="margin-top:.6rem;">2026 · Reykjavík</div>
+          </div>
+        </div>
+      </button>
+      <button type="button" class="card c-2" role="listitem" data-cursor="open" data-magnetic data-project="soft-mass">
+        <div class="card__visual v-grain"></div>
+        <div class="card__body">
+          <span class="card__tag">DTC · Editorial system</span>
+          <div><h3 class="card__title"><em>Soft</em> Mass — a quiet skincare brand leaves paid acquisition behind. <span style="color:var(--accent)">CAC −31%</span>.</h3><div class="card__year" style="margin-top:.4rem;">2025</div></div>
+        </div>
+      </button>
+      <button type="button" class="card c-3" role="listitem" data-cursor="open" data-magnetic data-project="ember-os">
+        <div class="card__visual v-ember"></div>
+        <div class="card__body">
+          <span class="card__tag">Platform · Positioning</span>
+          <div><h3 class="card__title">Ember <em>OS</em> — repositioned out of the AI productivity glut. <span style="color:var(--accent)">6.2×</span> demo bookings.</h3><div class="card__year" style="margin-top:.4rem;">2025</div></div>
+        </div>
+      </button>
+      <button type="button" class="card c-4" role="listitem" data-cursor="open" data-magnetic data-project="tidewater">
+        <div class="card__visual v-pool"></div>
+        <div class="card__body">
+          <span class="card__tag">Finance · Voice</span>
+          <div><h3 class="card__title">Tidewater — a 60-year fund finds a contrarian voice. <span style="color:var(--accent)">4.2×</span> organic share-of-voice.</h3><div class="card__year" style="margin-top:.4rem;">2024</div></div>
+        </div>
+      </button>
+      <button type="button" class="card c-5" role="listitem" data-cursor="open" data-magnetic data-project="ironwork">
+        <div class="card__visual v-iron"></div>
+        <div class="card__body">
+          <span class="card__tag">Industrial · Brand</span>
+          <div><h3 class="card__title"><em>Ironwork</em> — a Swedish foundry turns its catalogue into a magazine. <span style="color:var(--accent)">8×</span> owned audience.</h3><div class="card__year" style="margin-top:.4rem;">2024</div></div>
+        </div>
+      </button>
+      <button type="button" class="card c-6" role="listitem" data-cursor="open" data-magnetic data-project="bloomwork">
+        <div class="card__visual v-bloom"></div>
+        <div class="card__body" style="flex-direction:row; align-items:flex-end; justify-content:space-between;">
+          <h3 class="card__title" style="max-width: 22ch;">Bloomwork — <em>twelve microsites,</em> one compounding audience. <span style="color:var(--accent)">47%</span> of new revenue from owned.</h3>
+          <div style="text-align:right;">
+            <span class="card__tag">Music · Compounding</span><br/>
+            <span class="card__year">2023 — 2024</span>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="caps" aria-labelledby="caps-title">
+  <div class="wrap">
+    <div class="caps__head">
+      <div>
+        <div class="section-label reveal">Capabilities</div>
+        <h2 class="h2 reveal" data-delay="1" id="caps-title">Few disciplines, <span class="it">deeply practiced.</span></h2>
+      </div>
+      <p class="caps__intro reveal" data-delay="2">
+        We keep the practice narrow on purpose. Everything below is done
+        in-house, on the same long timelines, by the same nine pairs of hands.
+      </p>
+    </div>
+
+    <ul class="caps__list reveal" data-delay="1">
+      <li><span class="num">01</span><span class="name">Positioning &amp; strategy</span><span class="tag">Audit · Narrative · Voice</span></li>
+      <li><span class="num">02</span><span class="name">Brand systems</span><span class="tag">Identity · Type · Editorial</span></li>
+      <li><span class="num">03</span><span class="name">Performance media</span><span class="tag">Meta · Google · Programmatic</span></li>
+      <li><span class="num">04</span><span class="name">Content engines</span><span class="tag">Editorial · Video · Social</span></li>
+      <li><span class="num">05</span><span class="name">Lifecycle &amp; retention</span><span class="tag">CRM · Email · Loyalty</span></li>
+      <li><span class="num">06</span><span class="name">Measurement</span><span class="tag">Attribution · MMM · Dashboards</span></li>
+      <li><span class="num">07</span><span class="name">Growth advisory</span><span class="tag">Quarterly · Stakeholder · Long-arc</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>
+      We build <em class="it">the field, not the funnel</em> &nbsp;<span class="dot"></span>&nbsp;
+      Strategy is <em class="it">the only compound interest</em> left in marketing &nbsp;<span class="dot"></span>&nbsp;
+      Owned compounds, <em class="it">rented evaporates</em> &nbsp;<span class="dot"></span>&nbsp;
+      Brand is a system, <em class="it">not a logo</em> &nbsp;<span class="dot"></span>&nbsp;
+    </span>
+    <span>
+      We build <em class="it">the field, not the funnel</em> &nbsp;<span class="dot"></span>&nbsp;
+      Strategy is <em class="it">the only compound interest</em> left in marketing &nbsp;<span class="dot"></span>&nbsp;
+      Owned compounds, <em class="it">rented evaporates</em> &nbsp;<span class="dot"></span>&nbsp;
+      Brand is a system, <em class="it">not a logo</em> &nbsp;<span class="dot"></span>&nbsp;
+    </span>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="section-label reveal" style="justify-content:center;">Let’s begin</div>
+    <h2 class="reveal" data-delay="1" id="contact-title">Send a <span class="it">first letter.</span></h2>
+    <p class="contact__sub reveal" data-delay="2">
+      We reply within two working days. Tell us what you’re growing, who it’s
+      for, and what the next ninety days have to prove. Decks welcome.
+    </p>
+    <a href="mailto:hello@halo.studio" class="contact__email reveal" data-delay="3" data-magnetic data-cursor="say-hi">hello@halo.studio</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <pre class="footer__ascii" id="footerAscii" aria-hidden="true">.</pre>
+    <div class="footer__grid">
+      <div class="footer__brand">Halo.<br/>Practice.</div>
+      <div class="footer__col">
+        <h4>Practice</h4>
+        <ul>
+          <li><a href="#work">Casework</a></li>
+          <li><a href="#about">Field notes</a></li>
+          <li><a href="#process">Engagement</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@halo.studio">hello@halo.studio</a></li>
+          <li><a href="#">+351 21 000 000</a></li>
+          <li><a href="#">Travessa do Mar 14</a></li>
+          <li><a href="#">Lisbon, 1200-001</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="#">Are.na</a></li>
+          <li><a href="#">Substack</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">X / Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© MMXXVI · Halo Practice Lda.</span>
+      <span>Built in Lisbon · Run everywhere</span>
+      <span><span style="color:var(--accent)">●</span> All systems nominal</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Project drawer -->
+<div class="drawer-mask" id="drawerMask" aria-hidden="true"></div>
+<div class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+  <article class="drawer__panel">
+    <button class="drawer__close" id="drawerClose" aria-label="Close project" data-cursor="close">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="drawer__hero" id="drawerHero"></div>
+    <div class="drawer__meta" id="drawerMeta"></div>
+    <h2 class="drawer__title" id="drawerTitle"></h2>
+    <div class="drawer__body" id="drawerBody"></div>
+    <div class="drawer__cap" id="drawerCap"></div>
+  </article>
+</div>
+
+<!-- Classic scripts (load first, set globals) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<!-- Main app (ES module for Three.js + addons) -->
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+/* ─────────────────────────────────────────────────────────
+   APOGEE v2 — main
+   ───────────────────────────────────────────────────────── */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer  = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+/* Clock */
+const clockEl = document.getElementById('clock');
+const fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Lisbon' });
+const tickClock = () => { if (clockEl) clockEl.textContent = `${fmt.format(new Date())} — Lisbon`; };
+tickClock(); setInterval(tickClock, 30_000);
+
+/* ─── Custom cursor (dot + ring + halo + magnetic) ─── */
+const dot  = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+const ringLabel = document.getElementById('cursorLabel');
+const cursorHalo = document.getElementById('cursorHalo');
+// start off-screen so the cursor is invisible until the user actually moves the pointer
+let dx = -200, dy = -200, rx = dx, ry = dy, tx = dx, ty = dy;
+let pointer = { x: 0.5, y: 0.5 };
+let cursorAwake = false;
+
+if (finePointer && !reduceMotion) {
+  document.body.classList.add('is-cursor-hidden');
+  addEventListener('pointermove', (e) => {
+    if (!cursorAwake) {
+      cursorAwake = true;
+      dx = rx = tx = e.clientX;
+      dy = ry = ty = e.clientY;
+      document.body.classList.remove('is-cursor-hidden');
+    } else {
+      tx = e.clientX; ty = e.clientY;
+    }
+    pointer.x = e.clientX / innerWidth;
+    pointer.y = e.clientY / innerHeight;
+  }, { passive: true });
+  addEventListener('pointerleave', () => document.body.classList.add('is-cursor-hidden'));
+  addEventListener('pointerenter', () => document.body.classList.remove('is-cursor-hidden'));
+
+  let hx = -300, hy = -300; // halo lerps slow
+  const cursorTick = () => {
+    dx += (tx - dx) * 0.5;   // dot moves fast
+    dy += (ty - dy) * 0.5;
+    rx += (tx - rx) * 0.18;  // ring trails
+    ry += (ty - ry) * 0.18;
+    hx += (tx - hx) * 0.06;  // halo trails slow + cinematic
+    hy += (ty - hy) * 0.06;
+    dot.style.transform  = `translate3d(${dx}px, ${dy}px, 0)`;
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+    if (cursorHalo) cursorHalo.style.transform = `translate3d(${hx - 210}px, ${hy - 210}px, 0)`;
+    requestAnimationFrame(cursorTick);
+  };
+  cursorTick();
+
+  // Halo is only active when the cursor is over the hero — concept-tied,
+  // and keeps the rest of the page from looking washed.
+  const _heroForHalo = document.querySelector('.hero');
+  if (_heroForHalo && cursorHalo) {
+    _heroForHalo.addEventListener('pointerenter', () => cursorHalo.classList.add('is-active'));
+    _heroForHalo.addEventListener('pointerleave', () => cursorHalo.classList.remove('is-active'));
+  }
+
+  const hoverables = document.querySelectorAll('a, button, [data-cursor]');
+  hoverables.forEach(el => {
+    const labelKey = el.getAttribute('data-cursor');
+    el.addEventListener('pointerenter', () => {
+      dot.classList.add('is-hover');
+      ring.classList.add('is-hover');
+      if (labelKey) {
+        ring.classList.add('has-label');
+        ringLabel.textContent =
+          labelKey === 'view' ? 'View' :
+          labelKey === 'say-hi' ? 'Say hi' :
+          labelKey === 'open' ? 'Open case' :
+          labelKey === 'enter' ? 'Enter' :
+          labelKey === 'close' ? 'Close' :
+          labelKey === 'brief' ? 'Brief us' :
+          labelKey === 'read' ? 'Read' :
+          labelKey;
+      }
+      playUI(880, 0.04);
+    });
+    el.addEventListener('pointerleave', () => {
+      dot.classList.remove('is-hover');
+      ring.classList.remove('is-hover', 'has-label');
+    });
+  });
+}
+
+/* Magnetic effect on data-magnetic */
+if (finePointer && !reduceMotion && window.gsap) {
+  document.querySelectorAll('[data-magnetic]').forEach(el => {
+    const strength = el.classList.contains('card') ? 0.06 : 0.25;
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - (r.left + r.width/2);
+      const y = e.clientY - (r.top  + r.height/2);
+      gsap.to(el, { x: x * strength, y: y * strength, duration: 0.5, ease: 'power3.out' });
+    });
+    el.addEventListener('pointerleave', () => {
+      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+    });
+  });
+}
+
+/* ─── Audio (Web Audio synth) ─── */
+let audioCtx = null;
+let audioEnabled = false;
+const persistedAudio = localStorage.getItem('apogee:audio');
+
+function ensureCtx() {
+  if (!audioCtx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) audioCtx = new AC();
+  }
+  return audioCtx;
+}
+function playUI(freq = 800, dur = 0.06) {
+  if (!audioEnabled) return;
+  const ctx = ensureCtx(); if (!ctx) return;
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.type = 'sine'; o.frequency.value = freq; g.gain.value = 0.0001;
+  o.connect(g).connect(ctx.destination);
+  const t = ctx.currentTime;
+  g.gain.exponentialRampToValueAtTime(0.04, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.start(t); o.stop(t + dur + 0.02);
+}
+
+/* ─── Sound design moments — gated by audioEnabled, always polite (≤0.1 gain) ─── */
+function playEntrySwell() {
+  if (!audioEnabled) return;
+  const ctx = ensureCtx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  // Deep low swell: 55Hz sub + 110Hz fundamental, slow rise, slow decay.
+  [55, 110, 165].forEach((freq, i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain(), lp = ctx.createBiquadFilter();
+    o.type = i === 2 ? 'triangle' : 'sine';
+    o.frequency.value = freq;
+    lp.type = 'lowpass'; lp.frequency.value = 800;
+    g.gain.value = 0.0001;
+    o.connect(lp).connect(g).connect(ctx.destination);
+    const peak = 0.05 - i * 0.012;
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.35);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+    o.start(t); o.stop(t + 2.0);
+  });
+}
+function playCompletionChime() {
+  if (!audioEnabled) return;
+  const ctx = ensureCtx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  // Two-note resolve: C5 + G5, sine, very short tail
+  [523.25, 783.99].forEach((freq, i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.value = 0.0001;
+    o.connect(g).connect(ctx.destination);
+    const start = t + i * 0.06;
+    g.gain.exponentialRampToValueAtTime(0.035, start + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + 0.55);
+    o.start(start); o.stop(start + 0.6);
+  });
+}
+function playDrawerOpen() {
+  if (!audioEnabled) return;
+  const ctx = ensureCtx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  // Low impact (80Hz thump) + high shimmer (3kHz noise burst)
+  const o = ctx.createOscillator(), og = ctx.createGain();
+  o.type = 'sine'; o.frequency.value = 80;
+  o.connect(og).connect(ctx.destination);
+  og.gain.value = 0.0001;
+  og.gain.exponentialRampToValueAtTime(0.06, t + 0.02);
+  og.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+  o.start(t); o.stop(t + 0.5);
+
+  // brief filtered-noise shimmer
+  const dur = 0.25;
+  const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+  const ch = buf.getChannelData(0);
+  for (let i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / ch.length);
+  const src = ctx.createBufferSource(); src.buffer = buf;
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2400;
+  const ng = ctx.createGain(); ng.gain.value = 0.018;
+  src.connect(hp).connect(ng).connect(ctx.destination);
+  src.start(t + 0.02);
+}
+function playDrawerClose() {
+  if (!audioEnabled) return;
+  const ctx = ensureCtx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.type = 'sine'; o.frequency.value = 140;
+  o.connect(g).connect(ctx.destination);
+  g.gain.value = 0.0001;
+  g.gain.exponentialRampToValueAtTime(0.03, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+  o.start(t); o.stop(t + 0.3);
+}
+
+let ambient = null;
+let scrollSynth = null;
+function startAmbient() {
+  const ctx = ensureCtx(); if (!ctx || ambient) return;
+  const o1 = ctx.createOscillator(); o1.type='sine'; o1.frequency.value=110;
+  const o2 = ctx.createOscillator(); o2.type='sine'; o2.frequency.value=165;
+  const o3 = ctx.createOscillator(); o3.type='triangle'; o3.frequency.value=220.5;
+  const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=500;
+  const g  = ctx.createGain(); g.gain.value=0;
+  o1.connect(lp); o2.connect(lp); o3.connect(lp);
+  lp.connect(g).connect(ctx.destination);
+  o1.start(); o2.start(); o3.start();
+  g.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 1.5);
+  ambient = { o1, o2, o3, g, lp };
+
+  // scroll-velocity synth
+  const sg = ctx.createGain(); sg.gain.value = 0;
+  const sfl = ctx.createBiquadFilter(); sfl.type='bandpass'; sfl.frequency.value=900; sfl.Q.value=4;
+  sg.connect(sfl).connect(ctx.destination);
+  const so = ctx.createOscillator(); so.type='sawtooth'; so.frequency.value=220; so.connect(sg); so.start();
+  scrollSynth = { sg, so, sfl };
+}
+function stopAmbient() {
+  if (!audioCtx) return;
+  const t = audioCtx.currentTime;
+  if (ambient) {
+    ambient.g.gain.cancelScheduledValues(t);
+    ambient.g.gain.linearRampToValueAtTime(0, t + 0.6);
+    const a = ambient;
+    setTimeout(() => { try{a.o1.stop(); a.o2.stop(); a.o3.stop();}catch{} }, 700);
+    ambient = null;
+  }
+  if (scrollSynth) {
+    scrollSynth.sg.gain.cancelScheduledValues(t);
+    scrollSynth.sg.gain.linearRampToValueAtTime(0, t + 0.4);
+    const s = scrollSynth;
+    setTimeout(() => { try{s.so.stop();}catch{} }, 500);
+    scrollSynth = null;
+  }
+}
+
+const audioToggle = document.getElementById('audioToggle');
+const eqBars = audioToggle.querySelectorAll('.eq span');
+function setAudio(on) {
+  audioEnabled = !!on;
+  audioToggle.classList.toggle('is-on', audioEnabled);
+  audioToggle.setAttribute('aria-pressed', String(audioEnabled));
+  localStorage.setItem('apogee:audio', audioEnabled ? '1' : '0');
+  if (audioEnabled) { ensureCtx()?.resume(); startAmbient(); }
+  else stopAmbient();
+}
+audioToggle.addEventListener('click', () => setAudio(!audioEnabled));
+if (persistedAudio === '1') {
+  const wakeOnce = () => { setAudio(true); document.removeEventListener('pointerdown', wakeOnce); };
+  document.addEventListener('pointerdown', wakeOnce, { once: true });
+}
+// idle EQ animation
+let eqT = 0;
+function eqTick() {
+  eqT += 0.06;
+  eqBars.forEach((b, i) => {
+    const v = audioEnabled
+      ? 4 + Math.abs(Math.sin(eqT + i)) * 8
+      : 4 + Math.sin(eqT*0.3 + i) * 1;
+    b.style.height = `${v}px`;
+  });
+  requestAnimationFrame(eqTick);
+}
+eqTick();
+
+/* ─── Three.js scene — dispersion glass sculpture ─── */
+const sceneRoot = document.getElementById('scene');
+let renderer, scene, camera, composer, sculpture, baseMatScale = 1.0;
+let bloomPass, rgbPass;
+let particles, particleMat, haloRing, haloRingMat;
+const heroState = { rotSpeed: 1, ringRotSpeed: 0.22, ringTilt: 0.42, pointerStrength: 0, velocity: 0 };
+/* Chord progression that follows the hero story acts:
+   Act 1 (calm)     → A minor / A2 + E3 + G3
+   Act 2 (rising)   → C major / C3 + E3 + A3
+   Act 3 (peak)     → E major / E3 + B3 + D4
+   Act 4 (resolved) → D-low   / D2 + A2 + F3 (drops to a quieter floor)
+   The ambient pad oscillators read this state each frame and ramp via Web Audio's
+   setTargetAtTime so chord changes feel like a breath, not a switch. */
+const chordState = { f1: 110, f2: 165, f3: 196 };
+const _pointerWorld = { x: 0, y: 0, z: 0 };
+const uniforms = { u_time: 0 };
+let webglOk = false;
+
+try {
+  // alpha:false so transmission has a real backbuffer to refract against
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
+  renderer.setSize(innerWidth, innerHeight, false);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.domElement.style.cssText = 'position:fixed;inset:0;';
+  sceneRoot.appendChild(renderer.domElement);
+
+  scene  = new THREE.Scene();
+  // dark scene background — provides the refraction sample and the visual base
+  scene.background = new THREE.Color(0x0a0b14);
+  camera = new THREE.PerspectiveCamera(35, innerWidth/innerHeight, 0.1, 100);
+  camera.position.set(0, 0.1, 5.6);
+
+  // environment via PMREM + RoomEnvironment
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+  const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = env;
+
+  // Geometry: torus knot, sliced fine for transmission quality
+  const geom = new THREE.TorusKnotGeometry(0.78, 0.26, 260, 36, 2, 5);
+
+  // Glass-iridescent material
+  const mat = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color(0xffffff),
+    metalness: 0.0,
+    roughness: 0.06,
+    ior: 1.45,
+    thickness: 1.4,
+    transmission: 1.0,
+    transparent: true,
+    iridescence: 0.9,
+    iridescenceIOR: 1.3,
+    iridescenceThicknessRange: [140, 460],
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.03,
+    attenuationColor: new THREE.Color(0xffd29a), // warm amber halo cast
+    attenuationDistance: 1.6,
+    envMapIntensity: 1.15,
+  });
+  sculpture = new THREE.Mesh(geom, mat);
+  // place sculpture off to the right so the type takes the focal point
+  sculpture.position.set(1.4, 0.05, 0);
+  // Start at scale 0 — the entry sequence materialises it into existence after the preloader.
+  // (reduce-motion path skips the entry and just sets scale to its final 0.95 immediately.)
+  sculpture.scale.setScalar(reduceMotion ? 0.95 : 0);
+  sculpture.userData.baseX = 1.4;
+  scene.add(sculpture);
+
+  /* ─── HALO RING — 3D presence around the sculpture, in service of the brand glyph.
+     A wide thin torus tilted off-axis with additive blending. The render loop drifts
+     its rotation; the scroll timeline tweens its opacity. */
+  const ringGeom = new THREE.TorusGeometry(1.55, 0.012, 80, 256);
+  haloRingMat = new THREE.MeshBasicMaterial({
+    color: new THREE.Color(0xffd29a),
+    transparent: true,
+    opacity: reduceMotion ? 0.55 : 0,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+  haloRing = new THREE.Mesh(ringGeom, haloRingMat);
+  haloRing.position.copy(sculpture.position);
+  haloRing.rotation.x = heroState.ringTilt;
+  haloRing.rotation.z = -0.18;
+  scene.add(haloRing);
+
+  /* ─── PARTICLE FIELD — the gravity field made literally visible.
+     280 point sprites distributed in a flattened sphere around the sculpture,
+     drifting on noise. Pure additive amber. */
+  const particleCount = 280;
+  const positions = new Float32Array(particleCount * 3);
+  const aSize = new Float32Array(particleCount);
+  const aPhase = new Float32Array(particleCount);
+  const aRadius = new Float32Array(particleCount);
+  for (let i = 0; i < particleCount; i++) {
+    // Spherical distribution, biased toward the equator (flatter disk).
+    const theta = Math.random() * Math.PI * 2;
+    const phi   = Math.acos((Math.random() - 0.5) * 1.6);
+    const r     = 1.2 + Math.random() * 1.6;
+    positions[i*3]   = Math.sin(phi) * Math.cos(theta) * r;
+    positions[i*3+1] = Math.cos(phi) * r * 0.55; // squish vertically
+    positions[i*3+2] = Math.sin(phi) * Math.sin(theta) * r;
+    aSize[i]   = 0.4 + Math.random() * 1.4;
+    aPhase[i]  = Math.random() * Math.PI * 2;
+    aRadius[i] = r;
+  }
+  const particleGeom = new THREE.BufferGeometry();
+  particleGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  particleGeom.setAttribute('aSize',    new THREE.BufferAttribute(aSize, 1));
+  particleGeom.setAttribute('aPhase',   new THREE.BufferAttribute(aPhase, 1));
+  particleGeom.setAttribute('aRadius',  new THREE.BufferAttribute(aRadius, 1));
+  particleMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime:            { value: 0 },
+      uBaseSize:        { value: 14.0 },
+      uColor:           { value: new THREE.Color(0xffd29a) },
+      uOpacity:         { value: reduceMotion ? 0.6 : 0 },
+      uPixelRatio:      { value: Math.min(devicePixelRatio || 1, 1.5) },
+      uPointer:         { value: new THREE.Vector3(0, 0, 0) }, // pointer in particles-local space
+      uPointerStrength: { value: 0 },                          // 0..1 — how strongly the field feels the cursor
+      uVelocity:        { value: 0 },                          // scroll-velocity, drives outward "blow"
+    },
+    vertexShader: /* glsl */`
+      attribute float aSize;
+      attribute float aPhase;
+      attribute float aRadius;
+      uniform float uTime;
+      uniform float uBaseSize;
+      uniform float uPixelRatio;
+      uniform vec3  uPointer;
+      uniform float uPointerStrength;
+      uniform float uVelocity;
+      varying float vAlpha;
+      void main() {
+        vec3 p = position;
+        // Slow swirl + vertical wobble — particles breathe in their field.
+        float t = uTime * 0.6;
+        float a = t * 0.35 + aPhase;
+        float c = cos(a); float s = sin(a);
+        vec3 r = vec3(p.x * c - p.z * s, p.y, p.x * s + p.z * c);
+        r.y += sin(uTime * 0.8 + aPhase) * 0.08;
+        r.x += sin(uTime * 0.5 + aPhase * 1.7) * 0.04;
+
+        // Pointer attraction — the field literally responds to the cursor.
+        vec3 toCursor = uPointer - r;
+        float dC = length(toCursor);
+        float reach = 1.9;
+        if (dC < reach && uPointerStrength > 0.001) {
+          float pull = pow(1.0 - dC / reach, 1.7) * uPointerStrength * 0.6;
+          r += normalize(toCursor + vec3(1e-4)) * pull;
+        }
+        // Scroll velocity pushes particles slightly outward (the field excites under motion).
+        r *= 1.0 + uVelocity * 0.06;
+
+        vec4 mvPos = modelViewMatrix * vec4(r, 1.0);
+        gl_Position = projectionMatrix * mvPos;
+        gl_PointSize = aSize * uBaseSize * uPixelRatio * (1.0 / max(-mvPos.z, 0.01));
+        // Alpha brightens when the cursor is close — particles "respond"
+        float prox = (dC < reach && uPointerStrength > 0.001) ? (1.0 - dC / reach) * uPointerStrength : 0.0;
+        vAlpha = 0.45 + 0.55 * sin(uTime * 1.6 + aPhase * 2.2) + prox * 0.6;
+      }
+    `,
+    fragmentShader: /* glsl */`
+      uniform vec3 uColor;
+      uniform float uOpacity;
+      varying float vAlpha;
+      void main() {
+        vec2 c = gl_PointCoord - vec2(0.5);
+        float d = length(c);
+        if (d > 0.5) discard;
+        float glow = pow(1.0 - d * 2.0, 1.6);
+        gl_FragColor = vec4(uColor, glow * vAlpha * uOpacity);
+      }
+    `,
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    depthWrite: false,
+  });
+  particles = new THREE.Points(particleGeom, particleMat);
+  particles.position.copy(sculpture.position);
+  scene.add(particles);
+
+  // Async-swap to the Blender-baked GLB if it's available. The procedural
+  // torus knot above is the fallback — if the GLB is missing or fails to
+  // load, the hero still renders. We mutate `sculpture.geometry` rather
+  // than replacing the mesh so position/scale/userData/animation refs
+  // and the dispersion-glass material all stay bound.
+  const _draco = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+  new GLTFLoader().setDRACOLoader(_draco).load(
+    './blender/apogee_sculpture.glb',
+    (gltf) => {
+      // The Blender script now exports BOTH the sculpture and the halo ring in
+      // one GLB, identified by mesh name. We grab each by name; if a name isn't
+      // present (older bakes), we fall back to the procedural geometry already
+      // bound to the live object.
+      let bakedSculpt = null, bakedRing = null;
+      gltf.scene.traverse((o) => {
+        if (!o.isMesh) return;
+        const n = (o.name || '').toLowerCase();
+        if (n.includes('sculpt')) bakedSculpt = o;
+        else if (n.includes('ring')) bakedRing = o;
+        // first unnamed mesh becomes a sculpture fallback
+        else if (!bakedSculpt) bakedSculpt = o;
+      });
+      if (bakedSculpt && sculpture) {
+        sculpture.geometry.dispose();
+        sculpture.geometry = bakedSculpt.geometry;
+      }
+      if (bakedRing && haloRing) {
+        haloRing.geometry.dispose();
+        haloRing.geometry = bakedRing.geometry;
+        // Blender-authored ring already carries the tilt — neutralise the
+        // procedural object rotation so we don't double-apply.
+        haloRing.rotation.x = 0;
+        haloRing.rotation.z = 0;
+      }
+      console.info('[apogee] baked GLB loaded', { sculpt: !!bakedSculpt, ring: !!bakedRing });
+    },
+    undefined,
+    (err) => console.warn('[apogee] glb load failed, using procedural fallback', err)
+  );
+
+  // Rim / fill lights for highlight pickups beyond env map
+  const k1 = new THREE.DirectionalLight(0xfff0d6, 1.6); k1.position.set( 3,  3,  2); scene.add(k1);
+  const k2 = new THREE.DirectionalLight(0x88aaff, 1.0); k2.position.set(-3,  1, -2); scene.add(k2);
+  const k3 = new THREE.PointLight    (0xff8866, 1.4, 8); k3.position.set( 0, -2,  3); scene.add(k3);
+
+  // Postprocessing
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.32, 0.9, 0.88);
+  composer.addPass(bloomPass);
+
+  // Custom chromatic aberration / RGB shift pass
+  const RGBShiftShader = {
+    uniforms: {
+      tDiffuse: { value: null },
+      amount:   { value: 0.0015 },
+      angle:    { value: 0.0 },
+    },
+    vertexShader: /* glsl */`
+      varying vec2 vUv;
+      void main(){
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: /* glsl */`
+      uniform sampler2D tDiffuse;
+      uniform float amount;
+      uniform float angle;
+      varying vec2 vUv;
+      void main(){
+        vec2 dir = vec2(cos(angle), sin(angle)) * amount;
+        // radial falloff (stronger at edges)
+        vec2 c = vUv - 0.5;
+        float r = dot(c, c) * 1.3;
+        float a = amount * (1.0 + r * 4.0);
+        vec2 d = vec2(cos(angle), sin(angle)) * a;
+        vec4 cr = texture2D(tDiffuse, vUv + d);
+        vec4 cg = texture2D(tDiffuse, vUv);
+        vec4 cb = texture2D(tDiffuse, vUv - d);
+        gl_FragColor = vec4(cr.r, cg.g, cb.b, cg.a);
+      }
+    `
+  };
+  rgbPass = new ShaderPass(RGBShiftShader);
+  composer.addPass(rgbPass);
+
+  composer.addPass(new OutputPass());
+
+  // Resize
+  addEventListener('resize', () => {
+    renderer.setSize(innerWidth, innerHeight, false);
+    composer.setSize(innerWidth, innerHeight);
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    bloomPass.resolution.set(innerWidth, innerHeight);
+  });
+
+  // Pause when tab hidden
+  let running = true;
+  document.addEventListener('visibilitychange', () => { running = !document.hidden; });
+
+  // Render loop
+  const start = performance.now();
+  let mouseTargetX = 0, mouseTargetY = 0;
+  let currentX = 0, currentY = 0;
+  addEventListener('pointermove', (e) => {
+    mouseTargetX = (e.clientX / innerWidth  - 0.5) * 0.6;
+    mouseTargetY = (e.clientY / innerHeight - 0.5) * 0.4;
+  }, { passive: true });
+
+  function tick(now) {
+    if (running) {
+      const t = (now - start) * 0.001;
+      uniforms.u_time = t;
+      sculpture.rotation.y += 0.0024 * heroState.rotSpeed;
+      sculpture.rotation.x += 0.0012 * heroState.rotSpeed;
+
+      currentX += (mouseTargetX - currentX) * 0.04;
+      currentY += (mouseTargetY - currentY) * 0.04;
+      const baseX = sculpture.userData.baseX ?? 1.4;
+      sculpture.position.x += (baseX + currentX*0.4 - sculpture.position.x) * 0.06;
+      sculpture.position.y += (0.05 - currentY*0.5 - sculpture.position.y) * 0.06;
+
+      // Ambient pad follows the hero story — chordState is tweened per-act in the
+      // scroll timeline; we ease the oscillator frequencies toward it so the
+      // chord change is felt as a breath rather than a jump.
+      if (audioEnabled && ambient && audioCtx) {
+        const ct = audioCtx.currentTime;
+        const tau = 0.55;
+        ambient.o1.frequency.setTargetAtTime(chordState.f1, ct, tau);
+        ambient.o2.frequency.setTargetAtTime(chordState.f2, ct, tau);
+        ambient.o3.frequency.setTargetAtTime(chordState.f3, ct, tau);
+      }
+      // The particles + halo ring travel with the sculpture so the field stays attached
+      if (particles)  particles.position.copy(sculpture.position);
+      if (haloRing) {
+        haloRing.position.copy(sculpture.position);
+        haloRing.rotation.y += 0.001 * heroState.ringRotSpeed;
+        haloRing.rotation.z += 0.0006 * heroState.ringRotSpeed;
+      }
+      if (particleMat) {
+        particleMat.uniforms.uTime.value = t;
+        // Reproject the screen-space pointer onto the sculpture's z-plane (z=0 in world).
+        // particles.position == sculpture.position, so subtracting it gives local space.
+        const ndcX = pointer.x * 2 - 1;
+        const ndcY = -(pointer.y * 2 - 1);
+        // unproject through camera onto a ray, intersect with z=0 world plane
+        const tmp = new THREE.Vector3(ndcX, ndcY, 0.5).unproject(camera);
+        tmp.sub(camera.position).normalize();
+        const tt = -camera.position.z / tmp.z;
+        _pointerWorld.x = camera.position.x + tmp.x * tt - particles.position.x;
+        _pointerWorld.y = camera.position.y + tmp.y * tt - particles.position.y;
+        _pointerWorld.z = 0 - particles.position.z;
+        particleMat.uniforms.uPointer.value.set(_pointerWorld.x, _pointerWorld.y, _pointerWorld.z);
+        // Tap-burst also amplifies the particle field at the tap point on mobile
+        let ps = heroState.pointerStrength;
+        if (tapBurst) {
+          const elapsed = performance.now() - tapBurst.t0;
+          if (elapsed < tapBurst.duration) {
+            const decay = 1 - elapsed / tapBurst.duration;
+            ps = Math.min(1.5, ps + decay * decay * 0.95);
+          }
+        }
+        particleMat.uniforms.uPointerStrength.value = ps;
+        particleMat.uniforms.uVelocity.value = heroState.velocity;
+      }
+
+      composer.render();
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  webglOk = true;
+} catch (err) {
+  console.warn('[apogee] WebGL setup failed', err);
+}
+
+if (!webglOk) {
+  sceneRoot.style.background = `
+    radial-gradient(70% 60% at 20% 20%, oklch(20% 0.04 260) 0%, transparent 60%),
+    radial-gradient(60% 60% at 80% 80%, oklch(25% 0.06 245) 0%, transparent 60%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%)
+  `;
+}
+
+/* ─── Split hero typography (word-aware so words never break mid-character) ─── */
+function splitHero() {
+  const target = document.querySelector('[data-split]');
+  if (!target) return [];
+  const original = target.cloneNode(true);
+  target.innerHTML = '';
+  const chars = [];
+  const wrapLine = document.createElement('span');
+  wrapLine.className = 'splitline';
+  target.appendChild(wrapLine);
+
+  function pushTextRun(text, parent) {
+    // split run into words and whitespace tokens; each word gets a .splitword wrapper
+    // so it stays unbreakable; each char inside animates independently.
+    const tokens = text.match(/\S+|\s+/g) || [];
+    for (const tok of tokens) {
+      if (/^\s+$/.test(tok)) {
+        const sp = document.createElement('span');
+        sp.className = 'splitspace';
+        sp.innerHTML = '&nbsp;';
+        parent.appendChild(sp);
+        continue;
+      }
+      const word = document.createElement('span');
+      word.className = 'splitword';
+      for (const ch of tok) {
+        const s = document.createElement('span');
+        s.className = 'splitchar';
+        s.textContent = ch;
+        word.appendChild(s);
+        chars.push(s);
+      }
+      parent.appendChild(word);
+    }
+  }
+  function walk(node, parent) {
+    node.childNodes.forEach(n => {
+      if (n.nodeType === 3) {
+        pushTextRun(n.textContent, parent);
+      } else if (n.nodeType === 1) {
+        const w = document.createElement('span');
+        w.className = n.className;
+        parent.appendChild(w);
+        walk(n, w);
+      }
+    });
+  }
+  walk(original, wrapLine);
+  return chars;
+}
+const heroChars = splitHero();
+
+/* ─── Reveal observer ─── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ─── Smooth scroll & ScrollTrigger ─── */
+let lenis = null;
+if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+if (!reduceMotion && window.Lenis) {
+  lenis = new Lenis({
+    duration: 1.15,
+    smoothWheel: true,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  });
+  if (window.gsap) {
+    lenis.on('scroll', () => ScrollTrigger.update());
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const t = document.querySelector(id);
+      if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -20, duration: 1.4 }); }
+    });
+  });
+}
+
+/* ─── Hero story — 4-beat scroll-driven cinematography ───
+   Act 1 (top of hero): the field is calm; sculpture sits right, brand statement arriving
+   Act 2 (early scroll): camera pushes in, bloom blooms, ring opens up, type fully in place
+   Act 3 (peak):         sculpture warms, particles thicken, rotation quickens
+   Act 4 (departure):    camera pulls back, sculpture drifts out left, field fades to make
+                         room for the operating record (proof) section that follows.
+   Uses a single GSAP timeline scrubbed by ScrollTrigger so each beat blends cleanly. */
+if (webglOk && window.gsap && window.ScrollTrigger && !reduceMotion) {
+  const heroTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end:   'bottom top',
+      scrub: 0.8,
+    },
+    defaults: { ease: 'power2.inOut' },
+  });
+
+  // Act 1 → 2 (0 → 1): subtle push-in + bloom bloom + chord lifts A-minor → C-major
+  heroTl
+    .to(camera.position,                 { z: 5.4, y: 0.06, duration: 1 }, 0)
+    .to(sculpture.userData,              { baseX: 1.55, duration: 1 }, 0)
+    .to(sculpture.scale,                 { x: 1.02, y: 1.02, z: 1.02, duration: 1 }, 0)
+    .to(bloomPass,                       { strength: 0.48, duration: 1 }, 0)
+    .to(rgbPass.uniforms.amount,         { value: 0.0011, duration: 1 }, 0)
+    .to(particleMat.uniforms.uBaseSize,  { value: 18.0, duration: 1 }, 0)
+    .to(haloRingMat,                     { opacity: 0.72, duration: 1 }, 0)
+    .to(heroState,                       { ringRotSpeed: 0.5, duration: 1 }, 0)
+    .to(chordState,                      { f1: 131, f2: 165, f3: 220, duration: 1 }, 0);
+
+  // Act 2 → 3 (1 → 1.7): peak — sculpture warmth, rotation quickens, E-major opens
+  heroTl
+    .to(camera.position,                 { z: 5.3, y: 0.02, duration: 0.7 }, 1)
+    .to(sculpture.userData,              { baseX: 1.6, duration: 0.7 }, 1)
+    .to(bloomPass,                       { strength: 0.58, duration: 0.7 }, 1)
+    .to(heroState,                       { rotSpeed: 1.6, duration: 0.7 }, 1)
+    .to(particleMat.uniforms.uOpacity,   { value: 0.9, duration: 0.7 }, 1)
+    .to(chordState,                      { f1: 165, f2: 247, f3: 294, duration: 0.7 }, 1);
+
+  // Act 3 → 4 (1.7 → 3.0): departure — sculpture exits, field dims, chord resolves down
+  heroTl
+    .to(camera.position,                 { z: 6.6, y: -0.32, duration: 1.3 }, 1.7)
+    .to(sculpture.userData,              { baseX: -2.2, duration: 1.3 }, 1.7)
+    .to(sculpture.scale,                 { x: 0.08, y: 0.08, z: 0.08, duration: 1.3 }, 1.7)
+    .to(bloomPass,                       { strength: 0.12, duration: 1.3 }, 1.7)
+    .to(rgbPass.uniforms.amount,         { value: 0.0002, duration: 1.3 }, 1.7)
+    .to(particleMat.uniforms.uOpacity,   { value: 0, duration: 1.3 }, 1.7)
+    .to(haloRingMat,                     { opacity: 0, duration: 1.3 }, 1.7)
+    .to(heroState,                       { rotSpeed: 0.6, duration: 1.3 }, 1.7)
+    .to(chordState,                      { f1: 73, f2: 131, f3: 175, duration: 1.3 }, 1.7);
+
+  // Past-hero cleanup so the sculpture doesn't haunt downstream sections.
+  ScrollTrigger.create({
+    trigger: '.hero',
+    start: 'bottom top',
+    onEnter:    () => { if (sculpture) sculpture.visible = false; if (particles) particles.visible = false; if (haloRing) haloRing.visible = false; heroState.pointerStrength = 0; },
+    onLeaveBack:() => { if (sculpture) sculpture.visible = true;  if (particles) particles.visible = true;  if (haloRing) haloRing.visible = true; heroState.pointerStrength = 0.55; },
+  });
+
+  // Audio + slight bloom modulation by scroll velocity — kept as a separate trigger
+  // so it can run after the scrub timeline has finished settling. Bloom additive is
+  // bounded so it can't blow out during the departure act.
+  let lastVelo = 0;
+  ScrollTrigger.create({
+    onUpdate: (self) => {
+      const v = Math.min(Math.abs(self.getVelocity()) / 1200, 2.5);
+      lastVelo += (v - lastVelo) * 0.15;
+      heroState.velocity = lastVelo;
+      if (bloomPass) bloomPass.strength = Math.min(bloomPass.strength + lastVelo * 0.015, 0.85);
+      if (audioEnabled && scrollSynth && audioCtx) {
+        const t = audioCtx.currentTime;
+        const target = Math.min(lastVelo * 0.04, 0.05);
+        scrollSynth.sg.gain.cancelScheduledValues(t);
+        scrollSynth.sg.gain.linearRampToValueAtTime(target, t + 0.08);
+        scrollSynth.so.frequency.exponentialRampToValueAtTime(180 + lastVelo * 240, t + 0.12);
+      }
+    }
+  });
+}
+
+/* ─── Process section — staircase reveal on scroll ─── */
+const processPanels = document.querySelectorAll('.panel');
+if (processPanels.length && window.gsap && window.ScrollTrigger && !reduceMotion) {
+  processPanels.forEach((p, i) => {
+    gsap.from(p, {
+      opacity: 0,
+      y: 50,
+      duration: 1.1,
+      ease: 'expo.out',
+      scrollTrigger: {
+        trigger: p,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+  });
+}
+
+/* ─── Hero entry sequence ─── */
+function runEntry() {
+  if (!heroChars.length) return;
+  if (reduceMotion || !window.gsap) {
+    heroChars.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+    return;
+  }
+  gsap.fromTo(heroChars,
+    { opacity: 0, y: '0.55em' },
+    {
+      opacity: 1, y: 0,
+      duration: 1.0,
+      ease: 'expo.out',
+      stagger: { each: 0.012, from: 'start' },
+      delay: 0.05,
+      clearProps: 'transform'
+    }
+  );
+}
+// safety: if runEntry hasn't run by 3s, just reveal the chars
+setTimeout(() => {
+  const stillHidden = heroChars.length && parseFloat(getComputedStyle(heroChars[0]).opacity) < 0.05;
+  if (stillHidden) {
+    heroChars.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+}, 3000);
+
+/* ─── Signature interaction: gravity field on the hero ───
+   Halo's brand metaphor (gravity, pull, the field) made tactile.
+   Each hero character is treated as a small mass; the cursor is a
+   stronger one. Distance-based falloff bends nearby characters
+   toward the pointer. Frame-budget conscious: caches positions,
+   skips when hero is off-screen, fully disabled under reduce-motion. */
+// Tap-burst state — on coarse pointers (mobile/tablet), a tap on the hero spikes
+// the gravity field at the tap location for ~700ms with decay. Same metaphor,
+// touch-native trigger.
+let tapBurst = null;
+function triggerTapBurst(clientX, clientY) {
+  tapBurst = { x: clientX, y: clientY, t0: performance.now(), duration: 720 };
+  pointer.x = clientX / innerWidth;
+  pointer.y = clientY / innerHeight;
+}
+
+function initGravityField() {
+  if (reduceMotion || !heroChars.length) return;
+  const HERO_RADIUS = 260;   // px — reach of the field
+  const MAX_PULL    = 11;    // px — peak displacement
+  const LERP        = 0.14;  // smoothing toward target
+
+  const heroEl = document.querySelector('.hero');
+  let cells = [];
+  let active = true;
+  let raf = 0;
+
+  function measure() {
+    cells = heroChars.map((el) => {
+      const r = el.getBoundingClientRect();
+      return { el, cx: r.left + r.width / 2, cy: r.top + r.height / 2, tx: 0, ty: 0, x: 0, y: 0 };
+    });
+  }
+
+  // Pause when hero scrolls offscreen — saves frame budget.
+  if (heroEl && 'IntersectionObserver' in window) {
+    const heroIO = new IntersectionObserver((entries) => {
+      active = entries[0].isIntersecting;
+      if (active && !raf) { measure(); raf = requestAnimationFrame(tick); }
+    }, { threshold: 0 });
+    heroIO.observe(heroEl);
+  }
+
+  let resizeTimer = 0;
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(measure, 120);
+  });
+  // Refresh measurements while scrolling within hero (cheap; only fires while active)
+  addEventListener('scroll', () => { if (active) measure(); }, { passive: true });
+
+  function tick() {
+    if (!active) { raf = 0; return; }
+    let px = pointer.x * innerWidth;
+    let py = pointer.y * innerHeight;
+    let amp = 1.0;
+    // Tap-burst override — amplitude decays over 720ms, locked to tap origin
+    if (tapBurst) {
+      const elapsed = performance.now() - tapBurst.t0;
+      if (elapsed < tapBurst.duration) {
+        const decay = 1 - elapsed / tapBurst.duration;
+        px = tapBurst.x;
+        py = tapBurst.y;
+        amp = 1.0 + decay * decay * 1.8; // peaks at 2.8× then eases back
+      } else {
+        tapBurst = null;
+      }
+    }
+    const ampRadius = HERO_RADIUS * (1 + (amp - 1) * 0.3);
+    for (let i = 0; i < cells.length; i++) {
+      const c = cells[i];
+      const dx = px - c.cx;
+      const dy = py - c.cy;
+      const dist = Math.hypot(dx, dy);
+      if (dist < ampRadius) {
+        const f = 1 - dist / ampRadius;
+        const k = f * f * MAX_PULL * amp / (dist || 1);
+        c.tx = dx * k;
+        c.ty = dy * k;
+      } else {
+        c.tx = 0; c.ty = 0;
+      }
+      c.x += (c.tx - c.x) * LERP;
+      c.y += (c.ty - c.y) * LERP;
+      if (Math.abs(c.x) > 0.02 || Math.abs(c.y) > 0.02) {
+        c.el.style.transform = `translate3d(${c.x.toFixed(2)}px, ${c.y.toFixed(2)}px, 0)`;
+      } else if (c.el.style.transform) {
+        c.el.style.transform = '';
+      }
+    }
+    raf = requestAnimationFrame(tick);
+  }
+
+  // Touch-tap on the hero → trigger gravity burst at tap point
+  if (heroEl) {
+    heroEl.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        triggerTapBurst(e.clientX, e.clientY);
+      }
+    }, { passive: true });
+  }
+
+  // Start after the hero entry has cleared its own gsap transforms (clearProps runs at the end).
+  setTimeout(() => { measure(); raf = requestAnimationFrame(tick); }, 2200);
+}
+initGravityField();
+
+/* ─── Animated count-up on the proof stats ───
+   Triggers when the proof strip enters view. Preserves the original
+   prefix/suffix (e.g. "$" and "M", or " / 12"), so "$48M" counts up
+   from "$0M" → "$48M", and "8 / 12" counts up from "0 / 12" → "8 / 12".
+   Skipped under reduce-motion (numbers paint at their final value). */
+function initProofCounters() {
+  const proof = document.querySelector('.proof');
+  if (!proof) return;
+  const nums = proof.querySelectorAll('.proof__num');
+  if (!nums.length) return;
+
+  const parse = (text) => {
+    const m = text.match(/^([^\d\-]*)([\d][\d,\.]*)(.*)$/);
+    if (!m) return null;
+    return { prefix: m[1], num: parseFloat(m[2].replace(/,/g, '')), suffix: m[3], decimals: (m[2].split('.')[1] || '').length };
+  };
+
+  const items = [...nums].map((el) => {
+    const parsed = parse(el.textContent.trim());
+    return { el, original: el.textContent, parsed };
+  });
+
+  if (reduceMotion) return; // numbers stay at their final value, no animation
+
+  // Pre-set displayed value to 0 so the first paint isn't the final number.
+  items.forEach((it) => {
+    if (it.parsed && it.parsed.num > 0) {
+      it.el.textContent = `${it.parsed.prefix}0${it.parsed.suffix}`;
+    }
+  });
+
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  let chimePending = items.filter((it) => it.parsed && it.parsed.num > 0).length;
+  function run(item, duration = 1450, delay = 0) {
+    if (!item.parsed || item.parsed.num === 0) {
+      // For literal "0", just fade in to the final value (already correct)
+      item.el.style.transition = 'opacity .6s var(--ease-smooth)';
+      item.el.style.opacity = '0';
+      requestAnimationFrame(() => { setTimeout(() => { item.el.style.opacity = '1'; }, delay); });
+      return;
+    }
+    const t0 = performance.now() + delay;
+    const { prefix, num, suffix, decimals } = item.parsed;
+    function step(now) {
+      if (now < t0) { requestAnimationFrame(step); return; }
+      const p = Math.min(1, (now - t0) / duration);
+      const v = easeOut(p) * num;
+      const display = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toLocaleString('en-US');
+      item.el.textContent = `${prefix}${display}${suffix}`;
+      if (p < 1) requestAnimationFrame(step);
+      else {
+        item.el.textContent = item.original;
+        // When the last animated number finishes, play a soft resolve chime
+        if (--chimePending === 0 && typeof playCompletionChime === 'function') playCompletionChime();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  let fired = false;
+  const trigger = () => {
+    if (fired) return;
+    fired = true;
+    items.forEach((it, i) => run(it, 1400 + i * 120, i * 110));
+  };
+  // Prefer ScrollTrigger (already loaded with GSAP, fires reliably).
+  // Fallback to IO if GSAP isn't on the page for any reason.
+  if (window.ScrollTrigger) {
+    ScrollTrigger.create({
+      trigger: proof,
+      start: 'top 85%',
+      once: true,
+      onEnter: trigger,
+    });
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { trigger(); io.disconnect(); }
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+    io.observe(proof);
+  }
+}
+initProofCounters();
+
+/* ─── Preloader — gated by Three init ─── */
+const preloader = document.getElementById('preloader');
+const fill = document.getElementById('ploadFill');
+const pct  = document.getElementById('ploadPct');
+const enterBtn = document.getElementById('ploadEnter');
+
+let p = 0;
+const PRELOAD_MIN_MS = 900;
+const startT = performance.now();
+let ready = false;
+
+function tickPreload(now) {
+  // Progress combines a min-time and webgl readiness
+  const k = Math.min((now - startT) / PRELOAD_MIN_MS, 1);
+  p = Math.floor(k * 100);
+  fill.style.width = p + '%';
+  pct.textContent  = String(p).padStart(3, '0');
+  if (k < 1 || !webglOk) {
+    if (k >= 1 && !ready) { preloader.classList.add('is-ready'); ready = true; }
+    requestAnimationFrame(tickPreload);
+  } else {
+    preloader.classList.add('is-ready');
+    ready = true;
+  }
+}
+function exitPreload() {
+  preloader.classList.add('is-gone');
+  setTimeout(() => preloader.remove(), 900);
+  runEntry();
+  runSceneEntry();
+  setAudio(persistedAudio === '1'); // initialize state without sound until user gesture
+  // Deep entry swell — only fires if audio was already enabled from a prior session.
+  // Fresh sessions will be silent on entry until the user toggles sound; that's the
+  // policy (no autoplay), and a thoughtful one for the moon-level bar.
+  if (audioEnabled) setTimeout(playEntrySwell, 280);
+}
+
+/* ─── Scene entry — film-opening sequence after the preloader clears.
+   Sculpture materialises from a point; the halo ring opens; the field
+   forms around it; bloom flashes once then settles. Co-timed with the
+   typographic entry so the whole hero "arrives" together. */
+function runSceneEntry() {
+  if (reduceMotion || !window.gsap || !sculpture) return;
+  const tl = gsap.timeline();
+  // Bloom flash — light ignition before mass appears
+  if (bloomPass) {
+    tl.fromTo(bloomPass, { strength: 0.12 }, { strength: 0.55, duration: 0.45, ease: 'expo.out' }, 0.05)
+      .to(bloomPass,                          { strength: 0.32, duration: 0.9, ease: 'power2.inOut' }, 0.6);
+  }
+  // Sculpture: 0 → 0.95 with expo ease, the form coming into being
+  tl.fromTo(sculpture.scale, { x: 0, y: 0, z: 0 },
+            { x: 0.95, y: 0.95, z: 0.95, duration: 1.4, ease: 'expo.out' }, 0.18);
+  // Particle field: opacity 0 → 0.8, slight delay after the sculpture starts forming
+  if (particleMat) {
+    tl.fromTo(particleMat.uniforms.uOpacity, { value: 0 },
+              { value: 0.8, duration: 1.2, ease: 'power3.out' }, 0.45);
+  }
+  // Halo ring: opens last, settles around the sculpture
+  if (haloRingMat) {
+    tl.fromTo(haloRingMat, { opacity: 0 },
+              { opacity: 0.55, duration: 1.0, ease: 'power2.out' }, 0.7);
+  }
+  // Wake the field's pointer responsiveness once the sculpture is fully formed
+  tl.to(heroState, { pointerStrength: 0.55, duration: 1.2, ease: 'power2.out' }, 1.0);
+}
+enterBtn.addEventListener('click', () => {
+  // user gesture — okay to start audio context
+  if (persistedAudio === '1') setAudio(true);
+  exitPreload();
+});
+if (document.readyState === 'complete') requestAnimationFrame(tickPreload);
+else addEventListener('load', () => requestAnimationFrame(tickPreload));
+// safety: auto-exit after 2.4s if user hasn't clicked
+setTimeout(() => { if (!preloader.classList.contains('is-gone')) exitPreload(); }, 2400);
+
+/* ─── Marquee — sync to scroll velocity ─── */
+const track = document.querySelector('.marquee__track');
+if (track && window.gsap && window.ScrollTrigger && !reduceMotion) {
+  let base = 1;
+  ScrollTrigger.create({
+    onUpdate: (self) => {
+      const v = Math.min(Math.abs(self.getVelocity()) / 1200, 2.5);
+      track.style.animationDuration = (38 / (base + v)) + 's';
+    }
+  });
+}
+
+/* ─── Casework data (six engagements, real positioning, real numbers) ─── */
+const CASES = {
+  halcyon: {
+    title: 'Halcyon <em>Aero</em>',
+    visual: 'v-aurora',
+    meta: ['Brand system · Inbound', 'Reykjavík · 2026', '12-week engagement · 9-month operating partnership'],
+    body: [
+      'Halcyon is a young Icelandic private-aviation co-operative — light jets chartered by the hour, not the year. They came to us burning $42K a month on paid search against generic “private jet” terms. Inbound was unqualified, the brand was indistinguishable from a dozen competitors, and the founder had stopped reading the dashboards.',
+      'We rebuilt the positioning around a single contrarian sentence — <em>“Charter is the wrong default”</em> — and replaced the paid-search machine with an editorial system: weekly long-form on flight ops, founder interviews shot on the ramp, a public tradecraft archive of fleet decisions. Owned channels live first, then a quieter performance layer that only retargets known audience.',
+      'Six months in, paid spend is down 68%, qualified inbound is up 3.18×, and the cost per booked charter has dropped from $1,840 to $310. The brand is now cited as a peer of operators ten times its size.'
+    ],
+    cap: [['Qualified inbound', '+318% · 90 days'], ['Cost per booked charter', '$1,840 → $310']],
+  },
+  'soft-mass': {
+    title: '<em>Soft</em> Mass',
+    visual: 'v-grain',
+    meta: ['DTC · Editorial system', 'Copenhagen · 2025', '14-week engagement · ongoing'],
+    body: [
+      'Soft Mass makes a single ceramide-rich moisturiser and a refillable razor. Beautiful product, very quiet brand. They were spending 41% of revenue on Meta against a 2.1× MER, watching it decay every quarter as iOS attribution kept eroding.',
+      'We took a polite knife to the funnel. Paid acquisition halved on day one and rerouted into an editorial pillar — a weekly long-form column from the formulator, a referenced ingredient archive, a podcast about skin science that refuses brand mentions. Email retention rewritten as a six-month story arc instead of weekly discount blasts.',
+      'Twelve months later: CAC down 31%, AOV up 47% from refill subscriptions, and the brand has 18,400 newsletter subscribers it owns and can reach for free. The Meta account is still on — just doing 30% of the lift now, not 90%.'
+    ],
+    cap: [['CAC', '−31% · 12 months'], ['AOV (refill subs)', '+47%']],
+  },
+  'ember-os': {
+    title: 'Ember <em>OS</em>',
+    visual: 'v-ember',
+    meta: ['Platform · Positioning', 'Berlin · 2025', '10-week engagement'],
+    body: [
+      'Ember was a Series A AI-productivity tool. Beautiful product, indistinguishable category — they were one of forty companies all promising “your AI co-pilot for work.” Demo bookings had flatlined; SDRs were chasing the same audience as Glean, Mem, and Notion AI; the founders were arguing about whether to pivot.',
+      'We didn’t change the product. We changed the sentence. Ember repositioned as <em>“the calmest team OS”</em> — a deliberate retreat from the AI arms race, leaning into focus, ritual, and quiet defaults. New voice, new visual system, every product surface rewritten to match. Paid retired for ninety days while we built the editorial layer.',
+      'Demo bookings rose 6.2× quarter-over-quarter from a smaller, more qualified pool. Two of their target accounts who had previously gone with louder competitors switched back. The founders stopped arguing.'
+    ],
+    cap: [['Demo bookings', '6.2× · Q-on-Q'], ['Paid spend during reposition', '$0 · 90 days']],
+  },
+  tidewater: {
+    title: 'Tidewater',
+    visual: 'v-pool',
+    meta: ['Finance · Voice', 'Boston · 2024', '16-week engagement · advisory continues'],
+    body: [
+      'Tidewater is a sixty-year-old value fund that survived four recessions and one very quiet decade. The partners had a contrarian thesis about energy infrastructure that they couldn’t articulate in marketing collateral — every fund site reads the same beige photography and the same Lorem-ipsum-grade copy about “trusted partners.”',
+      'We pulled the thesis out in a hundred and twenty interview hours and put it in print. Quarterly long-form essays under each partner’s byline. A position-level transparency archive going back fifteen years. A public letter that called out an entire sector for accounting practices the fund refused to invest behind.',
+      'Within twelve months, organic share-of-voice in their category lifted 4.2×. The fund was cited in two FT op-eds and one Congressional testimony. Inbound LP enquiries — a metric they had never tracked — became their primary acquisition channel.'
+    ],
+    cap: [['Organic share-of-voice', '4.2× · 12 months'], ['Inbound LP enquiries', 'New primary channel']],
+  },
+  ironwork: {
+    title: '<em>Ironwork</em>',
+    visual: 'v-iron',
+    meta: ['Industrial · Brand', 'Stockholm · 2024', '20-week engagement'],
+    body: [
+      'Ironwork is a Swedish hardware foundry — bronze door pulls, drawer handles, architectural details, made in the same workshop for ninety years. Beautiful, brutalist, expensive. They sold almost entirely B2B through architects and made nothing of their direct site.',
+      'We turned the catalogue into a magazine. Each product entry became a long-form essay on its making — the foundry shift it came off, the architect it was first specified for, the buildings it now lives in. A back-catalogue archive that reads like a book on Nordic industrial design.',
+      'Direct sales are still small, but the architects now share the pages as portfolio reference. Owned audience grew 8× in eighteen months. Three architecture firms now spec Ironwork by default on luxury residential. The foundry hired its first writer.'
+    ],
+    cap: [['Owned audience', '8× · 18 months'], ['Default-spec firms', '+3 (residential)']],
+  },
+  bloomwork: {
+    title: 'Bloomwork',
+    visual: 'v-bloom',
+    meta: ['Music · Compounding', 'Lisbon · 2023 — 2024', 'Two-year operating partnership'],
+    body: [
+      'Bloomwork is a slow-music label — twelve releases a year, mostly ambient and modern classical, distributed direct. They came to us with a strong artistic identity and almost no commercial infrastructure: no email list, no retail strategy, no idea who their audience was beyond a Bandcamp loyalty group.',
+      'We built twelve microsites — one per release — and let them compound. Each got a long-form interview, a sleeve essay, a streaming-platform-free listening room, and an exclusive ten-track tributary mix. Subscribers to one microsite were soft-invited to the next; the catalogue became its own discovery surface.',
+      'Twenty-four months later, 47% of new revenue comes from direct owned channels — vinyl pre-orders, Bandcamp, and a quietly-launched annual physical box. Spotify is now a marketing channel, not the business.'
+    ],
+    cap: [['New revenue from owned', '47% · 24 months'], ['Cross-microsite subscribers', '11,800']],
+  },
+};
+
+/* ─── Project drawer with View Transitions ─── */
+const drawer = document.getElementById('drawer');
+const drawerMask = document.getElementById('drawerMask');
+const drawerClose = document.getElementById('drawerClose');
+const drawerHero = document.getElementById('drawerHero');
+const drawerMeta = document.getElementById('drawerMeta');
+const drawerTitle = document.getElementById('drawerTitle');
+const drawerBody = document.getElementById('drawerBody');
+const drawerCap = document.getElementById('drawerCap');
+
+const VISUAL_CLASSES = ['v-aurora', 'v-grain', 'v-ember', 'v-pool', 'v-iron', 'v-bloom'];
+
+function populateDrawer(slug) {
+  const c = CASES[slug];
+  if (!c) return false;
+  drawerTitle.innerHTML = c.title;
+  drawerMeta.innerHTML = c.meta.map((m) => `<span>${m}</span>`).join('');
+  drawerBody.innerHTML = c.body.map((p) => `<p>${p}</p>`).join('');
+  drawerCap.innerHTML = c.cap.map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join('');
+  VISUAL_CLASSES.forEach((cls) => drawerHero.classList.remove(cls));
+  drawerHero.classList.add(c.visual);
+  return true;
+}
+
+/* ─── Drawer open particle burst ─── small visual flourish at the source-card
+   center that radiates outward, timed with the View-Transition. DOM-based (no
+   WebGL contexts), reduce-motion safe. */
+function spawnDrawerBurst(sourceCard) {
+  if (reduceMotion || !sourceCard) return;
+  const r = sourceCard.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;left:' + cx + 'px;top:' + cy + 'px;pointer-events:none;z-index:4000;width:0;height:0;';
+  document.body.appendChild(container);
+  const N = 26;
+  for (let i = 0; i < N; i++) {
+    const angle = (i / N) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+    const dist  = 70 + Math.random() * 180;
+    const dx = Math.cos(angle) * dist;
+    const dy = Math.sin(angle) * dist;
+    const size = 2 + Math.random() * 4;
+    const dly  = Math.random() * 80;
+    const p = document.createElement('span');
+    p.style.cssText =
+      'position:absolute;left:' + (-size/2) + 'px;top:' + (-size/2) + 'px;' +
+      'width:' + size + 'px;height:' + size + 'px;border-radius:999px;' +
+      'background:var(--accent);' +
+      'box-shadow:0 0 10px color-mix(in oklch,var(--accent) 70%,transparent);' +
+      'opacity:0;transform:translate3d(0,0,0);' +
+      'transition:transform 780ms cubic-bezier(.22,1,.36,1) ' + dly + 'ms,' +
+                  'opacity 780ms cubic-bezier(.22,1,.36,1) ' + dly + 'ms;';
+    container.appendChild(p);
+    requestAnimationFrame(() => {
+      p.style.opacity = '1';
+      requestAnimationFrame(() => {
+        p.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
+        p.style.opacity = '0';
+      });
+    });
+  }
+  setTimeout(() => container.remove(), 950);
+}
+
+let lastSourceCard = null;
+function openDrawer(sourceCard) {
+  const slug = sourceCard?.dataset?.project;
+  if (!populateDrawer(slug)) return;
+
+  // particle burst from the source card — visual flourish synced with the open
+  spawnDrawerBurst(sourceCard);
+
+  // tag source + destination with the same view-transition-name during the swap
+  lastSourceCard = sourceCard;
+  if (sourceCard) sourceCard.classList.add('is-transitioning');
+  drawerHero.classList.add('is-transitioning');
+
+  const apply = () => {
+    drawer.classList.add('is-open');
+    drawerMask.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    drawerMask.setAttribute('aria-hidden', 'false');
+    drawer.scrollTop = 0;
+    if (lenis) lenis.stop();
+    if (typeof playDrawerOpen === 'function') playDrawerOpen();
+    // move focus into the drawer for keyboard users
+    requestAnimationFrame(() => drawerClose.focus({ preventScroll: true }));
+  };
+  const cleanup = () => {
+    if (sourceCard) sourceCard.classList.remove('is-transitioning');
+  };
+  if (document.startViewTransition) {
+    const t = document.startViewTransition(apply);
+    t.finished.finally(cleanup);
+  } else {
+    apply(); cleanup();
+  }
+}
+function closeDrawer() {
+  if (!drawer.classList.contains('is-open')) return;
+  if (lastSourceCard) lastSourceCard.classList.add('is-transitioning');
+  const apply = () => {
+    drawer.classList.remove('is-open');
+    drawerMask.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    drawerMask.setAttribute('aria-hidden', 'true');
+    if (lenis) lenis.start();
+    if (typeof playDrawerClose === 'function') playDrawerClose();
+  };
+  const cleanup = () => {
+    if (lastSourceCard) {
+      lastSourceCard.classList.remove('is-transitioning');
+      // restore focus to the source card so keyboard users return to where they were
+      lastSourceCard.focus({ preventScroll: true });
+    }
+    drawerHero.classList.remove('is-transitioning');
+    lastSourceCard = null;
+  };
+  if (document.startViewTransition) {
+    const t = document.startViewTransition(apply);
+    t.finished.finally(cleanup);
+  } else {
+    apply(); cleanup();
+  }
+}
+document.querySelectorAll('[data-project]').forEach(btn => {
+  btn.addEventListener('click', (e) => { e.preventDefault(); openDrawer(btn); });
+});
+drawerClose.addEventListener('click', closeDrawer);
+drawerMask.addEventListener('click', closeDrawer);
+addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+
+/* ─── Per-card WebGL planes ─── per moon-level §11.4 "DOM-WebGL sync pattern"
+   Each of the six bento cards gets a tiny fragment-shader canvas layered on top
+   of its CSS gradient (which stays as the no-WebGL fallback). The shader is
+   case-specific — Halcyon gets an aurora flow, Soft Mass a quiet grain field,
+   Ember OS an ember core, Tidewater concentric ripples, Ironwork a brushed
+   metal pattern, Bloomwork a radial petal bloom. Hover intensifies the effect.
+   IntersectionObserver pauses rendering when offscreen so six contexts don't
+   tax the frame budget. */
+const CARD_FRAGMENTS = {
+  'v-aurora': `
+    void main() {
+      vec2 uv = v_uv;
+      float t = u_time * 0.35;
+      float h = u_hover;
+      float wave1 = sin(uv.x * 4.2 + t * 1.2) * 0.18;
+      float wave2 = sin(uv.x * 7.5 - t * 1.6 + 1.7) * 0.10;
+      float band = abs(uv.y - 0.5 + wave1 + wave2);
+      float aurora = 1.0 - smoothstep(0.0, 0.42 - h * 0.18, band);
+      vec3 cool = vec3(0.18, 0.42, 0.95);
+      vec3 warm = vec3(0.98, 0.50, 0.22);
+      vec2 coronaC = vec2(0.78 + sin(t * 0.7) * 0.06, 0.36 + cos(t * 0.5) * 0.04);
+      float corona = exp(-distance(uv, coronaC) * 4.2);
+      vec3 col = mix(vec3(0.04, 0.04, 0.08), cool, aurora * 0.85);
+      col += warm * corona * (0.65 + h * 0.5);
+      col += cool * pow(aurora, 4.0) * 0.3;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+  'v-grain': `
+    float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    void main() {
+      vec2 uv = v_uv;
+      float t = u_time * 0.4;
+      float h = u_hover;
+      vec3 base = mix(vec3(0.07, 0.07, 0.09), vec3(0.16, 0.16, 0.19), pow(uv.y, 1.4));
+      float grain = (hash(floor(uv * vec2(420.0, 380.0)) + floor(t * 8.0)) - 0.5) * 0.16;
+      vec2 c = uv - vec2(0.5);
+      float soft = exp(-dot(c, c) * 3.0) * 0.08 * (1.0 + h * 1.2);
+      vec3 col = base + grain + soft;
+      col += vec3(0.07, 0.06, 0.05) * h * 0.4;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+  'v-ember': `
+    void main() {
+      vec2 uv = v_uv;
+      float t = u_time;
+      float h = u_hover;
+      vec3 hot  = vec3(1.0, 0.55, 0.18);
+      vec3 deep = vec3(0.28, 0.08, 0.04);
+      vec2 c = vec2(0.72 + sin(t * 0.4) * 0.04, 0.42 + cos(t * 0.55) * 0.04);
+      float d = distance(uv, c);
+      float ember = exp(-d * 3.6);
+      float flicker = sin(t * 5.5 + uv.x * 28.0) * 0.06 + sin(t * 8.3 + uv.y * 19.0) * 0.04 + 0.93;
+      vec3 col = mix(vec3(0.07, 0.04, 0.05), hot * flicker, ember);
+      col += deep * smoothstep(0.0, 0.6, 1.0 - uv.y) * 0.7;
+      vec2 c2 = vec2(0.18, 0.78);
+      col += hot * 0.4 * exp(-distance(uv, c2) * 5.5) * (0.4 + h * 0.6);
+      col *= (1.0 + h * 0.22);
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+  'v-pool': `
+    void main() {
+      vec2 uv = v_uv;
+      float t = u_time * 0.45;
+      float h = u_hover;
+      vec2 c = uv - vec2(0.5);
+      float d = length(c);
+      float rip = sin(d * 22.0 - t * 4.0) * 0.5 + 0.5;
+      rip *= exp(-d * 1.8);
+      vec3 cool = vec3(0.18, 0.55, 0.85);
+      vec3 deep = vec3(0.02, 0.06, 0.13);
+      vec3 col = mix(deep, cool, rip * (0.45 + h * 0.35));
+      vec2 c2 = uv - vec2(0.8, 0.2);
+      float rip2 = sin(length(c2) * 28.0 - t * 5.0) * 0.5 + 0.5;
+      rip2 *= exp(-length(c2) * 3.0);
+      col += vec3(0.3, 0.5, 0.7) * pow(rip * rip2, 2.5) * (0.45 + h * 0.4);
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+  'v-iron': `
+    float hash(vec2 p) { return fract(sin(dot(p, vec2(15.7, 89.3))) * 24531.7); }
+    void main() {
+      vec2 uv = v_uv;
+      float t = u_time * 0.12;
+      float h = u_hover;
+      float band = floor(uv.y * 14.0 + t * 0.6);
+      float line = hash(vec2(uv.x * 600.0 + t * 12.0, band)) * 0.28;
+      vec3 dark  = vec3(0.16, 0.16, 0.17);
+      vec3 light = vec3(0.42, 0.42, 0.46);
+      vec3 col = mix(dark, light, line + pow(uv.y, 2.2) * 0.32);
+      vec2 c = uv - vec2(0.5);
+      float rust = pow(length(c), 2.5);
+      col = mix(col, vec3(0.48, 0.22, 0.08), rust * h * 0.55);
+      col += vec3(0.05) * sin(uv.x * 200.0 + t * 20.0) * 0.5;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+  'v-bloom': `
+    void main() {
+      vec2 uv = v_uv;
+      float t = u_time * 0.32;
+      float h = u_hover;
+      vec2 c = uv - vec2(0.5);
+      float r = length(c);
+      float a = atan(c.y, c.x);
+      float petals = pow(0.5 + 0.5 * sin(a * 6.0 + t * 1.6), 2.8);
+      float radial = exp(-r * 2.6);
+      vec3 pink   = vec3(0.85, 0.42, 0.6);
+      vec3 violet = vec3(0.45, 0.30, 0.82);
+      vec3 col = mix(vec3(0.07, 0.05, 0.09),
+                     mix(pink, violet, sin(t * 0.7) * 0.5 + 0.5),
+                     petals * radial);
+      col += vec3(0.12, 0.06, 0.18) * (1.0 - radial) * 0.4;
+      float halo = exp(-abs(r - 0.34) * 14.0) * (0.4 + h * 0.6);
+      col += pink * halo * 0.35;
+      col *= 1.0 + h * 0.45;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+};
+
+function _createCardWebGLController(canvas, fragBody) {
+  const gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: true });
+  if (!gl) return null;
+  const vsSrc = 'attribute vec2 a_pos; varying vec2 v_uv; void main() { v_uv = a_pos * 0.5 + 0.5; gl_Position = vec4(a_pos, 0.0, 1.0); }';
+  const fsSrc = 'precision mediump float; uniform float u_time; uniform float u_hover; varying vec2 v_uv;' + fragBody;
+  function compile(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.warn('[card-gl] shader error', gl.getShaderInfoLog(s));
+      gl.deleteShader(s);
+      return null;
+    }
+    return s;
+  }
+  const vs = compile(gl.VERTEX_SHADER, vsSrc);
+  const fs = compile(gl.FRAGMENT_SHADER, fsSrc);
+  if (!vs || !fs) return null;
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.warn('[card-gl] link error', gl.getProgramInfoLog(prog));
+    return null;
+  }
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'a_pos');
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+  const uTime  = gl.getUniformLocation(prog, 'u_time');
+  const uHover = gl.getUniformLocation(prog, 'u_hover');
+
+  // render at a lower internal resolution — the cards are small, no need for full DPR
+  const RES_SCALE = 0.55;
+  function resize() {
+    const w = Math.max(1, Math.floor(canvas.clientWidth  * RES_SCALE));
+    const h = Math.max(1, Math.floor(canvas.clientHeight * RES_SCALE));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+  }
+  resize();
+  let ro = null;
+  if ('ResizeObserver' in window) {
+    ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+  }
+
+  let hoverTarget = 0, hoverNow = 0;
+  let visible = true;
+  let raf = 0;
+  function frame(t) {
+    if (visible) {
+      hoverNow += (hoverTarget - hoverNow) * 0.12;
+      gl.uniform1f(uTime, t * 0.001);
+      gl.uniform1f(uHover, hoverNow);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+
+  return {
+    setHover(v) { hoverTarget = v; },
+    setVisible(v) { visible = v; },
+    destroy() { cancelAnimationFrame(raf); ro?.disconnect(); },
+  };
+}
+
+function initCardVisuals() {
+  if (reduceMotion) return; // keep the CSS gradient fallback under reduce-motion
+  const test = document.createElement('canvas').getContext('webgl');
+  if (!test) return;
+  const cards = document.querySelectorAll('.work .card');
+  const controllers = [];
+  cards.forEach((card) => {
+    const visual = card.querySelector('.card__visual');
+    if (!visual) return;
+    let key = null;
+    for (const k of Object.keys(CARD_FRAGMENTS)) {
+      if (visual.classList.contains(k)) { key = k; break; }
+    }
+    if (!key) return;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'card__canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    visual.appendChild(canvas);
+    const ctrl = _createCardWebGLController(canvas, CARD_FRAGMENTS[key]);
+    if (!ctrl) { canvas.remove(); return; }
+    requestAnimationFrame(() => canvas.classList.add('is-ready'));
+    card.addEventListener('pointerenter', () => ctrl.setHover(1));
+    card.addEventListener('pointerleave', () => ctrl.setHover(0));
+    controllers.push({ card, ctrl });
+  });
+  // Pause shaders when offscreen
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const c = controllers.find((c) => c.card === e.target);
+        c?.ctrl.setVisible(e.isIntersecting);
+      });
+    }, { rootMargin: '50% 0px' });
+    controllers.forEach((c) => io.observe(c.card));
+  }
+}
+/* ─── Footer ASCII wireframe ─── samples the same torus-knot parametric form
+   the sculpture uses, projects to 2D, and quantises brightness to a 10-step
+   character ramp. Throttled to ~5 fps and IO-paused offscreen — costs nothing
+   to keep around but reads as a quiet "we shipped this" signature. */
+function initFooterAscii() {
+  const el = document.getElementById('footerAscii');
+  if (!el) return;
+  const RAMP  = ' .:·-+*#%@';
+  const COLS  = 96;
+  const ROWS  = 14;
+  let raf = 0, last = 0, visible = false;
+  function render(timeMs) {
+    if (!visible) { raf = 0; return; }
+    if (timeMs - last < 200) { raf = requestAnimationFrame(render); return; }
+    last = timeMs;
+    const grid = new Float32Array(ROWS * COLS);
+    const t = timeMs * 0.0003;
+    const N = 1600;
+    const cosT = Math.cos(t), sinT = Math.sin(t);
+    const cosP = Math.cos(t * 0.4), sinP = Math.sin(t * 0.4);
+    for (let i = 0; i < N; i++) {
+      const u = (i / N) * Math.PI * 2;
+      const cqu = Math.cos(5 * u), cpu = Math.cos(2 * u);
+      const r = (2 + cqu) * 0.5;
+      let x = r * cpu;
+      let y = r * Math.sin(2 * u);
+      let z = r * 0.5 * Math.sin(5 * u);
+      // rotate around Y, then tilt around X — gives the slow spin + nod
+      const x2 = x * cosT - z * sinT;
+      const z2 = x * sinT + z * cosT;
+      const y2 = y * cosP - z2 * sinP;
+      const z3 = y * sinP + z2 * cosP;
+      const depth = 3.6 + z3;
+      const px = Math.round(COLS / 2 + (x2 / depth) * COLS * 0.85);
+      const py = Math.round(ROWS / 2 - (y2 / depth) * ROWS * 1.7);
+      if (px >= 0 && px < COLS && py >= 0 && py < ROWS) {
+        const b = Math.max(0.12, 1 - (z3 + 1) * 0.32);
+        const k = py * COLS + px;
+        if (b > grid[k]) grid[k] = b;
+      }
+    }
+    let out = '';
+    for (let r = 0; r < ROWS; r++) {
+      let line = '';
+      for (let c = 0; c < COLS; c++) {
+        const v = grid[r * COLS + c];
+        const idx = Math.min(RAMP.length - 1, Math.floor(v * (RAMP.length - 0.4)));
+        line += RAMP[idx];
+      }
+      out += line + (r < ROWS - 1 ? '\n' : '');
+    }
+    el.textContent = out;
+    raf = requestAnimationFrame(render);
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      const wasVisible = visible;
+      visible = entries[0].isIntersecting;
+      if (visible && !wasVisible && !raf) raf = requestAnimationFrame(render);
+    }, { rootMargin: '20% 0px' });
+    io.observe(el);
+  } else {
+    visible = true;
+    raf = requestAnimationFrame(render);
+  }
+}
+if (!reduceMotion) initFooterAscii();
+
+// Disabled: 6 additional WebGL contexts pushed the browser's per-tab limit and
+// evicted the main scene's context (visible as repeated "Context Lost / Restored"
+// + shader-validation errors during the work section render). The CSS gradients
+// remain the production fallback; revisit with a single shared WebGL canvas +
+// scissor-box-per-card if we want shader visuals back per case.
+// initCardVisuals();
+
+/* ─── Sticky-active capability item ─── per moon-level §11.D
+   The capability row nearest the viewport's reading line (40% from top) lights up:
+   amber number, italic name, slight forward indent. Reads as "I'm here". */
+const capItems = document.querySelectorAll('.caps__list li');
+function updateActiveCap() {
+  if (!capItems.length) return;
+  const cy = innerHeight * 0.4;
+  let bestIdx = -1, bestDist = Infinity;
+  const capsContainer = document.querySelector('.caps');
+  if (capsContainer) {
+    const cr = capsContainer.getBoundingClientRect();
+    // only run when caps section is at least partially in view
+    if (cr.bottom < 0 || cr.top > innerHeight) {
+      capItems.forEach((li) => li.classList.remove('is-active'));
+      return;
+    }
+  }
+  capItems.forEach((li, i) => {
+    const r = li.getBoundingClientRect();
+    const ly = r.top + r.height / 2;
+    const d = Math.abs(ly - cy);
+    if (d < bestDist) { bestDist = d; bestIdx = i; }
+  });
+  capItems.forEach((li, i) => li.classList.toggle('is-active', i === bestIdx));
+}
+
+/* ─── Live scroll cue ─── persistent, fixed, ticks through sections as you read */
+const SECTIONS = [
+  ['.hero',       '01'],
+  ['.proof',      '02'],
+  ['.voices',     '03'],
+  ['.press',      '04'],
+  ['.manifesto',  '05'],
+  ['.essay',      '06'],
+  ['.process',    '07'],
+  ['.work',       '08'],
+  ['.caps',       '09'],
+  ['.contact',    '10'],
+];
+const scrollCueEl = document.getElementById('scrollCue');
+function updateScrollCue() {
+  if (!scrollCueEl) return;
+  const mid = innerHeight * 0.42;
+  let label = '01';
+  for (const [sel, num] of SECTIONS) {
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    const r = el.getBoundingClientRect();
+    if (r.top <= mid && r.bottom > mid) { label = num; break; }
+  }
+  if (scrollCueEl.dataset.cur !== label) {
+    scrollCueEl.dataset.cur = label;
+    scrollCueEl.textContent = `Scroll · ${label} / 10`;
+    scrollCueEl.classList.add('is-flashing');
+    clearTimeout(scrollCueEl._t);
+    scrollCueEl._t = setTimeout(() => scrollCueEl.classList.remove('is-flashing'), 320);
+  }
+}
+
+let _uiRaf = 0;
+function onScrollUI() {
+  if (_uiRaf) return;
+  _uiRaf = requestAnimationFrame(() => { _uiRaf = 0; updateActiveCap(); updateScrollCue(); });
+}
+addEventListener('scroll', onScrollUI, { passive: true });
+addEventListener('resize', onScrollUI);
+// Lenis intercepts native scroll on wheel, so the window 'scroll' event can
+// miss frames during smooth-scroll. Poll on the gsap ticker as a bulletproof
+// fallback — fires once per frame, costs only a getBoundingClientRect read.
+if (window.gsap && window.gsap.ticker) {
+  let _lastY = -1;
+  window.gsap.ticker.add(() => {
+    const y = window.scrollY;
+    if (y !== _lastY) { _lastY = y; onScrollUI(); }
+  });
+}
+updateActiveCap();
+updateScrollCue();
+
+/* ─── Hide cursor on blur ─── */
+addEventListener('blur', () => document.body.classList.add('is-cursor-hidden'));
+addEventListener('focus', () => document.body.classList.remove('is-cursor-hidden'));
+</script>
+</body>
+</html>
