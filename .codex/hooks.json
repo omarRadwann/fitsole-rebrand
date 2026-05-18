@@ -1,0 +1,15 @@
+{
+  "note": "Example hook-style policy file. Exact Codex hook support may vary by environment. Use scripts directly if hooks are not supported.",
+  "post_edit": [
+    "bash .agents/skills/award-website-os/scripts/quick-check.sh"
+  ],
+  "pre_final": [
+    "bash .agents/skills/award-website-os/scripts/final-smart-check.sh"
+  ],
+  "smart_pass": {
+    "anti_genericity": true,
+    "asset_ledger": true,
+    "no_template_checklist": true,
+    "visual_review_required": true
+  }
+}

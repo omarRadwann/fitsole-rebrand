@@ -1,5 +1,9 @@
-# Local preview / IDE state
-.claude/
+# Local preview state (the rest of .claude/ — agents/settings — is tracked
+# because it's part of the agent OS that ships with the repo)
+.claude/launch.json
+.claude/cache/
+.claude/sessions/
+.claude/local/
 .vscode/
 .idea/
 .DS_Store
