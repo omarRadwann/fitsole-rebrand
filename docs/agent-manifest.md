@@ -1,0 +1,21 @@
+# Agent Manifest
+
+- **accessibility-ux-master** — Codex: `.codex/agents/accessibility-ux-master.toml`; Claude: `.claude/agents/accessibility-ux-master.md`; sandbox: `read-only`
+- **art-director** — Codex: `.codex/agents/art-director.toml`; Claude: `.claude/agents/art-director.md`; sandbox: `read-only`
+- **asset-pipeline-master** — Codex: `.codex/agents/asset-pipeline-master.toml`; Claude: `.claude/agents/asset-pipeline-master.md`; sandbox: `workspace-write`
+- **blender-production-master** — Codex: `.codex/agents/blender-production-master.toml`; Claude: `.claude/agents/blender-production-master.md`; sandbox: `workspace-write`
+- **codex-orchestrator** — Codex: `.codex/agents/codex-orchestrator.toml`; Claude: `.claude/agents/codex-orchestrator.md`; sandbox: `workspace-write`
+- **creative-director** — Codex: `.codex/agents/creative-director.toml`; Claude: `.claude/agents/creative-director.md`; sandbox: `read-only`
+- **creative-technologist-master** — Codex: `.codex/agents/creative-technologist-master.toml`; Claude: `.claude/agents/creative-technologist-master.md`; sandbox: `workspace-write`
+- **frontend-engineer** — Codex: `.codex/agents/frontend-engineer.toml`; Claude: `.claude/agents/frontend-engineer.md`; sandbox: `workspace-write`
+- **gpu-performance-master** — Codex: `.codex/agents/gpu-performance-master.toml`; Claude: `.claude/agents/gpu-performance-master.md`; sandbox: `read-only`
+- **gsap-animation-master** — Codex: `.codex/agents/gsap-animation-master.toml`; Claude: `.claude/agents/gsap-animation-master.md`; sandbox: `workspace-write`
+- **image-generation-director** — Codex: `.codex/agents/image-generation-director.toml`; Claude: `.claude/agents/image-generation-director.md`; sandbox: `read-only`
+- **market-researcher** — Codex: `.codex/agents/market-researcher.toml`; Claude: `.claude/agents/market-researcher.md`; sandbox: `read-only`
+- **master-technical-director** — Codex: `.codex/agents/master-technical-director.toml`; Claude: `.claude/agents/master-technical-director.md`; sandbox: `read-only`
+- **release-qa-master** — Codex: `.codex/agents/release-qa-master.toml`; Claude: `.claude/agents/release-qa-master.md`; sandbox: `read-only`
+- **screenshot-critic** — Codex: `.codex/agents/screenshot-critic.toml`; Claude: `.claude/agents/screenshot-critic.md`; sandbox: `read-only`
+- **shader-webgl-master** — Codex: `.codex/agents/shader-webgl-master.toml`; Claude: `.claude/agents/shader-webgl-master.md`; sandbox: `workspace-write`
+- **threejs-r3f-master** — Codex: `.codex/agents/threejs-r3f-master.toml`; Claude: `.claude/agents/threejs-r3f-master.md`; sandbox: `workspace-write`
+- **typography-layout-master** — Codex: `.codex/agents/typography-layout-master.toml`; Claude: `.claude/agents/typography-layout-master.md`; sandbox: `workspace-write`
+- **ux-copy-strategist** — Codex: `.codex/agents/ux-copy-strategist.toml`; Claude: `.claude/agents/ux-copy-strategist.md`; sandbox: `read-only`
