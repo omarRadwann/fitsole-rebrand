@@ -124,6 +124,7 @@ Before any final answer, load and apply the smart pass knowledge files:
 - `28-agent-collaboration-patterns.md`
 - `29-smart-dependency-stack-decisions.md`
 - `30-final-smart-os-addendum.md`
+- `36-community-techniques-may-2026.md`  (snapshot of X-thread techniques — frontend-design skill, claude-code-setup plugin, luxury-3D-alcove pattern)
 
 ## Mandatory Smart Gates
 

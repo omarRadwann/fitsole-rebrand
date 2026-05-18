@@ -14,6 +14,17 @@
   <link rel="stylesheet" href="caliper-core.css">
 
   <meta name="theme-color" content="#f5efe2">
+
+  <!-- Three.js importmap — loaded lazily by caliper-core.js after first paint.
+       Same CDN pattern as Halo (see ../index.html). -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -55,6 +66,7 @@
           <span><strong>Engagement</strong> — diagnostic</span>
           <span><strong>Fee</strong> — $9,500 fixed</span>
           <span><strong>Duration</strong> — 14 days</span>
+          <span><strong>Live spread</strong> — <span data-measure-value tabindex="0">0.0 mm</span></span>
         </div>
         <a class="cta" href="#run-a-diagnostic">Run a diagnostic →</a>
         &nbsp;

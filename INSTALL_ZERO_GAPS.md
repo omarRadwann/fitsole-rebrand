@@ -60,3 +60,27 @@ This package now includes both skill locations:
 - Claude Code: `.claude/skills/award-website-os/`
 
 Claude subagents now preload the `award-website-os` skill, and hook commands have safer root fallbacks. Windows PowerShell companion scripts are included for evidence creation and final checks.
+
+## Optional companion installs (Anthropic-official, community-recommended)
+
+Both are documented in `.agents/skills/award-website-os/knowledge/36-community-techniques-may-2026.md`.
+
+### A. Frontend-design skill
+
+Forces commit to an aesthetic direction before code (brutalist / editorial / retro-futuristic / luxurious / maximalist). Complements this OS's art-direction discipline.
+
+```bash
+npx skills add github.com/anthropics/skills --skill frontend-design
+```
+
+Verified `npx skills` CLI is functional and `github.com/anthropics/skills` resolves (2026-05-18). Install requires your authorization.
+
+### B. claude-code-setup plugin
+
+Scans the project and recommends hooks / skills / MCP servers / subagents / automations. Read-only (recommends, does not install — community note confirms). Useful as a sanity check after every major OS upgrade.
+
+```
+/plugin install claude-code-setup@claude-plugins-official
+```
+
+Run this as a slash command inside Claude Code.

@@ -2,7 +2,7 @@
 
 A fictional precision-marketing studio used as the second portfolio piece in this repo. Coexists with Halo at the repo root (Halo is the editorial-dark agency; Caliper is the mechanical-instrument agency — deliberate opposite poles).
 
-## Build status — stage 1 (strategy locked)
+## Build status — stage 2/3 checkpoint
 
 | Stage | Status |
 |---|---|
@@ -10,13 +10,17 @@ A fictional precision-marketing studio used as the second portfolio piece in thi
 | Research | **Manual review** — `../docs/research-brief.md` (live competitor scan: Not run) |
 | Concept territories scored | **Verified** — `../docs/concept-scorecard.md` — Concept A "The Diagnostic Instrument" selected |
 | Art direction | **Verified** — `../docs/art-direction.md` — schematic blueprint aesthetic locked |
-| Copy system | **Verified** — `../docs/copy-system.md` — voice + banned words + headlines locked |
+| Copy system | **Verified** — `../docs/copy-system.md` — voice + banned words + headlines locked; `/work.html` spec updated with alcove pattern from `knowledge/36-community-techniques-may-2026.md` |
 | Asset ledger | **Verified** — `../docs/asset-ledger.csv` |
-| Build — index hero | **Manual review** — `./index.html` (this is a foundation hero; the full home is the next stage) |
-| Build — method.html, work.html, studio.html | **Not run** — next stages |
-| Blender caliper instrument | **Not run** — script lives at `./blender/caliper_instrument.py` (to be written) |
-| QA — Playwright, Lighthouse, axe | **Not run** — pending full build |
-| Ship decision | **Not run** — `../docs/ship-decision.md` blank until QA |
+| Build — index hero + § 02 spread test | **Verified** — `./index.html` |
+| Build — Blender caliper instrument | **Verified** — `./blender/caliper_instrument.py` builds idempotently; outputs `./blender/caliper.glb` at 14.94 KB Draco-compressed (budget 80 KB) |
+| Build — Three.js scene wired to scroll + keyboard | **Verified** — `./caliper-core.js` loads Three.js via importmap, mounts GLB, scrubs `measuring` animation by scroll/keyboard, falls back to SVG when WebGL fails or reduced-motion is set |
+| Build — § 03–09 (diagnostic, engagements, refusals, work, studio, CTA, footer) | **Not run** — next stages |
+| Build — method.html, work.html (alcove pattern), studio.html | **Not run** — next stages |
+| Mobile vertical-caliper rotation | **Not run** — flagged in `../docs/qa-report.md` |
+| QA — Playwright screenshot | **Verified** — `../upgrade-diffs/smoke/caliper-stage2-home-v2.png` |
+| QA — Lighthouse, axe live runs | **Not run** — pending full build |
+| Ship decision | **NO SHIP — stage checkpoint only** per `../docs/qa-report.md` |
 
 ## Path
 

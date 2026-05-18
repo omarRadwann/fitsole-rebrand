@@ -234,6 +234,20 @@ main {
   color: var(--ink);
   font-weight: 500;
 }
+.hero .meta [data-measure-value] {
+  color: var(--measure);
+  font-weight: 500;
+  padding: 2px 4px;
+  border: 1px dotted var(--rule);
+  cursor: ns-resize;
+  transition: border-color var(--t-fast) var(--ease-mech), background var(--t-fast) var(--ease-mech);
+}
+.hero .meta [data-measure-value]:hover,
+.hero .meta [data-measure-value]:focus-visible {
+  border-color: var(--measure);
+  background: color-mix(in oklch, var(--measure) 6%, transparent);
+  outline: none;
+}
 
 /* CTA */
 .cta {
