@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#f5a040" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#f5a040" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#f5a040" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Editorial dark plate -->
+  <rect width="1200" height="630" fill="#10101a"/>
+  <!-- Soft amber field around the halo glyph -->
+  <rect x="700" y="115" width="400" height="400" fill="url(#halo)"/>
+  <!-- The halo ring, tilted as in the hero -->
+  <ellipse cx="900" cy="315" rx="155" ry="155" fill="none" stroke="#f5a040" stroke-width="2.5" opacity="0.85" transform="rotate(-14 900 315)"/>
+  <ellipse cx="900" cy="315" rx="155" ry="48" fill="none" stroke="#f5a040" stroke-width="1.6" opacity="0.45" transform="rotate(8 900 315)"/>
+  <!-- The brand dot, gravitational center -->
+  <circle cx="900" cy="315" r="22" fill="#f5a040"/>
+  <circle cx="900" cy="315" r="40" fill="none" stroke="#f5a040" stroke-width="1" opacity="0.35"/>
+  <!-- Wordmark -->
+  <text x="80" y="275" font-family="Instrument Serif, Georgia, serif" font-size="148" font-style="italic" fill="#f4f4ec" letter-spacing="-4">Halo.</text>
+  <!-- Tagline -->
+  <text x="80" y="345" font-family="Instrument Serif, Georgia, serif" font-size="38" font-style="italic" fill="#d8d8c8" letter-spacing="-0.5">We build the field,</text>
+  <text x="80" y="395" font-family="Instrument Serif, Georgia, serif" font-size="38" font-style="italic" fill="#d8d8c8" letter-spacing="-0.5">not the funnel.</text>
+  <!-- Bottom rail -->
+  <line x1="80" y1="510" x2="200" y2="510" stroke="#3a3a48" stroke-width="1"/>
+  <text x="80" y="548" font-family="JetBrains Mono, monospace" font-size="16" fill="#7a7a8a" letter-spacing="3">A GROWTH PRACTICE</text>
+  <text x="80" y="580" font-family="JetBrains Mono, monospace" font-size="16" fill="#7a7a8a" letter-spacing="3">LISBON · NEW YORK · MMXXVI</text>
+  <!-- Brand status dot -->
+  <circle cx="1095" cy="555" r="5" fill="#f5a040"/>
+  <text x="1110" y="560" font-family="JetBrains Mono, monospace" font-size="14" fill="#7a7a8a" letter-spacing="2">ALL SYSTEMS NOMINAL</text>
+</svg>

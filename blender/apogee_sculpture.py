@@ -50,6 +50,7 @@ GLB_PATH         = os.path.join(OUT_DIR, "apogee_sculpture.glb")
 WORK_GLB_PATH    = os.path.join(OUT_DIR, "apogee_work.glb")
 STUDIO_GLB_PATH  = os.path.join(OUT_DIR, "apogee_studio.glb")
 JOURNAL_GLB_PATH = os.path.join(OUT_DIR, "apogee_journal.glb")
+LOST_GLB_PATH    = os.path.join(OUT_DIR, "apogee_lost.glb")
 BLEND_PATH       = os.path.join(OUT_DIR, "apogee_sculpture.blend")
 
 # ─── 1. Wipe scene ───────────────────────────────────────────────────────────
@@ -350,6 +351,54 @@ def build_studio_orb():
     normalize_scale(obj)
     return obj
 
+def build_lost_form(radius=1.45, tube=0.045, major_segments=256, minor_segments=12, gaps=((22, 42), (138, 162))):
+    """404 page — the halo with sectors missing.
+    Reads as 'the brand glyph interrupted' — the page is incomplete.
+    Procedural: a torus minus a couple of sectors, smooth-shaded.
+    """
+    bm = bmesh.new()
+    rings = []
+    for i in range(major_segments):
+        in_gap = any(start <= i < end for start, end in gaps)
+        if in_gap:
+            rings.append(None)
+            continue
+        u = (i / major_segments) * math.pi * 2.0
+        sx = math.cos(u) * radius
+        sy = 0.0
+        sz = math.sin(u) * radius
+        tangent = Vector((-math.sin(u), 0.0, math.cos(u))).normalized()
+        normal = Vector((0.0, 1.0, 0.0))
+        binormal = tangent.cross(normal).normalized()
+        ring = []
+        for j in range(minor_segments):
+            v = (j / minor_segments) * math.pi * 2.0
+            offset = (math.cos(v) * tube) * normal + (math.sin(v) * tube) * binormal
+            ring.append(bm.verts.new(Vector((sx, sy, sz)) + offset))
+        rings.append(ring)
+    bm.verts.ensure_lookup_table()
+    for i in range(major_segments):
+        r0 = rings[i]
+        r1 = rings[(i + 1) % major_segments]
+        if r0 is None or r1 is None:
+            continue
+        for j in range(minor_segments):
+            j2 = (j + 1) % minor_segments
+            bm.faces.new([r0[j], r0[j2], r1[j2], r1[j]])
+    mesh = bpy.data.meshes.new("ApogeeLost")
+    bm.normal_update()
+    bm.to_mesh(mesh)
+    bm.free()
+    obj = bpy.data.objects.new("ApogeeLost", mesh)
+    obj.rotation_euler = (0.42, 0.0, -0.18)
+    bpy.context.collection.objects.link(obj)
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.object.shade_smooth()
+    assign_placeholder_material(obj)
+    normalize_scale(obj)
+    return obj
+
 def build_journal_strip(length=2.6, width=0.45, segments=220, thickness=0.018, twists=1.4, wave_amp=0.12):
     """Journal page — a twisted ribbon, like a folded page edge on rotation.
     Reads as 'the writing' — editorial, linear, with a slow Mobius-style twist.
@@ -458,7 +507,12 @@ def main():
     build_journal_strip()
     export_named_glb(JOURNAL_GLB_PATH, ["ApogeeJournal"])
 
-    print("[apogee] done. Four variants written.")
+    # ── Variant E: 404 — broken halo with sectors missing ──
+    wipe_scene()
+    build_lost_form()
+    export_named_glb(LOST_GLB_PATH, ["ApogeeLost"])
+
+    print("[apogee] done. Five variants written.")
     if bpy.app.background:
         bpy.ops.wm.quit_blender()
 

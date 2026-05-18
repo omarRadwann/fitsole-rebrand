@@ -46,6 +46,16 @@ You're picking up a single-file web masterpiece called **Halo** — a fictional 
     - `apogee_studio.glb` — studio: calm icosphere + subdivision + subtle Musgrave displacement, 27K verts (171KB)
     - `apogee_journal.glb` — journal: twisted ribbon authored via bmesh — a Mobius-style strip with a 1.4-turn twist over its length, 880 verts (7.8KB)
 - ✅ **Per-page 3D moment**: each internal page hero now floats its variant on the right edge — small Three.js scene (no postprocessing, low-power renderer, alpha:true, PMREM environment, same dispersion-glass material as the home) loading the page's specific GLB. Calm rotations (.18→.32 rad/s) appropriate to each form's identity. Procedural fallback geometry per page if the GLB fails. Disabled on `prefers-reduced-motion`; dimmed and tucked behind text on narrow viewports.
+- ✅ **Production polish + SEO foundation** (per moon-level §20):
+  - `404.html` — custom Halo-branded "Page between engagements" with the 5th Blender variant `apogee_lost.glb` (broken halo, two missing sectors), slow melancholy rotation, brand-coherent copy ("The halo broke", "Brand is a system, not a logo"), four navigation buttons back to the live pages
+  - `robots.txt` + `sitemap.xml` listing all 4 main pages with lastmod and priority
+  - `favicon.svg` — 32×32 amber dot inside the halo ring, dark plate
+  - `manifest.webmanifest` — PWA-ready manifest with name, scope, theme color, icon
+  - `og-image.svg` — 1200×630 social-share image with Halo wordmark, tagline, halo glyph
+  - Open Graph + Twitter Card meta tags on all 5 pages with per-page title/description/url/image
+  - `<link rel="canonical">` on every page
+  - JSON-LD `Organization` schema on home (name, slogan, founding date, two addresses, knowsAbout); JSON-LD `Blog` + `BlogPosting` on journal page (featured essay marked up for structured data)
+- ✅ **Full Agent OS in the repo** — 94 files including 19 Claude Code specialist agents, 19 Codex mirror agents, the 31-knowledge-master award-website skill, scripts, templates, and the `ULTIMATE_WEBSITE_AGENT_OS.md` source-of-truth. Future Claude/Codex sessions on this repo have a complete moon-level production environment ready to use.
 
 **The deliverable is one HTML file:** `apogee.html` (~80 KB after rebrand, ~2050 lines) + `blender/apogee_sculpture.py` + the baked `apogee_sculpture.glb`.
 

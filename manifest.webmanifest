@@ -1,0 +1,15 @@
+{
+  "name": "Halo — A growth practice for brands that prefer presence to noise.",
+  "short_name": "Halo",
+  "description": "Halo is a growth-marketing practice that builds magnetic brand systems. We design the field — the gravitational pull behind durable demand — not the funnel.",
+  "start_url": "/halo/",
+  "scope": "/halo/",
+  "display": "standalone",
+  "background_color": "#0a0b14",
+  "theme_color": "#f5a040",
+  "icons": [
+    { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ],
+  "categories": ["business", "marketing", "design"],
+  "lang": "en"
+}

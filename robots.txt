@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /.claude/
+Disallow: /.codex/
+Disallow: /.agents/
+Disallow: /blender/
+
+Sitemap: https://omarradwann.github.io/halo/sitemap.xml
