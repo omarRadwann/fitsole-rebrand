@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The studio — four operators, no portraits · Caliper</title>
+  <meta name="description" content="Caliper is a fictional four-person precision-marketing studio. This page documents the people, the cadence, the pricing rationale, and the published refusals.">
+  <link rel="canonical" href="./studio.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="caliper-core.css">
+
+  <meta name="theme-color" content="#f5efe2">
+
+  <style>
+    .studio-hero { grid-column: 1 / -1; margin-bottom: 56px; }
+    .studio-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.8vw, 80px);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.025em;
+      font-weight: 400;
+      font-stretch: 87.5%;
+      margin: 0 0 24px;
+      max-width: 14ch;
+    }
+    .studio-hero h1 .measure { color: var(--measure); }
+    .studio-hero .lede {
+      font-size: 19px;
+      line-height: 1.5;
+      max-width: 62ch;
+      margin: 0 0 14px;
+    }
+
+    .thesis {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 4fr 8fr;
+      column-gap: var(--grid-gap);
+      border-top: var(--rule-px) solid var(--rule);
+      padding-top: 32px;
+      margin-bottom: 80px;
+    }
+    .thesis__title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-mute);
+    }
+    .thesis__body p {
+      margin: 0 0 18px;
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 64ch;
+    }
+    .thesis__body p:first-child::first-line { font-variant: small-caps; }
+    .thesis__body strong { font-weight: 500; }
+
+    /* Expanded operator profiles */
+    .op-list {
+      grid-column: 1 / -1;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: var(--rule-px) solid var(--rule);
+    }
+    .op {
+      display: grid;
+      grid-template-columns: 96px 1fr 1fr;
+      column-gap: var(--grid-gap);
+      padding: 48px 0;
+      border-bottom: var(--rule-px) solid var(--rule-faint);
+    }
+    .op__init {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--measure);
+      letter-spacing: 0.02em;
+      border: var(--rule-px-bold) solid var(--measure);
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .op__head .name {
+      font-family: var(--font-display);
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+      font-stretch: 87.5%;
+      margin: 0 0 6px;
+    }
+    .op__head .role {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--ink-mute);
+      margin-bottom: 14px;
+    }
+    .op__head .bio { font-size: 15.5px; line-height: 1.55; max-width: 46ch; margin: 0; }
+    .op__details {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 16px;
+    }
+    .op__row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      column-gap: 14px;
+    }
+    .op__row .lbl {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--measure);
+      text-transform: uppercase;
+      padding-top: 4px;
+    }
+    .op__row p { margin: 0; font-size: 15.5px; line-height: 1.55; max-width: 52ch; }
+
+    /* How we work — three principles + the Friday session */
+    .how-we-work {
+      grid-column: 1 / -1;
+      margin-top: 96px;
+    }
+    .how-we-work h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      font-stretch: 87.5%;
+      margin: 0 0 24px;
+      max-width: 18ch;
+    }
+    .how-we-work__intro { max-width: 60ch; margin: 0 0 48px; }
+    .principles {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: var(--rule-px) solid var(--rule);
+    }
+    .principle {
+      display: grid;
+      grid-template-columns: 80px 4fr 8fr;
+      column-gap: var(--grid-gap);
+      padding: 28px 0;
+      border-bottom: var(--rule-px) solid var(--rule-faint);
+    }
+    .principle__no {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--ink-mute);
+      padding-top: 4px;
+    }
+    .principle h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      font-weight: 500;
+      font-stretch: 87.5%;
+      margin: 0;
+    }
+    .principle p { margin: 0; font-size: 16px; line-height: 1.55; max-width: 60ch; }
+
+    /* Pricing rationale */
+    .pricing-rationale {
+      grid-column: 1 / -1;
+      margin-top: 96px;
+      display: grid;
+      grid-template-columns: 4fr 8fr;
+      column-gap: var(--grid-gap);
+      border-top: var(--rule-px) solid var(--rule);
+      padding-top: 32px;
+    }
+    .pricing-rationale h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      font-stretch: 87.5%;
+      margin: 0;
+      max-width: 18ch;
+    }
+    .pricing-rationale__body p {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+    .pricing-rationale__body strong { font-weight: 500; }
+    .pricing-rationale__body .price {
+      font-family: var(--font-mono);
+      color: var(--measure);
+      font-weight: 500;
+    }
+
+    /* Disclosure block */
+    .disclosure {
+      grid-column: 1 / -1;
+      margin-top: 96px;
+      border-top: var(--rule-px-bold) solid var(--measure);
+      padding-top: 28px;
+    }
+    .disclosure h2 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--measure);
+      margin: 0 0 12px;
+    }
+    .disclosure p {
+      margin: 0 0 14px;
+      font-size: 15.5px;
+      line-height: 1.6;
+      max-width: 68ch;
+    }
+    .disclosure a {
+      border-bottom: 1px dotted var(--rule);
+    }
+    .disclosure a:hover, .disclosure a:focus-visible { color: var(--measure); border-color: var(--measure); outline: none; }
+
+    @media (max-width: 960px) {
+      .thesis, .pricing-rationale { grid-template-columns: 1fr; row-gap: 16px; }
+      .op { grid-template-columns: 64px 1fr; row-gap: 16px; }
+      .op__init { width: 56px; height: 56px; font-size: 22px; }
+      .op__head, .op__details { grid-column: 2 / 3; }
+      .op__row { grid-template-columns: 80px 1fr; }
+      .principle { grid-template-columns: 48px 1fr; row-gap: 8px; }
+      .principle h3 { grid-column: 2; }
+      .principle p { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="ruler-top" role="banner">
+    <div class="ruler-top__corner" aria-hidden="true"></div>
+    <div class="ruler-top__scale" aria-hidden="true"></div>
+    <nav class="ruler-top__nav" aria-label="Primary">
+      <a href="./">index</a>
+      <a href="./method.html">method</a>
+      <a href="./work.html">work</a>
+      <a href="./studio.html" aria-current="page">studio</a>
+    </nav>
+  </header>
+
+  <aside class="ruler-left" aria-hidden="true"></aside>
+
+  <main id="main" role="main">
+    <article class="sheet">
+
+      <div class="section-no" aria-hidden="true">
+        <span>studio  —  four operators</span>
+        <span>no portraits</span>
+      </div>
+
+      <section class="studio-hero" aria-labelledby="s-h1">
+        <h1 id="s-h1">
+          Four operators.<br>
+          A <span class="measure">measured</span> studio.
+        </h1>
+        <p class="lede">
+          Caliper is small on purpose. We are four operators — research, build, voice, measurement —
+          working on between two and four engagements at a time. We don't have a head of growth,
+          a head of brand, or a head of pretty much anything. The work is the work.
+        </p>
+        <p class="lede">
+          This page documents the people, how we work together, what we charge and why, and the
+          published refusals that define the studio more than its capabilities do.
+        </p>
+      </section>
+
+      <!-- Thesis -->
+      <section class="thesis" aria-labelledby="thesis-h">
+        <div class="thesis__title" id="thesis-h">THESIS</div>
+        <div class="thesis__body">
+          <p>
+            <strong>A marketing studio is the sum of its refusals more than its capabilities.</strong>
+            Most agencies sell capabilities because capabilities are easy to list and refusals are
+            expensive to choose. We don't think the world needs another agency with a capabilities deck.
+          </p>
+          <p>
+            We measure twelve specific variables in every diagnostic. Each of them gets to a single
+            question that a capabilities deck cannot answer: does the team treat language as a contract,
+            or as decoration? You can detect this in a marketing site in about three minutes once you
+            know what to look for.
+          </p>
+          <p>
+            What follows is not a thesis about marketing in general. It is a thesis about how we
+            operate as a small studio. If you read this page and decide we are wrong about how studios
+            should work, please don't book a diagnostic — that's the cheapest disqualification we both get.
+          </p>
+        </div>
+      </section>
+
+      <div class="section-no" aria-hidden="true">
+        <span>the four</span>
+        <span>research · build · voice · measurement</span>
+      </div>
+
+      <!-- Operators -->
+      <ol class="op-list">
+        <li class="op" id="akram">
+          <div class="op__init">NA</div>
+          <div class="op__head">
+            <h2 class="name">N. Akram</h2>
+            <div class="role">Research lead · twelve years before Caliper</div>
+            <p class="bio">
+              Spent eight years inside two B2B SaaS marketing teams before joining a research-led
+              boutique. Runs the diagnostic for every engagement. The studio uses her audit
+              template for the first eight of the twelve measurements.
+            </p>
+          </div>
+          <div class="op__details">
+            <div class="op__row">
+              <span class="lbl">Refuses</span>
+              <p>Thirty-minute "discovery calls." They replace listening with selling, and the diagnostic is the alternative. If a prospect can't afford the diagnostic, they can't afford to listen.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Known for</span>
+              <p>A six-week diagnostic that turned a $20M ARR SaaS away from a $1.4M ad pilot — by establishing the spend wouldn't outpace pipeline maturity until Q3. Now widely quoted internally as the prevention story.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Writes at</span>
+              <p>The studio's <a href="./method.html">methodology</a> page; an essay on the spread test that has circulated in operator newsletters since early 2026.</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="op" id="rifai">
+          <div class="op__init">JR</div>
+          <div class="op__head">
+            <h2 class="name">J. Rifai</h2>
+            <div class="role">Build lead · ships everything</div>
+            <p class="bio">
+              Came from an in-house growth-marketing team that shipped three landing pages a week
+              for two years. Will not commit to a build that doesn't have a real launch date in
+              the contract.
+            </p>
+          </div>
+          <div class="op__details">
+            <div class="op__row">
+              <span class="lbl">Refuses</span>
+              <p>Building anything that doesn't ship within 21 days. If it cannot, the scope is wrong; the answer is to descope, not to extend.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Known for</span>
+              <p>A pricing page that recovered a Series-B SaaS's margin compression in one cycle; the page hadn't moved in two years and the move took 11 days. The team had spent eighteen months arguing about it internally.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Will work on</span>
+              <p>Landing pages, lifecycle sequences, pricing pages, positioning documents, sales-collateral kits. Nothing animated, nothing 3D, nothing with a build step.</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="op" id="olivier">
+          <div class="op__init">MO</div>
+          <div class="op__head">
+            <h2 class="name">M. Olivier</h2>
+            <div class="role">Voice · the writing on the page</div>
+            <p class="bio">
+              Reads more than she writes; tests every line by reading it out loud. Will not deliver
+              a voice document that hasn't been put through a real publish queue first. Has a strong
+              opinion about commas that she will share unprompted.
+            </p>
+          </div>
+          <div class="op__details">
+            <div class="op__row">
+              <span class="lbl">Refuses</span>
+              <p>Brand-voice documents that aren't tested against a real publish queue. Voice exists in writing; everything else is theatre.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Known for</span>
+              <p>A refusal-led product positioning that cut a sales cycle by 38 days, by changing the first sentence on the pricing page from a benefit to a self-disqualification. The team's CS lead later called it the single highest-ROI piece of writing the company ever shipped.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Reads</span>
+              <p>The Economist, Strunk, the entire run of Letter & Spirit, and the Friday newsletter of every operator she's ever worked for. Will not subscribe to anything called "content marketing weekly."</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="op" id="devereux">
+          <div class="op__init">RD</div>
+          <div class="op__head">
+            <h2 class="name">R. Devereux</h2>
+            <div class="role">Measurement · the twelfth measurement</div>
+            <p class="bio">
+              Started in finance, moved to performance marketing, moved to in-house analytics, then
+              into the studio. Writes the attribution-honesty section of every diagnostic and treats
+              it as the slowest of the twelve. Will not let the team ship a brief without it.
+            </p>
+          </div>
+          <div class="op__details">
+            <div class="op__row">
+              <span class="lbl">Refuses</span>
+              <p>Dashboards that don't trace to one decision. If a chart can't change a choice, it's a screensaver.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Known for</span>
+              <p>A widely-shared method note about why most agency lift percentages are unfalsifiable, including a worked example with permission. It's the single most-linked piece of writing on the studio's site.</p>
+            </div>
+            <div class="op__row">
+              <span class="lbl">Quietly proud of</span>
+              <p>The fact that he has, on three separate occasions, recommended a client spend less on marketing and was retained anyway.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <!-- How we work -->
+      <section class="how-we-work" aria-labelledby="hww-h">
+        <div class="section-no" aria-hidden="true">
+          <span>how we work</span>
+          <span>three principles · the Friday session</span>
+        </div>
+        <h2 id="hww-h">
+          Three principles.<br>
+          One standing call a week.
+        </h2>
+        <p class="how-we-work__intro">
+          The work is the work; the rest is process. We have three principles that shape every
+          engagement and one weekly call (Friday, 90 minutes) that is the only standing meeting we hold.
+          Everything else is written and asynchronous.
+        </p>
+        <ol class="principles">
+          <li class="principle">
+            <div class="principle__no">01</div>
+            <h3>Write before talking.</h3>
+            <p>
+              We write to think. Every diagnostic, brief, and recommendation lands as a document,
+              not a deck. We then talk about the document, not in advance of it. This makes calls
+              shorter and decisions cleaner.
+            </p>
+          </li>
+          <li class="principle">
+            <div class="principle__no">02</div>
+            <h3>One decision per call.</h3>
+            <p>
+              The Friday session is for one decision, not five. We circulate the decision and the
+              alternatives the day before, and the call settles it. If a call has to settle two
+              decisions, we cut the second one and put it on next week's docket.
+            </p>
+          </li>
+          <li class="principle">
+            <div class="principle__no">03</div>
+            <h3>Ship every fourteen days.</h3>
+            <p>
+              An engagement that hasn't shipped anything in two weeks is a research engagement, not
+              a build engagement. We can do either, but they have different pricing and different
+              scopes. We don't blend them in the same contract.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Pricing rationale -->
+      <section class="pricing-rationale" aria-labelledby="pr-h">
+        <h2 id="pr-h">What we charge,<br>and why.</h2>
+        <div class="pricing-rationale__body">
+          <p>
+            The diagnostic is <strong class="price">$9,500 fixed</strong> for fourteen days. We charge
+            this because it is the smallest amount of money that still forces the client to take the
+            engagement seriously and the smallest amount of time that lets us run all twelve
+            measurements honestly. Lower would mean we'd cut something; higher would mean we're
+            extracting rent on a thing the buyer can't yet judge.
+          </p>
+          <p>
+            The build engagement is <strong class="price">$25–80K per project</strong>, three weeks
+            maximum, one shipped artifact. The range is scoped from the diagnostic; we don't begin
+            a build engagement without one. Within the range, the variable is mostly scope and
+            time-zone overlap; we will say no to engagements where the time-zone overlap with our
+            team is under three hours a day.
+          </p>
+          <p>
+            The retainer is <strong class="price">$18,000 per month</strong>, three months minimum.
+            Two shipped artifacts a month, one Friday session, all artifacts logged in your repository
+            (not in a status doc). We hold a strict cap of four retainer clients at a time. When we
+            hit the cap we say no and we mean it; we have turned away clients at this stage.
+          </p>
+          <p>
+            All three are post-paid: invoiced at the end of the engagement (Diagnostic, Build) or end
+            of the month (Retainer). We do not require deposits and we do not accept retainer-as-deposit
+            arrangements. If we ever can't ship, you don't pay.
+          </p>
+        </div>
+      </section>
+
+      <!-- Disclosure -->
+      <section class="disclosure" aria-labelledby="disc-h">
+        <h2 id="disc-h">FICTIONAL-STUDIO DISCLOSURE</h2>
+        <p>
+          Caliper is a fictional precision-marketing studio used as a portfolio piece in this repository.
+          The studio does not exist as a registered entity; none of the four operators named on this page
+          are real people; none of the case studies on the <a href="./work.html">work</a> page describe
+          real engagements. The methodology, the pricing structure, and the operating principles are
+          honest expressions of how a studio could plausibly operate; they are not statements about a
+          studio that does.
+        </p>
+        <p>
+          The repository is also the second of two coexisting portfolio pieces. <a href="../index.html">Halo</a>,
+          which lives at the repo root, is a deliberately opposite-pole study: a fictional editorial-dark
+          growth-marketing practice with a gravity-field metaphor. Caliper is the mechanical-instrument
+          opposite. The two were designed to be read in pair as deliberate contrasts.
+        </p>
+        <p>
+          Both sites were built with the Moon-Level Website Agent OS — see <a href="../README_AGENT_OS.md">README_AGENT_OS.md</a>
+          and <a href="../START_HERE.md">START_HERE.md</a> for the OS itself.
+        </p>
+      </section>
+
+      <!-- Close -->
+      <section class="colophon-block" aria-labelledby="end-h">
+        <h2 id="end-h" class="sr-only">End of studio page</h2>
+        <div class="colophon-block__cols">
+          <div>
+            <div class="colophon-block__lbl">If we're a fit</div>
+            <p>
+              The diagnostic is the only safe first commitment. Two weeks, $9,500 fixed, a written brief.
+              <br><br>
+              <a href="./#run-a-diagnostic" class="cta" style="display:inline-flex">Run a diagnostic →</a>
+            </p>
+          </div>
+          <div>
+            <div class="colophon-block__lbl">If we might not be</div>
+            <p>
+              Our published <a href="./#refusals">refusals</a> are deliberate. Pre-revenue startups,
+              performance-media operations, B2C consumer brands, and founder-content ghostwriting
+              are four engagement shapes we don't take. We say no quickly and we mean it.
+            </p>
+          </div>
+          <div>
+            <div class="colophon-block__lbl">If you just want to read</div>
+            <p>
+              <a href="./method.html">The methodology</a> is the entire diagnostic, on one page,
+              free. The example values are anonymised composites; the calibration is real.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <footer class="colophon">
+      <span>caliper / studio · four operators</span>
+      <span>built on the moon-level website agent OS · <a href="../README.md">repo</a> · <a href="../README_AGENT_OS.md">OS</a></span>
+      <span><strong>stage 5</strong> — studio · method + work</span>
+    </footer>
+  </main>
+
+  <script src="caliper-core.js" defer></script>
+</body>
+</html>

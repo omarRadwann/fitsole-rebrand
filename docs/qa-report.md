@@ -1,6 +1,6 @@
-# QA Report — Caliper (stage 4 checkpoint)
+# QA Report — Caliper (stage 5 checkpoint)
 
-Per V7 `10-qa-screenshot-release-master.md`. This is a stage-4 QA: the home is now complete (all 9 sections shipped) but the three additional pages (method / work / studio) and a real Lighthouse / axe pass remain. Labels follow the V7 truthfulness gate: Verified / Manual review / Not run / Blocked.
+Per V7 `10-qa-screenshot-release-master.md`. This is a stage-5 QA: all four Caliper pages now ship (index, method, work, studio). What remains for a real ship decision: live Lighthouse + axe, mobile 390px Playwright runs, and the `seeking` / `disengaged` animation clips wiring to scroll-between-alcoves (currently only `measuring` is in use on the home). Labels follow the V7 truthfulness gate: Verified / Manual review / Not run / Blocked.
 
 ## Commands Run
 
@@ -69,18 +69,19 @@ npx playwright screenshot http://localhost:8768/caliper/    # captured twice
 - No stock photography, no AI-generated imagery, no audio.
 - Berkeley Mono substituted with JetBrains Mono per `docs/art-direction.md §Typography` — documented in `asset-ledger.csv`.
 
-## Known Limitations (as of stage 4)
+## Known Limitations (as of stage 5)
 
-1. `method.html`, `work.html`, `studio.html` not yet created. `/work.html` will apply the luxury-alcove pattern per `knowledge/36-community-techniques-may-2026.md §B.1`. **— stage 5**
-2. Lighthouse / axe / live accessibility QA not yet run. **— stage 6**
-3. Playwright runs at 390px and 768px viewports not yet captured. **— stage 6**
-4. JS budget per `docs/art-direction.md` is unrealistic for Three.js (130 KB gzipped baseline). Needs revision when stage-6 measurements come in.
-5. The "seeking" and "disengaged" animation clips are exported in the GLB but only "measuring" is currently used. They come online with `/work.html` when scroll moves between case-study alcoves.
+1. Lighthouse / axe / live accessibility QA not yet run. **— stage 6**
+2. Playwright runs at 390px and 768px viewports not yet captured. **— stage 6**
+3. JS budget per `docs/art-direction.md` is unrealistic for Three.js (130 KB gzipped baseline). Needs revision when stage-6 measurements come in.
+4. The `seeking` and `disengaged` animation clips are exported in the GLB but currently only `measuring` is in use on the home. `/work.html` could use them between alcoves; left as a small stage-6 polish item.
+5. `/work.html` uses bespoke per-case SVG schematics rather than a shared Three.js scene with scissor regions. Chosen for performance (no additional WebGL context) and to keep each schematic semantically distinct. The knowledge-file pattern allowed both routes; we picked the SVG route. Documented in `caliper/work.html`'s closing colophon.
 6. Caliper instrument scrolls off-screen as the user moves into § 03 onward. A persistent canvas (Halo-style §11.3) was considered but deferred — the instrument's job is the hero + spread test, the rest of the page is documents.
 7. Form submit is a no-op. A real endpoint would be wired in stage 7 (ship). For now: validates fields, shows the success / error microcopy from copy-system.md, and resets.
+8. The fictional names in operator profiles (N. Akram, J. Rifai, M. Olivier, R. Devereux) were chosen as plausible international initials-plus-surname combinations and not checked against any real-person register; the disclosure block makes the fictional-studio framing explicit on `studio.html`, `work.html`, and the home colophon.
 
 ## Final Ship Decision
 
-**NO SHIP** — stage 4 checkpoint. Home is complete; pages 2-4 + live QA passes still required before any ship decision can move past NO SHIP.
+**NO SHIP** — stage 5 checkpoint. All four pages now ship visually; live QA + ship-decision artifact still required.
 
-Tag: `caliper-stage-4-checkpoint` to be set after the commit.
+Tag: `caliper-stage-5-checkpoint` to be set after the commit.

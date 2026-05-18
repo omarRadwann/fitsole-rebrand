@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The diagnostic — twelve measurements, two weeks, one brief · Caliper</title>
+  <meta name="description" content="The full Caliper diagnostic methodology, on the page. Twelve named measurements, each with definition, why we measure it, how we measure it, what the result implies, and one anonymised example value.">
+  <link rel="canonical" href="./method.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="caliper-core.css">
+
+  <meta name="theme-color" content="#f5efe2">
+
+  <style>
+    /* Method-only additions. Keeps the page self-contained per the no-build-step rule. */
+    .method-hero {
+      grid-column: 1 / -1;
+      margin-bottom: 64px;
+    }
+    .method-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.6vw, 76px);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.025em;
+      font-weight: 400;
+      font-stretch: 87.5%;
+      margin: 0 0 24px;
+      max-width: 18ch;
+    }
+    .method-hero h1 .measure { color: var(--measure); font-style: normal; }
+    .method-hero p.lede {
+      font-size: 19px;
+      line-height: 1.5;
+      max-width: 60ch;
+      margin: 0 0 8px;
+    }
+
+    .method-toc {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 4fr 8fr;
+      column-gap: var(--grid-gap);
+      margin: 48px 0 64px;
+      border-top: var(--rule-px) solid var(--rule);
+      padding-top: 24px;
+    }
+    .method-toc__title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-mute);
+    }
+    .method-toc__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--grid-gap);
+      row-gap: 6px;
+    }
+    .method-toc__list a {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      column-gap: 12px;
+      align-items: baseline;
+      padding: 6px 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink);
+      border-bottom: 1px dotted var(--rule-faint);
+      transition: color var(--t-fast) var(--ease-mech);
+    }
+    .method-toc__list a:hover, .method-toc__list a:focus-visible {
+      color: var(--measure);
+      outline: none;
+    }
+    .method-toc__list .n {
+      color: var(--ink-mute);
+      letter-spacing: 0.06em;
+    }
+
+    .meas {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 96px 1fr 1fr;
+      column-gap: var(--grid-gap);
+      padding: 56px 0;
+      border-top: var(--rule-px) solid var(--rule);
+      scroll-margin-top: calc(var(--topedge-px) + 16px);
+    }
+    .meas__no {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--measure);
+      padding-top: 6px;
+    }
+    .meas__head {
+      grid-column: 2 / 3;
+    }
+    .meas__name {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      font-stretch: 87.5%;
+      margin: 0 0 16px;
+    }
+    .meas__def {
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0;
+      max-width: 50ch;
+    }
+    .meas__details {
+      grid-column: 3 / 4;
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 18px;
+    }
+    .meas__details > div {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      column-gap: 16px;
+    }
+    .meas__details .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ink-mute);
+      padding-top: 4px;
+    }
+    .meas__details p {
+      margin: 0;
+      font-size: 15.5px;
+      line-height: 1.55;
+      max-width: 50ch;
+    }
+    .meas__example {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .meas__example .v {
+      color: var(--measure);
+      font-weight: 500;
+    }
+
+    @media (max-width: 960px) {
+      .method-toc { grid-template-columns: 1fr; row-gap: 16px; }
+      .method-toc__list { grid-template-columns: 1fr; }
+      .meas {
+        grid-template-columns: 48px 1fr;
+        row-gap: 24px;
+      }
+      .meas__no { padding-top: 2px; }
+      .meas__head, .meas__details { grid-column: 2 / 3; }
+      .meas__details > div { grid-template-columns: 96px 1fr; column-gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="ruler-top" role="banner">
+    <div class="ruler-top__corner" aria-hidden="true"></div>
+    <div class="ruler-top__scale" aria-hidden="true"></div>
+    <nav class="ruler-top__nav" aria-label="Primary">
+      <a href="./">index</a>
+      <a href="./method.html" aria-current="page">method</a>
+      <a href="./work.html">work</a>
+      <a href="./studio.html">studio</a>
+    </nav>
+  </header>
+
+  <aside class="ruler-left" aria-hidden="true"></aside>
+
+  <main id="main" role="main">
+    <article class="sheet">
+
+      <div class="section-no" aria-hidden="true">
+        <span>method  —  the diagnostic</span>
+        <span>twelve of twelve</span>
+      </div>
+
+      <section class="method-hero" aria-labelledby="m-h1">
+        <h1 id="m-h1">
+          Twelve measurements,<br>
+          two weeks, one
+          <span class="measure">written brief</span>.
+        </h1>
+        <p class="lede">
+          The diagnostic is a $9,500 fixed-fee, fourteen-day paid engagement. We don't pitch and we
+          don't promise. We measure twelve named variables across your current marketing system, write
+          a twelve- to twenty-page brief, and walk you through it in a ninety-minute playback.
+        </p>
+        <p class="lede">
+          What follows is the entire methodology. Every measurement is named, defined, justified, and
+          paired with one anonymised example value. There is nothing more behind a paywall.
+          The value is the calibration, not the list.
+        </p>
+      </section>
+
+      <nav class="method-toc" aria-label="Methodology contents">
+        <div class="method-toc__title">CONTENTS · 12 measurements</div>
+        <ol class="method-toc__list">
+          <li><a href="#m01"><span class="n">01</span><span>Spread test</span></a></li>
+          <li><a href="#m02"><span class="n">02</span><span>Conversion-path resolution</span></a></li>
+          <li><a href="#m03"><span class="n">03</span><span>Proof density</span></a></li>
+          <li><a href="#m04"><span class="n">04</span><span>Money on the page</span></a></li>
+          <li><a href="#m05"><span class="n">05</span><span>Refusal surface</span></a></li>
+          <li><a href="#m06"><span class="n">06</span><span>Methodology depth</span></a></li>
+          <li><a href="#m07"><span class="n">07</span><span>Brand-asset shipped count</span></a></li>
+          <li><a href="#m08"><span class="n">08</span><span>Sales-handoff continuity</span></a></li>
+          <li><a href="#m09"><span class="n">09</span><span>Lifecycle redundancy</span></a></li>
+          <li><a href="#m10"><span class="n">10</span><span>Internal-tool spread</span></a></li>
+          <li><a href="#m11"><span class="n">11</span><span>Decision velocity</span></a></li>
+          <li><a href="#m12"><span class="n">12</span><span>Attribution honesty</span></a></li>
+        </ol>
+      </nav>
+
+      <!-- 01 ============================================================ -->
+      <section class="meas" id="m01" aria-labelledby="m01-h">
+        <div class="meas__no">01</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m01-h">Spread test</h2>
+          <p class="meas__def">For every public claim on the agency or marketing site, the verifiable artifact behind it. Measured in millimetres of distance between word and thing.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Spread is the cheapest, fastest, most useful read on how a marketing team treats truth. A team with a clean spread will fix shipping problems; a team with a wide one will defend its language. The latter is more expensive to engage with.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We list every public claim on the marketing site, then ask for the artifact. Strategy doc, creative brief, audience research, named case study with permission. Each claim is scored on whether the artifact exists, whether it is current, and whether the team can name who owns it.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>A spread under 20 mm — the team can hold itself to the claims it makes. A spread between 20 and 60 mm — the team aspires; some claims hold, some don't. A spread above 60 mm — the marketing site is a brochure, not a contract. The first intervention is usually language, not strategy.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Series-B fintech, eight public claims, mean spread <span class="v">62.5 mm</span>. The widest claim was "full-funnel"; the artifact was a top-of-funnel paid-social plan with no MQL definition.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 ============================================================ -->
+      <section class="meas" id="m02" aria-labelledby="m02-h">
+        <div class="meas__no">02</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m02-h">Conversion-path resolution</h2>
+          <p class="meas__def">Decisions a visitor must make between the hero and the primary conversion. Counted as discrete choices, not page transitions.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Fewer decisions is usually but not always better. The right number depends on price, considered-ness, and what the buyer is trying to disqualify. Free trials want one decision; enterprise platforms want seven. Most marketing sites have either too many decisions for what they sell or too few for what the buyer needs.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We walk the path from a cold visitor to a committed action and count every place the visitor has to choose: which plan, which use case, which CTA, which form field, which next page. We mark each choice with the doubt it answers.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>If choices outnumber doubts, the page is friction. If doubts outnumber choices, the page is opacity. Both fail differently; the fix is different in each direction.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Developer-tools company, hero-to-trial path, <span class="v">11 choices · 4 active doubts</span>. The page was friction; we cut to 5 choices and recovered 3 weeks of cycle time on the next quarterly review.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 ============================================================ -->
+      <section class="meas" id="m03" aria-labelledby="m03-h">
+        <div class="meas__no">03</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m03-h">Proof density</h2>
+          <p class="meas__def">Number of named, role-attributed, dated proof artifacts per 1,000 words of body copy. Stock logos do not count.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Buyers don't read marketing pages linearly; they scan for proof and slow down where they find it. Generic proof (logo walls, "trusted by," anonymous testimonials) registers as decoration. Specific proof (named role, named company, dated outcome, written quote) registers as evidence.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We count each artifact and grade it on three axes: who said it, what they're responsible for, when it shipped. A logo with no permission, no role, and no date counts zero.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Density below 0.5 per 1,000 words — the buyer is asked to trust language alone. Density above 3.0 — the proof carries the page, which is usually a sign the studio is doing the work and the language is honest.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">$30M ARR vertical SaaS, home page, <span class="v">0.4 per 1,000 words</span>. Twelve logos, no permission, no quotes, no dates. The fix was to remove the wall and replace it with three named quotes; conversion improved more than the wall ever did.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 ============================================================ -->
+      <section class="meas" id="m04" aria-labelledby="m04-h">
+        <div class="meas__no">04</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m04-h">Money on the page</h2>
+          <p class="meas__def">Whether and where pricing appears. "Let's chat" is recorded as absent.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Pricing on the page is the cheapest disqualifier in marketing. It removes the buyers who can't afford the engagement, signals seriousness to the ones who can, and shortens the sales cycle by every decision the buyer no longer has to negotiate. Hiding it is usually fear of mismatched pricing — which is itself the symptom we want to surface.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We check the marketing site for a number. We score on three states: present (a price), present-as-band (a range), absent (a contact form). Custom-priced enterprise tiers are scored as band if they declare a floor; absent if they say "let's chat."</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Absent — your sales team is doing self-disqualification work that the page should do. Present — the buyer has self-selected before they meet sales. The improvement isn't always to add a number; sometimes it's to publish the rationale.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Series-B SaaS, three plans, <span class="v">all "let's chat"</span>. Sales cycle median 14 weeks. We published three-tier pricing with public refusals; median dropped to 11 weeks in the next quarter.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 ============================================================ -->
+      <section class="meas" id="m05" aria-labelledby="m05-h">
+        <div class="meas__no">05</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m05-h">Refusal surface</h2>
+          <p class="meas__def">Whether the team publicly states the engagements it will not take, and how specifically.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>A refusal is a stronger trust signal than a capability. Capabilities are easy to list; refusals require taste. A team that publishes "we don't take consumer brands under $5M revenue" is signalling, at minimum, that it has thought about who it is for and is willing to give up cheaper engagements.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We look for the words "we don't," "we won't," "we refuse," or equivalents on the marketing site. We score on specificity (vague vs. categorical), placement (footer vs. sales page), and consistency with the rest of the language.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Surface area below 0 — no refusals; the team will say yes to whatever lands. Above 2 specific refusals — the team has thought about who it is and isn't for. The strongest sites we measure publish refusals at the same level of detail as their service descriptions.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Premium boutique brand studio, <span class="v">0 published refusals</span>. After the engagement, three published refusals (no e-commerce, no rebrand-only, no founder content); inbound qualified-lead rate improved by a quarter within one quarter.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 ============================================================ -->
+      <section class="meas" id="m06" aria-labelledby="m06-h">
+        <div class="meas__no">06</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m06-h">Methodology depth</h2>
+          <p class="meas__def">Documented process steps visible to a non-customer, measured in pages and in actual decisions made per step.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>A "process" diagram with four steps and one verb each is a logo wall in disguise. A documented methodology that names the specific decision made at each step — and what it would take to make a different decision — is evidence of an actual studio. The difference is visible to a buyer who has worked with three agencies before.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We count the published methodology in pages and grade each step on whether it names a decision, an input, an output, and a refusal. Steps that fail one or more get scored down. A six-page documented methodology with weak steps grades lower than a two-page one with sharp steps.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Below 2 pages — the team treats methodology as theatre. Above 8 pages with sharp steps — the team uses it as a teaching tool, which both qualifies inbound and trains its own next hire. The latter is the right shape.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">B2B marketing platform, <span class="v">"our process" graphic, 4 verbs, 0 decisions named</span>. After: an 8-page methodology with one named decision per step. Half the inbound disqualified themselves on the page; the half that booked had a 38% higher close rate.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 ============================================================ -->
+      <section class="meas" id="m07" aria-labelledby="m07-h">
+        <div class="meas__no">07</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m07-h">Brand-asset shipped count</h2>
+          <p class="meas__def">Quantity of brand artifacts (kit components, templates, design tokens) the previous agency produced and the current team can still locate.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Most brand engagements end with a Notion guideline and a logo zip. A year later, the only durable artifact is the logo and a folder of out-of-date Sketch files. The team functionally has no brand system; they are improvising around a wordmark. This is normal and almost never disclosed.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We ask the team to open the brand kit. We count what they can actually open and use today — kit components, templates, design tokens, type files, photography rules, motion principles. We score on whether each is retrievable, current, and authored.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Count of 2 (logo + colour palette) — the team has a vibe, not a brand. Count of 12+ retrievable and used artifacts — the team has a system. Most engagements fall between 3 and 6, which is "improvising while saying brand system."</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Series-C SaaS, brand done two years prior by a holding-co agency. <span class="v">Retrievable count: 3</span>. The team had been making PowerPoint templates from scratch each month. The next engagement scoped a 14-component kit; the team's deck-output velocity tripled.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 ============================================================ -->
+      <section class="meas" id="m08" aria-labelledby="m08-h">
+        <div class="meas__no">08</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m08-h">Sales-handoff continuity</h2>
+          <p class="meas__def">Distance from MQL trigger to first sales touchpoint. Measured in hours and in number of people the lead passes through.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>The handoff is where marketing budget evaporates. A lead that triggers at 9 a.m. Tuesday and is contacted Thursday afternoon by someone who has not read the form is, statistically, no longer a lead. Most teams know this and most teams don't measure it.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We pick five recent MQLs from the CRM and walk forward in time. We record every system, person, and hour that the lead touches before a salesperson talks to them. We grade on median hours-to-touch and median number of intermediaries.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Above 24 hours / above 3 intermediaries — the funnel has a leak that no amount of marketing spend will compensate for. The first intervention is almost never a marketing fix; it's an ownership fix.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Mid-market HR tech, MQLs from form fills. Median <span class="v">38 hours, 4 intermediaries</span>. Marketing spend was 11x sales-team cost. Fix was a routing change; close rate moved without any new spend.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 ============================================================ -->
+      <section class="meas" id="m09" aria-labelledby="m09-h">
+        <div class="meas__no">09</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m09-h">Lifecycle redundancy</h2>
+          <p class="meas__def">Number of touchpoints in the first 90 days after sign-up, weighted by which ones actually carry new information.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Lifecycle sequences are usually copies of templates. Eight emails arrive; three carry distinct information and five repeat the welcome. The score is not the number of emails — it's the ratio of information-carrying emails to total emails. Below 0.5, the sequence is noise.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We sign up to the product as a clean user and read every email in the first 90 days. Each email is scored on whether it carries new information that the previous emails didn't. Re-stating the welcome is not new information.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Below 0.5 — the sequence is hurting more than it helps; unsubscribes are a rational response. Above 0.8 — every email earns its place; this is rare and usually correlates with a writer-led team.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Developer-tool, CI/CD, sign-up sequence. <span class="v">8 emails, 3 distinct, ratio 0.375</span>. After: a 4-email sequence keyed to repository activity — each email reported something the user actually did. Activation rate +44%.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 ============================================================ -->
+      <section class="meas" id="m10" aria-labelledby="m10-h">
+        <div class="meas__no">10</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m10-h">Internal-tool spread</h2>
+          <p class="meas__def">Number of internal tools each marketer must operate to ship a week's work. Counted with their licence cost.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Marketers shipping a single landing page often touch Figma, Webflow, Notion, Linear, Slack, Loom, Iterable, Mixpanel, and Looker. None of those decisions were ever made; they were inherited. The cost is real both in licence fees and in the slowness of context-switching. Most teams underestimate this by half.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>For one marketer, one week, we list every tool they sign into. We mark which tool they would not voluntarily defend keeping. We add up annual licence cost.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Above 9 tools per marketer — the team is paying a tax that compounds with every new hire. The fix is rarely the headline tool; it's the third one most marketers don't open more than twice a quarter.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">12-person marketing team, 14 tools per marketer, <span class="v">$167K/yr in licences for a $4M marketing budget</span>. Three tools removed; nobody noticed; budget recovered for an additional contractor.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 ============================================================ -->
+      <section class="meas" id="m11" aria-labelledby="m11-h">
+        <div class="meas__no">11</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m11-h">Decision velocity</h2>
+          <p class="meas__def">Time from "we should change X" to "X is live for end users." We measure the slowest decision and the median, not the fastest.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Marketing teams either ship daily or ship quarterly; almost nothing in between. The slowest decision is the diagnostic, because it reveals where the system gets stuck — legal, brand approval, engineering bandwidth, founder availability. Fixing decision velocity is usually more valuable than fixing strategy.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We pick the five most recent decisions the team identified as a needed change and walk them forward to a launch date. We record the calendar days and the named blockers at each step.</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Median above 6 weeks — the system is fighting the team more than the market is. The intervention is almost never marketing; it's a process decision and a written agreement about who owns what.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">Embedded-payments fintech, five recent changes, <span class="v">median 14 weeks, slowest 22 weeks, all stuck in legal review</span>. Intervention: a pre-cleared language appendix sales could quote without re-routing; median dropped to 3 weeks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12 ============================================================ -->
+      <section class="meas" id="m12" aria-labelledby="m12-h">
+        <div class="meas__no">12</div>
+        <header class="meas__head">
+          <h2 class="meas__name" id="m12-h">Attribution honesty</h2>
+          <p class="meas__def">How the team accounts for unattributable demand. Whether the answer is "we don't" or "we estimate it like this." We grade both.</p>
+        </header>
+        <div class="meas__details">
+          <div>
+            <span class="label">Why we measure</span>
+            <p>Most lift percentages on agency case studies are unfalsifiable; the team that owns them often knows this and shrugs. The right answer is not necessarily perfect attribution — it's an honest model of what we cannot attribute, and a stated policy on how the team behaves in the absence of clean data. Teams without this either over-spend on measurable channels or under-spend on brand.</p>
+          </div>
+          <div>
+            <span class="label">How we measure</span>
+            <p>We ask the team to estimate, on paper, how much of their pipeline they cannot attribute. We grade on whether the answer is "we don't think about it," "we use multi-touch and pretend it works," or "here is our model of unattributable demand, here is how we sized it, here is what we change when we get this wrong."</p>
+          </div>
+          <div>
+            <span class="label">What it implies</span>
+            <p>Honesty score below 2 / 5 — the team is making big decisions on partial data and pretending otherwise. Above 4 — the team knows the floor of certainty and operates from it. The latter is rare and is usually a learned behaviour, not a tool choice.</p>
+          </div>
+          <div>
+            <span class="label">Example value</span>
+            <p class="meas__example">$60M ARR vertical software, attribution honesty <span class="v">1 / 5</span>. They held a multi-touch model whose touchpoint windows added up to 412%. The first deliverable was a one-page "what we can't attribute, and how we behave in the gap" note. Six months later: an additional $4.2M in committed brand budget, against a written hypothesis.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Close ========================================================= -->
+      <section class="colophon-block" aria-labelledby="m-end">
+        <h2 id="m-end" class="sr-only">End of methodology</h2>
+        <div class="colophon-block__cols">
+          <div>
+            <div class="colophon-block__lbl">Next</div>
+            <p>
+              The diagnostic produces a twelve- to twenty-page brief with these twelve values, two
+              prioritised interventions, and one explicit refusal section. The brief is yours to keep
+              whether or not we ever work together again.
+              <br><br>
+              <a href="./#run-a-diagnostic" class="cta" style="display:inline-flex">Run a diagnostic →</a>
+            </p>
+          </div>
+          <div>
+            <div class="colophon-block__lbl">Notes</div>
+            <p>
+              The example values in this methodology are anonymised composites drawn from the studio's
+              past work. They are illustrative, not predictive. No two diagnostics produce identical brief.
+              The methodology is the constant; the values are not.
+            </p>
+          </div>
+          <div>
+            <div class="colophon-block__lbl">Companion pages</div>
+            <p>
+              <a href="./">Index</a> for the studio in one page · <a href="./work.html">Work</a> for
+              three case specimens with the caliper visible per case · <a href="./studio.html">Studio</a>
+              for the four operators and how we charge.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <footer class="colophon">
+      <span>caliper / method · the diagnostic in twelve measurements</span>
+      <span>built on the moon-level website agent OS · <a href="../README.md">repo</a> · <a href="../README_AGENT_OS.md">OS</a></span>
+      <span><strong>stage 5</strong> — method · work + studio</span>
+    </footer>
+  </main>
+
+  <script src="caliper-core.js" defer></script>
+</body>
+</html>

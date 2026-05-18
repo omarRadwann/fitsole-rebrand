@@ -2,7 +2,7 @@
 
 A fictional precision-marketing studio used as the second portfolio piece in this repo. Coexists with Halo at the repo root (Halo is the editorial-dark agency; Caliper is the mechanical-instrument agency — deliberate opposite poles).
 
-## Build status — stage 4 (home complete)
+## Build status — stage 5 (all four pages shipped)
 
 | Stage | Status |
 |---|---|
@@ -17,11 +17,13 @@ A fictional precision-marketing studio used as the second portfolio piece in thi
 | Build — Three.js scene wired to scroll + keyboard | **Verified** — `./caliper-core.js`. Scroll coupling anchored to spread section's bottom; caliper holds at 1.0 mix past § 02; ArrowKeys + PageUp/Down + Home/End on the live readout drive the same mix factor; mobile vertical-caliper rotation wired (`max-width: 960px`). |
 | Build — form submit | **Verified** — no-op handler with required-field validation; success and error microcopy match `docs/copy-system.md §Microcopy locks` |
 | Build — skip-link | **Verified** — first focusable element on body, visible only on focus, jumps to `#main` |
-| Build — method.html, work.html, studio.html | **Not run** — next stages |
-| QA — Playwright screenshot (hero + full page) | **Verified** — `../upgrade-diffs/smoke/caliper-stage4-hero.png`, `caliper-stage4-full.png` |
+| Build — method.html | **Verified** — `./method.html`. Full twelve-measurement methodology, each with definition / why / how / implies / one anonymised example value. Contents nav with anchors to each measurement. |
+| Build — work.html | **Verified** — `./work.html`. Three alcoves (Cardinal Orchard / Oblique Stack / Terrace & Vault), each with its own bespoke SVG schematic (caliper-on-30mm / bar-chart redundancy / decision-velocity timeline). The "drag the jaw — reveal mechanism" `<details>` element implements the hidden-gesture pattern from `knowledge/36-community-techniques-may-2026.md §B.1`. |
+| Build — studio.html | **Verified** — `./studio.html`. Thesis paragraph + four expanded operator profiles + three principles + Friday-session description + pricing rationale + the fictional-studio disclosure. |
+| QA — Playwright screenshots (all 4 pages) | **Verified** — `../upgrade-diffs/smoke/caliper-stage4-hero.png`, `caliper-stage4-full.png`, `caliper-method.png` + `caliper-method-full.png`, `caliper-work.png` + `caliper-work-full.png`, `caliper-studio.png` |
 | QA — Lighthouse, axe live runs | **Not run** — pending stage 6 |
-| QA — mobile responsive at 390px | **Manual review** — media-query rules in place; needs Playwright run at 390px |
-| Ship decision | **NO SHIP — stage 4 checkpoint** per `../docs/qa-report.md` |
+| QA — mobile responsive at 390px | **Manual review** — media-query rules in place across all 4 pages; needs Playwright run at 390px |
+| Ship decision | **NO SHIP — stage 5 checkpoint** per `../docs/qa-report.md` |
 
 ## Path
 

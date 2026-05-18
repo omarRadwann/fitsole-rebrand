@@ -12,7 +12,7 @@
 | Site | Path | Status | Aesthetic | Metaphor |
 |---|---|---|---|---|
 | **Halo** | `/` (root) | Shipped, deployed at `omarradwann.github.io/halo/` | Editorial dark · warm amber accent · Instrument Serif italic · cinematic motion | Gravity field · dispersion-glass sculpture · "presence not noise" |
-| **Caliper** | `/caliper/` | Stage 1 — strategy locked, hero shipped, sections 3–9 + Three.js GLB pending | Cool ink on cream paper · single fluorescent magenta · Inter signage + Times serif + JetBrains Mono · mechanical motion | Precision instrument · static caliper SVG (Three.js next) · "spread test"
+| **Caliper** | `/caliper/` | Stage 5 — all four pages shipped (index + method + work + studio); live QA + ship decision pending | Cool ink on cream paper · single fluorescent magenta · Inter signage + Times serif + JetBrains Mono · mechanical motion | Precision instrument · Blender-baked + Three.js-driven on home + bespoke SVG schematics per case · "spread test"
 
 Halo is the meditative brand-led practice; Caliper is the mechanical operator-led studio. Together they're a deliberate pair — two answers to the same brief from opposite directions.
 
@@ -64,16 +64,12 @@ Halo evidence (`DESIGN_BRIEF.md`, `ASSET_MANIFEST.md`, `QA_REPORT.md`, `HANDOVER
 
 ## Open work / next directions
 
-### Caliper (next-up — actively under construction)
+### Caliper (paused after stage 5 — full site shipped, awaiting QA)
 
-Stage-1 evidence locked in `docs/`. Stage-1 hero shipped at `/caliper/index.html`. Remaining stages:
+Stages 1–5 all shipped. The site is visually complete (four pages, Three.js instrument on home, bespoke SVG schematics per case). Remaining:
 
-- **Stage 2 — Blender caliper instrument.** Author `caliper/blender/caliper_instrument.py` (idempotent Blender script). Export Draco-compressed GLB ≤80KB. Four animation clips: idle, measuring, seeking, disengaged. Reference: `docs/art-direction.md §The caliper instrument`.
-- **Stage 3 — Three.js scene.** Mount in `#instrument-canvas`; couple scroll progress to the `measuring` clip; wire ArrowLeft/Right keyboard control to discrete jaw positions; emit `measurement-announce` updates to the aria-live region.
-- **Stage 4 — Home sections 3–9.** § 03 the diagnostic (12 measurements), § 04 three engagements with pricing, § 05 what we don't do (4 refusals), § 06 recent work (3 specimens), § 07 studio (4 operators), § 08 run-a-diagnostic CTA + form, § 09 footer.
-- **Stage 5 — method.html, work.html, studio.html.** Three additional pages per `docs/copy-system.md §Pages 2-4 copy plans`.
-- **Stage 6 — QA.** Playwright screenshot critique, Lighthouse perf budget enforcement (LCP ≤1.8s, JS ≤60KB), axe a11y scan. Tools installed; see `tooling/LOCAL_TOOL_STATUS.md`.
-- **Stage 7 — Ship decision.** Populate `docs/ship-decision.md` with Verified / Manual review / Not run / Blocked labels per V7 truthfulness gate.
+- **Stage 6 — QA.** Live Lighthouse perf budget run (LCP ≤1.8s real measurement), live axe a11y scan, Playwright runs at 390px and 768px for mobile/tablet verification, wire `seeking` and `disengaged` GLB clips to scroll-between-alcoves if they pull weight, optional persistent canvas across navigations. Tools installed; see `tooling/LOCAL_TOOL_STATUS.md`.
+- **Stage 7 — Ship decision.** Populate `docs/ship-decision.md` with Verified / Manual review / Not run / Blocked labels per V7 truthfulness gate. Then remote-handling decision: push to `omarRadwann/halo` (Halo absorbs Caliper), detach remote and stay local, or push the branch to a new remote.
 
 ### Halo (paused — already shipped at omarradwann.github.io/halo/)
 
