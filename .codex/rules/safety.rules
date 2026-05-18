@@ -1,0 +1,7 @@
+# Experimental Codex rules: review before enabling in your environment.
+# Prompt before potentially risky shell commands outside the sandbox.
+prefix_rule(pattern = ["rm", "-rf"], decision = "prompt", justification = "Destructive delete requires approval")
+prefix_rule(pattern = ["sudo"], decision = "prompt", justification = "Privilege escalation requires approval")
+prefix_rule(pattern = ["gh", "repo", "delete"], decision = "prompt", justification = "Repository deletion requires approval")
+prefix_rule(pattern = ["vercel", "--prod"], decision = "prompt", justification = "Production deployment requires explicit approval")
+prefix_rule(pattern = ["npm", "publish"], decision = "prompt", justification = "Publishing packages requires approval")

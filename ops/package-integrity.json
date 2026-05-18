@@ -1,0 +1,1512 @@
+{
+  "generated_at": "2026-05-18T12:43:05.308906+00:00",
+  "package": "MOON_LEVEL_WEBSITE_AGENT_OS_V7_LINE_BY_LINE_AUDITED",
+  "file_count": 301,
+  "files": [
+    {
+      "path": ".agents/skills/award-website-os/SKILL.md",
+      "bytes": 6591,
+      "sha256": "0ac884e3fd594191038920668f935779fb278c68ff56e13735b7315758a53c6e"
+    },
+    {
+      "path": ".agents/skills/award-website-os/agents/openai.yaml",
+      "bytes": 894,
+      "sha256": "1ab16ed8f9c929922db9c6559c27e0c60d3ff84ca24773345aa1cce7ab151827"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/agent-court-report.md",
+      "bytes": 597,
+      "sha256": "a50fe0a047ecfe3bd780b1b4c0a61efd6f60617d802f79d906c8464fb7a6befa"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/asset-ledger.csv",
+      "bytes": 147,
+      "sha256": "bd8448587cd0d746c1795d0394f9874d4cd98c94a688a949914408f23fafb9be"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/concept-scorecard.md",
+      "bytes": 349,
+      "sha256": "ab1fbcb698ee289530eeb6d62a8930fb5d7766bf0348345f62c14e517ad907f9"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/one-input-brief.md",
+      "bytes": 296,
+      "sha256": "8a54a73d9cbc6c10b05c9f1f934fdf1a9bfef946b63a9b827ce63b5516e63d1f"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/prompt-library.md",
+      "bytes": 1135,
+      "sha256": "e790aae8eff0bec2e2b896fd29f6d18ed8dc50d350d9e69f681c7f461c8eb51b"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/qa-report.md",
+      "bytes": 322,
+      "sha256": "f23e7c072c8ce26eb42e3268929a5ba15f9933aa53274ca6c7d6caff62af0c46"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/ship-decision.md",
+      "bytes": 775,
+      "sha256": "d2ddc531ba1aac588a60f16fefc14a071fc08bf17e067db319d76dd9c4111adf"
+    },
+    {
+      "path": ".agents/skills/award-website-os/assets/templates/visual-review.md",
+      "bytes": 423,
+      "sha256": "baaa7526b97ec3abfc8d65bcecff141a25a15dcdf11e554ddc36d5d52a1c7c46"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/00-master-operating-protocol.md",
+      "bytes": 3392,
+      "sha256": "0350e98f4f70583c4b71cf0a8581b36e919fda95bdba2ad361b814e2083c656b"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/01-business-research-master.md",
+      "bytes": 2548,
+      "sha256": "6ba8c275d6de922ece7816c8e3b0af8ef42ea86453cbc268f4ea271ddeadbe3f"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/02-concept-art-direction-master.md",
+      "bytes": 2636,
+      "sha256": "21be0705f0c0cc6df07a2796e87cab633dd023fa7cbc1dd090b7c08f8481e91d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/03-copy-conversion-master.md",
+      "bytes": 2114,
+      "sha256": "6674ef1a0d925d9c6bdced685765a06584ac307401e49cbac0d1446dd394aea5"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/04-image-generation-asset-sourcing-master.md",
+      "bytes": 3027,
+      "sha256": "3fd178893401acdd45403274b4bebde52737a1b8a5320ead62d5a5d24811b7da"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/05-blender-production-master.md",
+      "bytes": 2977,
+      "sha256": "6ea47e7b7e6493fc710edfc5e5232332073af30d55a902c500f3b94012fd7eae"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/06-three-r3f-webgl-shader-master.md",
+      "bytes": 2504,
+      "sha256": "36c0a7c344ee3aee50c60d9d000946ea769a8fda1e0c614b9ad20b331532f511"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/07-motion-gsap-master.md",
+      "bytes": 1890,
+      "sha256": "7959436445b8ba050b56f82ea29be68c95d9f24f98075db7e8b7ef1c6d36cdd5"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/08-performance-core-web-vitals-master.md",
+      "bytes": 2117,
+      "sha256": "b0497c73fee21d966861056ab2e7570e8c42fbf69de369466a8ef0ab5dcbd257"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/09-accessibility-wcag-master.md",
+      "bytes": 1785,
+      "sha256": "f4b5e8f9fda7527487eea94da4474ee0f1d021a51dd5491cd2a1bc38a06319c2"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/10-qa-screenshot-release-master.md",
+      "bytes": 1725,
+      "sha256": "722a505ecdaaf58ac2cb9725ccdee8cc603717b115b928f158ae2f2d124620c8"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/11-codex-claude-compatibility-master.md",
+      "bytes": 1538,
+      "sha256": "794182d77bfb0e42e9d0c4433cbaf0fdcf3947e88651afbfe53d04fa0239619b"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/12-smart-production-secrets.md",
+      "bytes": 4490,
+      "sha256": "7bada8582de1ee4eb381676c9125d3a401a478bf6df5b300bcf56c30a4628e65"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/13-awwwards-quality-taste-rubric.md",
+      "bytes": 3085,
+      "sha256": "a5ab9097999f41f46a6b5880fa3f3226d718c2a7bdaf0e105109e99f6d6804e1"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/14-ai-anti-genericity-protocol.md",
+      "bytes": 2754,
+      "sha256": "61284038561a1ac5676b6997d4de6f462a9e37b71f02d96b512b5fa6eedce94a"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/15-prompt-context-engineering-for-codex.md",
+      "bytes": 3360,
+      "sha256": "3ccf47d48de324f5d240660c9e0c6ca67d5a6cc4bfdc60f9bec431ffb8c8fe1d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/16-visual-composition-cheats.md",
+      "bytes": 2641,
+      "sha256": "876826a093b2b17ee9a8fb764b733aa36abd7e674ce4e9a290fb5d24cb752cb6"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/17-motion-microinteractions-recipes.md",
+      "bytes": 2400,
+      "sha256": "4b051f2c69f9e6a9cd70ae72308a980493e5d24b63359a65fe480c5bbc3f972c"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/18-webgl-3d-performance-tricks.md",
+      "bytes": 2472,
+      "sha256": "b27ec15bf39c8482134d9709ab3323b7070c18021defc49f069b66970b3cb7da"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/19-asset-generation-prompts-library.md",
+      "bytes": 3605,
+      "sha256": "0d29746e24328ef0075e3351da55c33faa7175390a081a240d6749fd3393439d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/20-hooks-evals-autorepair.md",
+      "bytes": 1680,
+      "sha256": "41d4dacbf190f1bb51463525f3a73d0bfa15daea49157620ce2fc997ec60f5c9"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/21-reference-mining-moodboard.md",
+      "bytes": 1837,
+      "sha256": "4d78fdf7e9ffd5fb138eaac52d2a680dbc226d3c2727538ac31355282c6dce29"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/22-production-debug-playbook.md",
+      "bytes": 1864,
+      "sha256": "7408ba1bcb1ae192be82c86d9b10bfc60ae08bbeb5a48ea1064d48d896a6cc65"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/23-launch-postlaunch-growth.md",
+      "bytes": 1601,
+      "sha256": "9c46d300a64161ac2d97fc6190058b64ca8e0396b0dbffc8ddfde4fc42736f76"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/24-localization-cultural-edge.md",
+      "bytes": 1641,
+      "sha256": "4ec977cb628598b0c234ca4e98b84f8a3c277c35c369e44adddafae6ea651d33"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/25-blender-procedural-recipes.md",
+      "bytes": 1945,
+      "sha256": "24ffcd91bb4031a46d1cf1eb40a33afa18588148a3844b84b796b3799930dcb9"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/26-threejs-r3f-code-recipes.md",
+      "bytes": 2351,
+      "sha256": "b17d593d1a757d51497c4ea58933c8466cd49cdda5ec38132cca69e0c62f2163"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/27-no-template-checklist.md",
+      "bytes": 1752,
+      "sha256": "0766cc73d3e8f388457d584a8eae3b1d1c52dd5193e39da5b6fb817b81e89726"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/28-agent-collaboration-patterns.md",
+      "bytes": 2104,
+      "sha256": "7d0b1388f4720c814b46d12671b008d406fc25ab03591309b08c66ae79c5d815"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/29-smart-dependency-stack-decisions.md",
+      "bytes": 1619,
+      "sha256": "8a895c6d71b4eafc0ff79d5f005ab0b62b4aa44e57060d7ec70fc13882443f39"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/30-final-smart-os-addendum.md",
+      "bytes": 1529,
+      "sha256": "da77212b215d79ec9b53f4cf3cb237fba579076820214589d8f374aecddc064c"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/31-zero-gap-governance.md",
+      "bytes": 1458,
+      "sha256": "5414971d42b9b0143229af3210efdafcaf22bfd7efb78003944caebe8f8d12e4"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/32-real-world-asset-legal-governance.md",
+      "bytes": 673,
+      "sha256": "499e182b1c72eb5bceb90317805124d90fedf834de90ac2f578b5878d912b20f"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/33-business-type-playbooks.md",
+      "bytes": 803,
+      "sha256": "fc7bf6569ca5f36e69af7c9fa4f7c6f78617e6b39943e190d4bc3ca2b4535fb2"
+    },
+    {
+      "path": ".agents/skills/award-website-os/knowledge/34-v5-operational-layer.md",
+      "bytes": 957,
+      "sha256": "33523af2d859e57f432544d3cdd1fa33908c39dfbb15a7713d6a05cc02022908"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/00-master-operating-protocol.md",
+      "bytes": 3392,
+      "sha256": "0350e98f4f70583c4b71cf0a8581b36e919fda95bdba2ad361b814e2083c656b"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/01-business-research-master.md",
+      "bytes": 2548,
+      "sha256": "6ba8c275d6de922ece7816c8e3b0af8ef42ea86453cbc268f4ea271ddeadbe3f"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/02-concept-art-direction-master.md",
+      "bytes": 2636,
+      "sha256": "21be0705f0c0cc6df07a2796e87cab633dd023fa7cbc1dd090b7c08f8481e91d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/03-copy-conversion-master.md",
+      "bytes": 2114,
+      "sha256": "6674ef1a0d925d9c6bdced685765a06584ac307401e49cbac0d1446dd394aea5"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/04-image-generation-asset-sourcing-master.md",
+      "bytes": 3027,
+      "sha256": "3fd178893401acdd45403274b4bebde52737a1b8a5320ead62d5a5d24811b7da"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/05-blender-production-master.md",
+      "bytes": 2977,
+      "sha256": "6ea47e7b7e6493fc710edfc5e5232332073af30d55a902c500f3b94012fd7eae"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/06-three-r3f-webgl-shader-master.md",
+      "bytes": 2504,
+      "sha256": "36c0a7c344ee3aee50c60d9d000946ea769a8fda1e0c614b9ad20b331532f511"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/07-motion-gsap-master.md",
+      "bytes": 1890,
+      "sha256": "7959436445b8ba050b56f82ea29be68c95d9f24f98075db7e8b7ef1c6d36cdd5"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/08-performance-core-web-vitals-master.md",
+      "bytes": 2117,
+      "sha256": "b0497c73fee21d966861056ab2e7570e8c42fbf69de369466a8ef0ab5dcbd257"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/09-accessibility-wcag-master.md",
+      "bytes": 1785,
+      "sha256": "f4b5e8f9fda7527487eea94da4474ee0f1d021a51dd5491cd2a1bc38a06319c2"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/10-qa-screenshot-release-master.md",
+      "bytes": 1725,
+      "sha256": "722a505ecdaaf58ac2cb9725ccdee8cc603717b115b928f158ae2f2d124620c8"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/11-codex-claude-compatibility-master.md",
+      "bytes": 1538,
+      "sha256": "794182d77bfb0e42e9d0c4433cbaf0fdcf3947e88651afbfe53d04fa0239619b"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/12-smart-production-secrets.md",
+      "bytes": 4490,
+      "sha256": "7bada8582de1ee4eb381676c9125d3a401a478bf6df5b300bcf56c30a4628e65"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/13-awwwards-quality-taste-rubric.md",
+      "bytes": 3085,
+      "sha256": "a5ab9097999f41f46a6b5880fa3f3226d718c2a7bdaf0e105109e99f6d6804e1"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/14-ai-anti-genericity-protocol.md",
+      "bytes": 2754,
+      "sha256": "61284038561a1ac5676b6997d4de6f462a9e37b71f02d96b512b5fa6eedce94a"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/15-prompt-context-engineering-for-codex.md",
+      "bytes": 3360,
+      "sha256": "3ccf47d48de324f5d240660c9e0c6ca67d5a6cc4bfdc60f9bec431ffb8c8fe1d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/16-visual-composition-cheats.md",
+      "bytes": 2641,
+      "sha256": "876826a093b2b17ee9a8fb764b733aa36abd7e674ce4e9a290fb5d24cb752cb6"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/17-motion-microinteractions-recipes.md",
+      "bytes": 2400,
+      "sha256": "4b051f2c69f9e6a9cd70ae72308a980493e5d24b63359a65fe480c5bbc3f972c"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/18-webgl-3d-performance-tricks.md",
+      "bytes": 2472,
+      "sha256": "b27ec15bf39c8482134d9709ab3323b7070c18021defc49f069b66970b3cb7da"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/19-asset-generation-prompts-library.md",
+      "bytes": 3605,
+      "sha256": "0d29746e24328ef0075e3351da55c33faa7175390a081a240d6749fd3393439d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/20-hooks-evals-autorepair.md",
+      "bytes": 1680,
+      "sha256": "41d4dacbf190f1bb51463525f3a73d0bfa15daea49157620ce2fc997ec60f5c9"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/21-reference-mining-moodboard.md",
+      "bytes": 1837,
+      "sha256": "4d78fdf7e9ffd5fb138eaac52d2a680dbc226d3c2727538ac31355282c6dce29"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/22-production-debug-playbook.md",
+      "bytes": 1864,
+      "sha256": "7408ba1bcb1ae192be82c86d9b10bfc60ae08bbeb5a48ea1064d48d896a6cc65"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/23-launch-postlaunch-growth.md",
+      "bytes": 1601,
+      "sha256": "9c46d300a64161ac2d97fc6190058b64ca8e0396b0dbffc8ddfde4fc42736f76"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/24-localization-cultural-edge.md",
+      "bytes": 1641,
+      "sha256": "4ec977cb628598b0c234ca4e98b84f8a3c277c35c369e44adddafae6ea651d33"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/25-blender-procedural-recipes.md",
+      "bytes": 1945,
+      "sha256": "24ffcd91bb4031a46d1cf1eb40a33afa18588148a3844b84b796b3799930dcb9"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/26-threejs-r3f-code-recipes.md",
+      "bytes": 2351,
+      "sha256": "b17d593d1a757d51497c4ea58933c8466cd49cdda5ec38132cca69e0c62f2163"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/27-no-template-checklist.md",
+      "bytes": 1752,
+      "sha256": "0766cc73d3e8f388457d584a8eae3b1d1c52dd5193e39da5b6fb817b81e89726"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/28-agent-collaboration-patterns.md",
+      "bytes": 2104,
+      "sha256": "7d0b1388f4720c814b46d12671b008d406fc25ab03591309b08c66ae79c5d815"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/29-smart-dependency-stack-decisions.md",
+      "bytes": 1619,
+      "sha256": "8a895c6d71b4eafc0ff79d5f005ab0b62b4aa44e57060d7ec70fc13882443f39"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/30-final-smart-os-addendum.md",
+      "bytes": 1529,
+      "sha256": "da77212b215d79ec9b53f4cf3cb237fba579076820214589d8f374aecddc064c"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/31-zero-gap-governance.md",
+      "bytes": 1458,
+      "sha256": "5414971d42b9b0143229af3210efdafcaf22bfd7efb78003944caebe8f8d12e4"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/32-real-world-asset-legal-governance.md",
+      "bytes": 673,
+      "sha256": "499e182b1c72eb5bceb90317805124d90fedf834de90ac2f578b5878d912b20f"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/33-business-type-playbooks.md",
+      "bytes": 803,
+      "sha256": "fc7bf6569ca5f36e69af7c9fa4f7c6f78617e6b39943e190d4bc3ca2b4535fb2"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/34-v5-operational-layer.md",
+      "bytes": 957,
+      "sha256": "33523af2d859e57f432544d3cdd1fa33908c39dfbb15a7713d6a05cc02022908"
+    },
+    {
+      "path": ".agents/skills/award-website-os/references/35-v6-patient-audit-corrections.md",
+      "bytes": 998,
+      "sha256": "a7190da12287acaf99c5a1db5216c9934b1bd30d6e3c92e0395317db9d456e19"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/asset-ledger-check.ps1",
+      "bytes": 473,
+      "sha256": "acdebc2c2e31bd5599621b65abd76e438d71395f43ccc576ae798107ea9eb816"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/asset-ledger-check.sh",
+      "bytes": 417,
+      "sha256": "fda9fa2f02cfc4a532a50fd50895e84d662cbc096fcfa81294753da88b10e28d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/create-evidence-files.ps1",
+      "bytes": 1235,
+      "sha256": "fd107e16914bb46a2b1335da5da1180e8874a183bbead8d2d9d5574a8010105d"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/create-evidence-files.sh",
+      "bytes": 1041,
+      "sha256": "945a5b33ce297c21a3529d16c923af1c80a8244b3bcf7417623c277e8d8cc50c"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/final-check.sh",
+      "bytes": 343,
+      "sha256": "6a6ac9250235b17f4f2f86fff23afb3968456eb4046a18b2b3036290368b889e"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/final-smart-check.ps1",
+      "bytes": 915,
+      "sha256": "1815817a280d564aa146ef00fd186bc2ea697a9b7ebc7ec1d15b4c584e69038c"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/final-smart-check.sh",
+      "bytes": 700,
+      "sha256": "e05b9f4c82bf75da7670d030688962d064b54f2e96424ee1b625e41c2905d679"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/quick-check.sh",
+      "bytes": 137,
+      "sha256": "16b2a33934374064ea5806a2b8eb19bd90a48bd89d1e1424e604b0fc51f75ce7"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/smart-smell-check.ps1",
+      "bytes": 665,
+      "sha256": "23af2ae3382ab56e23d6772f15da30c0ca0e101619b17e88d4a606f84a60dc10"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/smart-smell-check.sh",
+      "bytes": 512,
+      "sha256": "d881c14b6e0f4c2f864be7598c722a73a673e8f3bef845bac575960b6d8909d1"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/tool-readiness-check.sh",
+      "bytes": 921,
+      "sha256": "d99ed7f52967fa64c6f1c8275693225bac89dc0872645fdc2c600db282074ce4"
+    },
+    {
+      "path": ".agents/skills/award-website-os/scripts/zero-gap-preflight.sh",
+      "bytes": 550,
+      "sha256": "57cc515cfc43f2bc731533ff1502c7bdb64898a41e42260a881618eaa53f3bd1"
+    },
+    {
+      "path": ".agents/skills/award-website-os/templates/asset-ledger.csv",
+      "bytes": 147,
+      "sha256": "bd8448587cd0d746c1795d0394f9874d4cd98c94a688a949914408f23fafb9be"
+    },
+    {
+      "path": ".agents/skills/award-website-os/templates/concept-scorecard.md",
+      "bytes": 349,
+      "sha256": "ab1fbcb698ee289530eeb6d62a8930fb5d7766bf0348345f62c14e517ad907f9"
+    },
+    {
+      "path": ".agents/skills/award-website-os/templates/one-input-brief.md",
+      "bytes": 296,
+      "sha256": "8a54a73d9cbc6c10b05c9f1f934fdf1a9bfef946b63a9b827ce63b5516e63d1f"
+    },
+    {
+      "path": ".agents/skills/award-website-os/templates/prompt-library.md",
+      "bytes": 1135,
+      "sha256": "e790aae8eff0bec2e2b896fd29f6d18ed8dc50d350d9e69f681c7f461c8eb51b"
+    },
+    {
+      "path": ".agents/skills/award-website-os/templates/qa-report.md",
+      "bytes": 322,
+      "sha256": "f23e7c072c8ce26eb42e3268929a5ba15f9933aa53274ca6c7d6caff62af0c46"
+    },
+    {
+      "path": ".agents/skills/award-website-os/templates/visual-review.md",
+      "bytes": 423,
+      "sha256": "baaa7526b97ec3abfc8d65bcecff141a25a15dcdf11e554ddc36d5d52a1c7c46"
+    },
+    {
+      "path": ".claude/agents/accessibility-ux-master.md",
+      "bytes": 1471,
+      "sha256": "d8a1048cf0a38c6f449f16d641895c691e5ada1c197f22151fb097737b1655c3"
+    },
+    {
+      "path": ".claude/agents/art-director.md",
+      "bytes": 1381,
+      "sha256": "b50eb2d9013b9fc7bab2589ffdc380bb8d9be45020e3e781a9d9d735e49790da"
+    },
+    {
+      "path": ".claude/agents/asset-pipeline-master.md",
+      "bytes": 1464,
+      "sha256": "f37011757a1d2e1e36c0503b34299c5da56b60ba4c1ef88d195c26ff15e9ee6f"
+    },
+    {
+      "path": ".claude/agents/blender-production-master.md",
+      "bytes": 1473,
+      "sha256": "d0c1fbf5e0adf01276ffc03058549533c99dd038aa66309a4699efda801b5835"
+    },
+    {
+      "path": ".claude/agents/codex-orchestrator.md",
+      "bytes": 1558,
+      "sha256": "8576864284ba8ce77058ce5e3901f678e6f8ea6f13e980499a8ba298b8123d5d"
+    },
+    {
+      "path": ".claude/agents/creative-director.md",
+      "bytes": 1434,
+      "sha256": "0207913b9ec6e20e94512e9184903ec19208d073d0bd10f4372b4a852531626a"
+    },
+    {
+      "path": ".claude/agents/creative-technologist-master.md",
+      "bytes": 1580,
+      "sha256": "7936f1d820af9521dd53e39e8dc1c7223fb3c14c6c5b7c72d55e8ba4f5a62fb8"
+    },
+    {
+      "path": ".claude/agents/frontend-engineer.md",
+      "bytes": 1582,
+      "sha256": "9ad17bbd299544b3b7369c7c5a76140718c61884bc6c59f5bb0ee3f4c2794b28"
+    },
+    {
+      "path": ".claude/agents/gpu-performance-master.md",
+      "bytes": 1451,
+      "sha256": "7ef5ddfbcf39945c030d42939112161e21c8659eb4d5deea8a6c14f831eae46d"
+    },
+    {
+      "path": ".claude/agents/gsap-animation-master.md",
+      "bytes": 1412,
+      "sha256": "c684c554210dfb0d48982f8d4443a7d4f9ce6034a535b1f4471d596afefa6700"
+    },
+    {
+      "path": ".claude/agents/image-generation-director.md",
+      "bytes": 1464,
+      "sha256": "8fa4ce943dd3f7f297b136a43e9134e812d55eb3db3cdac45561b05e66ed295c"
+    },
+    {
+      "path": ".claude/agents/market-researcher.md",
+      "bytes": 1436,
+      "sha256": "b576fbc44e07d6763b379b015b6dbd43c44a936dbd7733c947343e4a5958fc90"
+    },
+    {
+      "path": ".claude/agents/master-technical-director.md",
+      "bytes": 1799,
+      "sha256": "57db626a798c742d62c4bc51dc8d3cfebc7e4b69e7924b1c55df7ff0b81a86bd"
+    },
+    {
+      "path": ".claude/agents/release-qa-master.md",
+      "bytes": 1448,
+      "sha256": "5441b9d413e58d456d75b9195f3c3b454f2ab11253cc10f9605c00bda37aa479"
+    },
+    {
+      "path": ".claude/agents/screenshot-critic.md",
+      "bytes": 1412,
+      "sha256": "1d0d3e6ed1948b471c6c70cfb0e7df8080aa58003f6486a078f246a03ce5b637"
+    },
+    {
+      "path": ".claude/agents/shader-webgl-master.md",
+      "bytes": 1357,
+      "sha256": "784ae7bef1a3a9de9a2708ccb7a6dea719ca1bceee07f31e2425d2d5188f1270"
+    },
+    {
+      "path": ".claude/agents/threejs-r3f-master.md",
+      "bytes": 1366,
+      "sha256": "f9f67e5ac7aeeb96c049a6c90d66004381bcc885f0dae0b9d6409767ca7181e1"
+    },
+    {
+      "path": ".claude/agents/typography-layout-master.md",
+      "bytes": 1443,
+      "sha256": "c6a680d771bbeacdbc6d0639ed4f0190939210bb025ed85cb63e884de3acb6b2"
+    },
+    {
+      "path": ".claude/agents/ux-copy-strategist.md",
+      "bytes": 1349,
+      "sha256": "2d187cba682c1682f6943da3c95a3a6cb5bd77c60d802ef18f9f1431518d75dc"
+    },
+    {
+      "path": ".claude/settings.json",
+      "bytes": 1285,
+      "sha256": "a900068b12f12faa8a76856cba921cb04305713840b719f647b925303924eff0"
+    },
+    {
+      "path": ".claude/skills/award-website-os/SKILL.md",
+      "bytes": 6591,
+      "sha256": "0ac884e3fd594191038920668f935779fb278c68ff56e13735b7315758a53c6e"
+    },
+    {
+      "path": ".claude/skills/award-website-os/agents/openai.yaml",
+      "bytes": 894,
+      "sha256": "1ab16ed8f9c929922db9c6559c27e0c60d3ff84ca24773345aa1cce7ab151827"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/agent-court-report.md",
+      "bytes": 597,
+      "sha256": "a50fe0a047ecfe3bd780b1b4c0a61efd6f60617d802f79d906c8464fb7a6befa"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/asset-ledger.csv",
+      "bytes": 147,
+      "sha256": "bd8448587cd0d746c1795d0394f9874d4cd98c94a688a949914408f23fafb9be"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/concept-scorecard.md",
+      "bytes": 349,
+      "sha256": "ab1fbcb698ee289530eeb6d62a8930fb5d7766bf0348345f62c14e517ad907f9"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/one-input-brief.md",
+      "bytes": 296,
+      "sha256": "8a54a73d9cbc6c10b05c9f1f934fdf1a9bfef946b63a9b827ce63b5516e63d1f"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/prompt-library.md",
+      "bytes": 1135,
+      "sha256": "e790aae8eff0bec2e2b896fd29f6d18ed8dc50d350d9e69f681c7f461c8eb51b"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/qa-report.md",
+      "bytes": 322,
+      "sha256": "f23e7c072c8ce26eb42e3268929a5ba15f9933aa53274ca6c7d6caff62af0c46"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/ship-decision.md",
+      "bytes": 775,
+      "sha256": "d2ddc531ba1aac588a60f16fefc14a071fc08bf17e067db319d76dd9c4111adf"
+    },
+    {
+      "path": ".claude/skills/award-website-os/assets/templates/visual-review.md",
+      "bytes": 423,
+      "sha256": "baaa7526b97ec3abfc8d65bcecff141a25a15dcdf11e554ddc36d5d52a1c7c46"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/00-master-operating-protocol.md",
+      "bytes": 3392,
+      "sha256": "0350e98f4f70583c4b71cf0a8581b36e919fda95bdba2ad361b814e2083c656b"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/01-business-research-master.md",
+      "bytes": 2548,
+      "sha256": "6ba8c275d6de922ece7816c8e3b0af8ef42ea86453cbc268f4ea271ddeadbe3f"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/02-concept-art-direction-master.md",
+      "bytes": 2636,
+      "sha256": "21be0705f0c0cc6df07a2796e87cab633dd023fa7cbc1dd090b7c08f8481e91d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/03-copy-conversion-master.md",
+      "bytes": 2114,
+      "sha256": "6674ef1a0d925d9c6bdced685765a06584ac307401e49cbac0d1446dd394aea5"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/04-image-generation-asset-sourcing-master.md",
+      "bytes": 3027,
+      "sha256": "3fd178893401acdd45403274b4bebde52737a1b8a5320ead62d5a5d24811b7da"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/05-blender-production-master.md",
+      "bytes": 2977,
+      "sha256": "6ea47e7b7e6493fc710edfc5e5232332073af30d55a902c500f3b94012fd7eae"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/06-three-r3f-webgl-shader-master.md",
+      "bytes": 2504,
+      "sha256": "36c0a7c344ee3aee50c60d9d000946ea769a8fda1e0c614b9ad20b331532f511"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/07-motion-gsap-master.md",
+      "bytes": 1890,
+      "sha256": "7959436445b8ba050b56f82ea29be68c95d9f24f98075db7e8b7ef1c6d36cdd5"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/08-performance-core-web-vitals-master.md",
+      "bytes": 2117,
+      "sha256": "b0497c73fee21d966861056ab2e7570e8c42fbf69de369466a8ef0ab5dcbd257"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/09-accessibility-wcag-master.md",
+      "bytes": 1785,
+      "sha256": "f4b5e8f9fda7527487eea94da4474ee0f1d021a51dd5491cd2a1bc38a06319c2"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/10-qa-screenshot-release-master.md",
+      "bytes": 1725,
+      "sha256": "722a505ecdaaf58ac2cb9725ccdee8cc603717b115b928f158ae2f2d124620c8"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/11-codex-claude-compatibility-master.md",
+      "bytes": 1538,
+      "sha256": "794182d77bfb0e42e9d0c4433cbaf0fdcf3947e88651afbfe53d04fa0239619b"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/12-smart-production-secrets.md",
+      "bytes": 4490,
+      "sha256": "7bada8582de1ee4eb381676c9125d3a401a478bf6df5b300bcf56c30a4628e65"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/13-awwwards-quality-taste-rubric.md",
+      "bytes": 3085,
+      "sha256": "a5ab9097999f41f46a6b5880fa3f3226d718c2a7bdaf0e105109e99f6d6804e1"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/14-ai-anti-genericity-protocol.md",
+      "bytes": 2754,
+      "sha256": "61284038561a1ac5676b6997d4de6f462a9e37b71f02d96b512b5fa6eedce94a"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/15-prompt-context-engineering-for-codex.md",
+      "bytes": 3360,
+      "sha256": "3ccf47d48de324f5d240660c9e0c6ca67d5a6cc4bfdc60f9bec431ffb8c8fe1d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/16-visual-composition-cheats.md",
+      "bytes": 2641,
+      "sha256": "876826a093b2b17ee9a8fb764b733aa36abd7e674ce4e9a290fb5d24cb752cb6"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/17-motion-microinteractions-recipes.md",
+      "bytes": 2400,
+      "sha256": "4b051f2c69f9e6a9cd70ae72308a980493e5d24b63359a65fe480c5bbc3f972c"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/18-webgl-3d-performance-tricks.md",
+      "bytes": 2472,
+      "sha256": "b27ec15bf39c8482134d9709ab3323b7070c18021defc49f069b66970b3cb7da"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/19-asset-generation-prompts-library.md",
+      "bytes": 3605,
+      "sha256": "0d29746e24328ef0075e3351da55c33faa7175390a081a240d6749fd3393439d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/20-hooks-evals-autorepair.md",
+      "bytes": 1680,
+      "sha256": "41d4dacbf190f1bb51463525f3a73d0bfa15daea49157620ce2fc997ec60f5c9"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/21-reference-mining-moodboard.md",
+      "bytes": 1837,
+      "sha256": "4d78fdf7e9ffd5fb138eaac52d2a680dbc226d3c2727538ac31355282c6dce29"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/22-production-debug-playbook.md",
+      "bytes": 1864,
+      "sha256": "7408ba1bcb1ae192be82c86d9b10bfc60ae08bbeb5a48ea1064d48d896a6cc65"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/23-launch-postlaunch-growth.md",
+      "bytes": 1601,
+      "sha256": "9c46d300a64161ac2d97fc6190058b64ca8e0396b0dbffc8ddfde4fc42736f76"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/24-localization-cultural-edge.md",
+      "bytes": 1641,
+      "sha256": "4ec977cb628598b0c234ca4e98b84f8a3c277c35c369e44adddafae6ea651d33"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/25-blender-procedural-recipes.md",
+      "bytes": 1945,
+      "sha256": "24ffcd91bb4031a46d1cf1eb40a33afa18588148a3844b84b796b3799930dcb9"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/26-threejs-r3f-code-recipes.md",
+      "bytes": 2351,
+      "sha256": "b17d593d1a757d51497c4ea58933c8466cd49cdda5ec38132cca69e0c62f2163"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/27-no-template-checklist.md",
+      "bytes": 1752,
+      "sha256": "0766cc73d3e8f388457d584a8eae3b1d1c52dd5193e39da5b6fb817b81e89726"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/28-agent-collaboration-patterns.md",
+      "bytes": 2104,
+      "sha256": "7d0b1388f4720c814b46d12671b008d406fc25ab03591309b08c66ae79c5d815"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/29-smart-dependency-stack-decisions.md",
+      "bytes": 1619,
+      "sha256": "8a895c6d71b4eafc0ff79d5f005ab0b62b4aa44e57060d7ec70fc13882443f39"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/30-final-smart-os-addendum.md",
+      "bytes": 1529,
+      "sha256": "da77212b215d79ec9b53f4cf3cb237fba579076820214589d8f374aecddc064c"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/31-zero-gap-governance.md",
+      "bytes": 1458,
+      "sha256": "5414971d42b9b0143229af3210efdafcaf22bfd7efb78003944caebe8f8d12e4"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/32-real-world-asset-legal-governance.md",
+      "bytes": 673,
+      "sha256": "499e182b1c72eb5bceb90317805124d90fedf834de90ac2f578b5878d912b20f"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/33-business-type-playbooks.md",
+      "bytes": 803,
+      "sha256": "fc7bf6569ca5f36e69af7c9fa4f7c6f78617e6b39943e190d4bc3ca2b4535fb2"
+    },
+    {
+      "path": ".claude/skills/award-website-os/knowledge/34-v5-operational-layer.md",
+      "bytes": 957,
+      "sha256": "33523af2d859e57f432544d3cdd1fa33908c39dfbb15a7713d6a05cc02022908"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/00-master-operating-protocol.md",
+      "bytes": 3392,
+      "sha256": "0350e98f4f70583c4b71cf0a8581b36e919fda95bdba2ad361b814e2083c656b"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/01-business-research-master.md",
+      "bytes": 2548,
+      "sha256": "6ba8c275d6de922ece7816c8e3b0af8ef42ea86453cbc268f4ea271ddeadbe3f"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/02-concept-art-direction-master.md",
+      "bytes": 2636,
+      "sha256": "21be0705f0c0cc6df07a2796e87cab633dd023fa7cbc1dd090b7c08f8481e91d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/03-copy-conversion-master.md",
+      "bytes": 2114,
+      "sha256": "6674ef1a0d925d9c6bdced685765a06584ac307401e49cbac0d1446dd394aea5"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/04-image-generation-asset-sourcing-master.md",
+      "bytes": 3027,
+      "sha256": "3fd178893401acdd45403274b4bebde52737a1b8a5320ead62d5a5d24811b7da"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/05-blender-production-master.md",
+      "bytes": 2977,
+      "sha256": "6ea47e7b7e6493fc710edfc5e5232332073af30d55a902c500f3b94012fd7eae"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/06-three-r3f-webgl-shader-master.md",
+      "bytes": 2504,
+      "sha256": "36c0a7c344ee3aee50c60d9d000946ea769a8fda1e0c614b9ad20b331532f511"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/07-motion-gsap-master.md",
+      "bytes": 1890,
+      "sha256": "7959436445b8ba050b56f82ea29be68c95d9f24f98075db7e8b7ef1c6d36cdd5"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/08-performance-core-web-vitals-master.md",
+      "bytes": 2117,
+      "sha256": "b0497c73fee21d966861056ab2e7570e8c42fbf69de369466a8ef0ab5dcbd257"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/09-accessibility-wcag-master.md",
+      "bytes": 1785,
+      "sha256": "f4b5e8f9fda7527487eea94da4474ee0f1d021a51dd5491cd2a1bc38a06319c2"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/10-qa-screenshot-release-master.md",
+      "bytes": 1725,
+      "sha256": "722a505ecdaaf58ac2cb9725ccdee8cc603717b115b928f158ae2f2d124620c8"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/11-codex-claude-compatibility-master.md",
+      "bytes": 1538,
+      "sha256": "794182d77bfb0e42e9d0c4433cbaf0fdcf3947e88651afbfe53d04fa0239619b"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/12-smart-production-secrets.md",
+      "bytes": 4490,
+      "sha256": "7bada8582de1ee4eb381676c9125d3a401a478bf6df5b300bcf56c30a4628e65"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/13-awwwards-quality-taste-rubric.md",
+      "bytes": 3085,
+      "sha256": "a5ab9097999f41f46a6b5880fa3f3226d718c2a7bdaf0e105109e99f6d6804e1"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/14-ai-anti-genericity-protocol.md",
+      "bytes": 2754,
+      "sha256": "61284038561a1ac5676b6997d4de6f462a9e37b71f02d96b512b5fa6eedce94a"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/15-prompt-context-engineering-for-codex.md",
+      "bytes": 3360,
+      "sha256": "3ccf47d48de324f5d240660c9e0c6ca67d5a6cc4bfdc60f9bec431ffb8c8fe1d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/16-visual-composition-cheats.md",
+      "bytes": 2641,
+      "sha256": "876826a093b2b17ee9a8fb764b733aa36abd7e674ce4e9a290fb5d24cb752cb6"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/17-motion-microinteractions-recipes.md",
+      "bytes": 2400,
+      "sha256": "4b051f2c69f9e6a9cd70ae72308a980493e5d24b63359a65fe480c5bbc3f972c"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/18-webgl-3d-performance-tricks.md",
+      "bytes": 2472,
+      "sha256": "b27ec15bf39c8482134d9709ab3323b7070c18021defc49f069b66970b3cb7da"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/19-asset-generation-prompts-library.md",
+      "bytes": 3605,
+      "sha256": "0d29746e24328ef0075e3351da55c33faa7175390a081a240d6749fd3393439d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/20-hooks-evals-autorepair.md",
+      "bytes": 1680,
+      "sha256": "41d4dacbf190f1bb51463525f3a73d0bfa15daea49157620ce2fc997ec60f5c9"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/21-reference-mining-moodboard.md",
+      "bytes": 1837,
+      "sha256": "4d78fdf7e9ffd5fb138eaac52d2a680dbc226d3c2727538ac31355282c6dce29"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/22-production-debug-playbook.md",
+      "bytes": 1864,
+      "sha256": "7408ba1bcb1ae192be82c86d9b10bfc60ae08bbeb5a48ea1064d48d896a6cc65"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/23-launch-postlaunch-growth.md",
+      "bytes": 1601,
+      "sha256": "9c46d300a64161ac2d97fc6190058b64ca8e0396b0dbffc8ddfde4fc42736f76"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/24-localization-cultural-edge.md",
+      "bytes": 1641,
+      "sha256": "4ec977cb628598b0c234ca4e98b84f8a3c277c35c369e44adddafae6ea651d33"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/25-blender-procedural-recipes.md",
+      "bytes": 1945,
+      "sha256": "24ffcd91bb4031a46d1cf1eb40a33afa18588148a3844b84b796b3799930dcb9"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/26-threejs-r3f-code-recipes.md",
+      "bytes": 2351,
+      "sha256": "b17d593d1a757d51497c4ea58933c8466cd49cdda5ec38132cca69e0c62f2163"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/27-no-template-checklist.md",
+      "bytes": 1752,
+      "sha256": "0766cc73d3e8f388457d584a8eae3b1d1c52dd5193e39da5b6fb817b81e89726"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/28-agent-collaboration-patterns.md",
+      "bytes": 2104,
+      "sha256": "7d0b1388f4720c814b46d12671b008d406fc25ab03591309b08c66ae79c5d815"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/29-smart-dependency-stack-decisions.md",
+      "bytes": 1619,
+      "sha256": "8a895c6d71b4eafc0ff79d5f005ab0b62b4aa44e57060d7ec70fc13882443f39"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/30-final-smart-os-addendum.md",
+      "bytes": 1529,
+      "sha256": "da77212b215d79ec9b53f4cf3cb237fba579076820214589d8f374aecddc064c"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/31-zero-gap-governance.md",
+      "bytes": 1458,
+      "sha256": "5414971d42b9b0143229af3210efdafcaf22bfd7efb78003944caebe8f8d12e4"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/32-real-world-asset-legal-governance.md",
+      "bytes": 673,
+      "sha256": "499e182b1c72eb5bceb90317805124d90fedf834de90ac2f578b5878d912b20f"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/33-business-type-playbooks.md",
+      "bytes": 803,
+      "sha256": "fc7bf6569ca5f36e69af7c9fa4f7c6f78617e6b39943e190d4bc3ca2b4535fb2"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/34-v5-operational-layer.md",
+      "bytes": 957,
+      "sha256": "33523af2d859e57f432544d3cdd1fa33908c39dfbb15a7713d6a05cc02022908"
+    },
+    {
+      "path": ".claude/skills/award-website-os/references/35-v6-patient-audit-corrections.md",
+      "bytes": 998,
+      "sha256": "a7190da12287acaf99c5a1db5216c9934b1bd30d6e3c92e0395317db9d456e19"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/asset-ledger-check.ps1",
+      "bytes": 473,
+      "sha256": "acdebc2c2e31bd5599621b65abd76e438d71395f43ccc576ae798107ea9eb816"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/asset-ledger-check.sh",
+      "bytes": 417,
+      "sha256": "fda9fa2f02cfc4a532a50fd50895e84d662cbc096fcfa81294753da88b10e28d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/create-evidence-files.ps1",
+      "bytes": 1235,
+      "sha256": "fd107e16914bb46a2b1335da5da1180e8874a183bbead8d2d9d5574a8010105d"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/create-evidence-files.sh",
+      "bytes": 1041,
+      "sha256": "945a5b33ce297c21a3529d16c923af1c80a8244b3bcf7417623c277e8d8cc50c"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/final-check.sh",
+      "bytes": 343,
+      "sha256": "6a6ac9250235b17f4f2f86fff23afb3968456eb4046a18b2b3036290368b889e"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/final-smart-check.ps1",
+      "bytes": 915,
+      "sha256": "1815817a280d564aa146ef00fd186bc2ea697a9b7ebc7ec1d15b4c584e69038c"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/final-smart-check.sh",
+      "bytes": 700,
+      "sha256": "e05b9f4c82bf75da7670d030688962d064b54f2e96424ee1b625e41c2905d679"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/quick-check.sh",
+      "bytes": 137,
+      "sha256": "16b2a33934374064ea5806a2b8eb19bd90a48bd89d1e1424e604b0fc51f75ce7"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/smart-smell-check.ps1",
+      "bytes": 665,
+      "sha256": "23af2ae3382ab56e23d6772f15da30c0ca0e101619b17e88d4a606f84a60dc10"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/smart-smell-check.sh",
+      "bytes": 512,
+      "sha256": "d881c14b6e0f4c2f864be7598c722a73a673e8f3bef845bac575960b6d8909d1"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/tool-readiness-check.sh",
+      "bytes": 921,
+      "sha256": "d99ed7f52967fa64c6f1c8275693225bac89dc0872645fdc2c600db282074ce4"
+    },
+    {
+      "path": ".claude/skills/award-website-os/scripts/zero-gap-preflight.sh",
+      "bytes": 550,
+      "sha256": "57cc515cfc43f2bc731533ff1502c7bdb64898a41e42260a881618eaa53f3bd1"
+    },
+    {
+      "path": ".claude/skills/award-website-os/templates/asset-ledger.csv",
+      "bytes": 147,
+      "sha256": "bd8448587cd0d746c1795d0394f9874d4cd98c94a688a949914408f23fafb9be"
+    },
+    {
+      "path": ".claude/skills/award-website-os/templates/concept-scorecard.md",
+      "bytes": 349,
+      "sha256": "ab1fbcb698ee289530eeb6d62a8930fb5d7766bf0348345f62c14e517ad907f9"
+    },
+    {
+      "path": ".claude/skills/award-website-os/templates/one-input-brief.md",
+      "bytes": 296,
+      "sha256": "8a54a73d9cbc6c10b05c9f1f934fdf1a9bfef946b63a9b827ce63b5516e63d1f"
+    },
+    {
+      "path": ".claude/skills/award-website-os/templates/prompt-library.md",
+      "bytes": 1135,
+      "sha256": "e790aae8eff0bec2e2b896fd29f6d18ed8dc50d350d9e69f681c7f461c8eb51b"
+    },
+    {
+      "path": ".claude/skills/award-website-os/templates/qa-report.md",
+      "bytes": 322,
+      "sha256": "f23e7c072c8ce26eb42e3268929a5ba15f9933aa53274ca6c7d6caff62af0c46"
+    },
+    {
+      "path": ".claude/skills/award-website-os/templates/visual-review.md",
+      "bytes": 423,
+      "sha256": "baaa7526b97ec3abfc8d65bcecff141a25a15dcdf11e554ddc36d5d52a1c7c46"
+    },
+    {
+      "path": ".codex/agents/accessibility-ux-master.md",
+      "bytes": 1460,
+      "sha256": "b16811f4d44bfc51e5588617a47bf09b1ea33fafa90d00dadfea3120b0d2b5c2"
+    },
+    {
+      "path": ".codex/agents/accessibility-ux-master.toml",
+      "bytes": 1484,
+      "sha256": "28e0db47d48072527227b2c7be438e66282f6952ea4301e74a11d7e41b8b378b"
+    },
+    {
+      "path": ".codex/agents/art-director.md",
+      "bytes": 1375,
+      "sha256": "bd04ce97c44cd093bdf82a5b4730df8d8605f7b81bdf6059f16ff07504672662"
+    },
+    {
+      "path": ".codex/agents/art-director.toml",
+      "bytes": 1394,
+      "sha256": "3c59bcbe87646ed17ff66d23ce9bbec2d84b8aeec9c60a8ecbf3da4a96a6d9dc"
+    },
+    {
+      "path": ".codex/agents/asset-pipeline-master.md",
+      "bytes": 1483,
+      "sha256": "1c7a4996027e18744a0535c4f6e930060ba50dfa3d454a52053e524eb19d4924"
+    },
+    {
+      "path": ".codex/agents/asset-pipeline-master.toml",
+      "bytes": 1483,
+      "sha256": "2c9defae14f6617424f2aad350b45f01ce8963a8e53076c366860bf7af3307a8"
+    },
+    {
+      "path": ".codex/agents/blender-production-master.md",
+      "bytes": 1470,
+      "sha256": "c1c1d4ec06c355ffe4948f03261ded89d20baa0e2dd9cafe0e6a075cd733a2f4"
+    },
+    {
+      "path": ".codex/agents/blender-production-master.toml",
+      "bytes": 1492,
+      "sha256": "0522571ce15936825fc16474f54586f43633baa29cc7f337ed8b10d8b3fcb459"
+    },
+    {
+      "path": ".codex/agents/codex-orchestrator.md",
+      "bytes": 1571,
+      "sha256": "dc75a4700d2309c6811a6f0e067c8f3a6e296db488e2f80492ea512765f79c14"
+    },
+    {
+      "path": ".codex/agents/codex-orchestrator.toml",
+      "bytes": 1577,
+      "sha256": "a0ae4777771dc98d35e185e71107308e844e3cb2bcca7b9231835ca6d0fe7dfe"
+    },
+    {
+      "path": ".codex/agents/creative-director.md",
+      "bytes": 1428,
+      "sha256": "1f70bbe1ae7e5dd3cb30e0e461bc06dc8396e9dfafcecb348683c508e2fe31c3"
+    },
+    {
+      "path": ".codex/agents/creative-director.toml",
+      "bytes": 1447,
+      "sha256": "5f8284df6b9c34e78b831a832039e71f64477e37779beb285a4b39f8cad3689f"
+    },
+    {
+      "path": ".codex/agents/creative-technologist-master.md",
+      "bytes": 1593,
+      "sha256": "d47d5feed1e7dcd6d71cb6313eba67c62d8a17a6da78b1873fdd8df9ffba379c"
+    },
+    {
+      "path": ".codex/agents/creative-technologist-master.toml",
+      "bytes": 1599,
+      "sha256": "115996f8c9930f188ac625b47826af15e8ad42f0a01e66ab372143e6572d56fe"
+    },
+    {
+      "path": ".codex/agents/frontend-engineer.md",
+      "bytes": 1571,
+      "sha256": "8aa65c38a650ae90d8a181e8cc099201f4100914663eae1136e4553b48b3af8b"
+    },
+    {
+      "path": ".codex/agents/frontend-engineer.toml",
+      "bytes": 1601,
+      "sha256": "2c051a3425dd0aa5151df0a159bb2531b03128556bd38c927fd5a442e932ed0c"
+    },
+    {
+      "path": ".codex/agents/gpu-performance-master.md",
+      "bytes": 1452,
+      "sha256": "b73fa8f3694a7515bb365df84ea3d062e2123c77e7ba66ff2f480116cf376354"
+    },
+    {
+      "path": ".codex/agents/gpu-performance-master.toml",
+      "bytes": 1464,
+      "sha256": "c5a3c0713276f538bc3b72836c2610e194b3feddcf7841143bd08d039a1ff4fc"
+    },
+    {
+      "path": ".codex/agents/gsap-animation-master.md",
+      "bytes": 1413,
+      "sha256": "e030a0644038dbe980def65da49760d7e8284ae86e5b2c0ab742e4a13ebe127f"
+    },
+    {
+      "path": ".codex/agents/gsap-animation-master.toml",
+      "bytes": 1431,
+      "sha256": "51ae50e203916d47b8ca6ea0a49cfaf2c0c35693e5886bf800498e0b98f657fa"
+    },
+    {
+      "path": ".codex/agents/image-generation-director.md",
+      "bytes": 1467,
+      "sha256": "7e1082ffe96dc1bc0de0a2469f36b50117ccfe9f216829aa6190d4d61318f173"
+    },
+    {
+      "path": ".codex/agents/image-generation-director.toml",
+      "bytes": 1477,
+      "sha256": "bfa44c30472058629562836e99f255588593ee6d252f6711dd7e0c1b714a963d"
+    },
+    {
+      "path": ".codex/agents/market-researcher.md",
+      "bytes": 1430,
+      "sha256": "404fe45fff151a7c78db399bf3d6b4e1eff810d9d43d713f8888d17e8d5463a9"
+    },
+    {
+      "path": ".codex/agents/market-researcher.toml",
+      "bytes": 1449,
+      "sha256": "ee1d673a2fa8b0af9b0001922f907bcdd01a29c643e54e79500c63543edb773c"
+    },
+    {
+      "path": ".codex/agents/master-technical-director.md",
+      "bytes": 1812,
+      "sha256": "1639b9e87fb9a114836ae71b7cfc7dfb58fc8bd4ddf8cafe53b6fa4326a7e405"
+    },
+    {
+      "path": ".codex/agents/master-technical-director.toml",
+      "bytes": 1812,
+      "sha256": "a40a5a38e95e834a9f8a509d5f5c748bd9d7c0a6ea39126f4037da70b079481e"
+    },
+    {
+      "path": ".codex/agents/release-qa-master.md",
+      "bytes": 1449,
+      "sha256": "488a0afe42b91e9decfe82376c68138eb38a5feffb753272a7a52fdf832a2b0e"
+    },
+    {
+      "path": ".codex/agents/release-qa-master.toml",
+      "bytes": 1461,
+      "sha256": "0328b0cad8304ae287390e521a200b1da76a92769e2807a386b613162cd608a2"
+    },
+    {
+      "path": ".codex/agents/screenshot-critic.md",
+      "bytes": 1406,
+      "sha256": "635dda3f208458a2b805125dff02cb48af2d27c98463c27baac1f2da62c84a88"
+    },
+    {
+      "path": ".codex/agents/screenshot-critic.toml",
+      "bytes": 1425,
+      "sha256": "9ac5b92aaca0a841fe8d55586ff916909e67a66b85728d175241f361ecdb5380"
+    },
+    {
+      "path": ".codex/agents/shader-webgl-master.md",
+      "bytes": 1346,
+      "sha256": "33dbb1c97886f4fc1b3a935d0388ff4159fff6e12dda252fdc52156e268db59f"
+    },
+    {
+      "path": ".codex/agents/shader-webgl-master.toml",
+      "bytes": 1376,
+      "sha256": "d00042b16532fdd133fa71248adec483824f19f0d8e232a3327c1ee5a2238b5f"
+    },
+    {
+      "path": ".codex/agents/threejs-r3f-master.md",
+      "bytes": 1367,
+      "sha256": "925e0dee07f6066992a9ee582dca42f3a9d2c9e79e1ffe66ba951f025179fa04"
+    },
+    {
+      "path": ".codex/agents/threejs-r3f-master.toml",
+      "bytes": 1385,
+      "sha256": "54f242c054eb58477931a0ee129bc4ecea94250cb463ba7609a469a846fea7d8"
+    },
+    {
+      "path": ".codex/agents/typography-layout-master.md",
+      "bytes": 1437,
+      "sha256": "3b675a97fe7989f85d51a437b7f813589d6429571ce90a32b2ec3f39b724b7b2"
+    },
+    {
+      "path": ".codex/agents/typography-layout-master.toml",
+      "bytes": 1462,
+      "sha256": "96d5ce150683f3facaf46b0aaccad4b699d618d6a00f168882f8d30e94657cc1"
+    },
+    {
+      "path": ".codex/agents/ux-copy-strategist.md",
+      "bytes": 1334,
+      "sha256": "8074905ce451aef29ca535fe7b4275d5b2af1a5345a464800f5898459569535a"
+    },
+    {
+      "path": ".codex/agents/ux-copy-strategist.toml",
+      "bytes": 1362,
+      "sha256": "b50b0f11f44ed8123652f53f15394721d444df70a4d0713bfc06fa23c7fcdf55"
+    },
+    {
+      "path": ".codex/config.toml",
+      "bytes": 158,
+      "sha256": "89917b090ce93fb46fd00f08ee519d7caf6fc575027b7cfa1709365457de2d7a"
+    },
+    {
+      "path": ".codex/hooks.json",
+      "bytes": 1241,
+      "sha256": "b78a11112fe10a921c53091300bbae3a1dd67d6e73ba4fd1c204a778e38d28e3"
+    },
+    {
+      "path": ".codex/rules/safety.rules",
+      "bytes": 746,
+      "sha256": "ff30bdd60487ff558eebf8cc7ae949de279822eb6c4dcdd390284dc9a50450ef"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 3855,
+      "sha256": "dd9b1530219978eb176a418b71f255b8281d841ab7e9ff0140898ac28bf1c393"
+    },
+    {
+      "path": "AUDIT_FILE_SUMMARY.csv",
+      "bytes": 39948,
+      "sha256": "a243249fe307dd0a3f5b6be74f671da7f8bcfbcb481d04bc01b88f127903ec7e"
+    },
+    {
+      "path": "AUDIT_LINE_BY_LINE_MAP.csv",
+      "bytes": 2806309,
+      "sha256": "d92dc8c70bee931b8dc9deca1875d8c1ee57471689cd748f5884099c2f3973b7"
+    },
+    {
+      "path": "AUDIT_LINE_BY_LINE_REPORT.md",
+      "bytes": 32973,
+      "sha256": "f34b7324decabaeddcb0d4e80e3335003492b1c6ed13d68ee68b6b17482cce18"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 3855,
+      "sha256": "dd9b1530219978eb176a418b71f255b8281d841ab7e9ff0140898ac28bf1c393"
+    },
+    {
+      "path": "FINAL_SMART_PASS_SUMMARY.md",
+      "bytes": 874,
+      "sha256": "f7f76bd544bf68dccdab60ed17f3d67251bebfdc86f1c0a50e672cee3b83b7af"
+    },
+    {
+      "path": "INSTALL_ZERO_GAPS.md",
+      "bytes": 1627,
+      "sha256": "7aa803a7d5565d0a6485c408fa457eb64999f648e3c06818e0dd1b8786fa0aeb"
+    },
+    {
+      "path": "MASTER_DOCUMENT.md",
+      "bytes": 80751,
+      "sha256": "2f96073f72ac12dae84d52e87f1888efbe02b05a4982d16bd4070ce7d00c2a61"
+    },
+    {
+      "path": "Makefile",
+      "bytes": 524,
+      "sha256": "2bfb550310e9092e2e6772e8ee59f60c3ae0ed758455567e1d7fd864717321be"
+    },
+    {
+      "path": "PATIENT_AUDIT_V6_REPORT.md",
+      "bytes": 1701,
+      "sha256": "b26df19fbb44464d139347df410dea41e2a44853c1f6dfc5eea5a490ccf94fe3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3796,
+      "sha256": "dd35bbecb7d46180b8745510c00de8aaf56af6344b3cb70497db90f0724bb548"
+    },
+    {
+      "path": "REAL_MASTERS_INDEX.md",
+      "bytes": 1329,
+      "sha256": "c16be447668bc049b4ebced502e054bd6a2846256254acef35faea0706b7b9ab"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 2297,
+      "sha256": "23aac1232a4b7ce4a83ebfaaa57b3bf2a854591a93b1e98aae08f7121bf8aad6"
+    },
+    {
+      "path": "V7_LINE_BY_LINE_FINAL_AUDIT_SUMMARY.md",
+      "bytes": 2767,
+      "sha256": "510d52ccaa106ed36f861483dbd94f4c26bdd4197ec9ae867ed5f1875ee7b63a"
+    },
+    {
+      "path": "VALIDATION_V5_OPERATIONAL_REPORT.md",
+      "bytes": 1446,
+      "sha256": "8d4984dbff79ce8fe510bebb3ee09aea524a14254e4e55dd5d73f45bbf41b4ab"
+    },
+    {
+      "path": "VALIDATION_V7_INTEGRITY_OUTPUT.txt",
+      "bytes": 32,
+      "sha256": "7f89e6fee2c3ce08804ffbc9d0bfc0793809a637fe1af6d45c7342efb22f0679"
+    },
+    {
+      "path": "VALIDATION_V7_LINE_AUDIT_OUTPUT.txt",
+      "bytes": 1413,
+      "sha256": "c8eb23cde512e6e4c8fda4364adcca2b04e752caadd6a8c686b7a744bb72cec9"
+    },
+    {
+      "path": "VALIDATION_ZERO_GAPS_REPORT.md",
+      "bytes": 1470,
+      "sha256": "10398b3e94dfa9cf5aca157d8557cb2d904f12667ff18286a141b4023c7db4f0"
+    },
+    {
+      "path": "docs/agent-court-report.md",
+      "bytes": 597,
+      "sha256": "a50fe0a047ecfe3bd780b1b4c0a61efd6f60617d802f79d906c8464fb7a6befa"
+    },
+    {
+      "path": "docs/agent-manifest.csv",
+      "bytes": 4297,
+      "sha256": "5833f417f7152216230877517ac572d213f6215ab645cfa4ae6fccf338d05cb7"
+    },
+    {
+      "path": "docs/agent-manifest.md",
+      "bytes": 2972,
+      "sha256": "46da89b806c7cddd3bd0b30837aee8a3ad7b7ce0018de49f17e667514579dacf"
+    },
+    {
+      "path": "docs/art-direction.md",
+      "bytes": 20,
+      "sha256": "ea18f464e233207a5d09692b1717edca6b3581b2ff2dcb14c861fa17268fb5cb"
+    },
+    {
+      "path": "docs/asset-ledger.csv",
+      "bytes": 147,
+      "sha256": "bd8448587cd0d746c1795d0394f9874d4cd98c94a688a949914408f23fafb9be"
+    },
+    {
+      "path": "docs/assumptions.md",
+      "bytes": 296,
+      "sha256": "8a54a73d9cbc6c10b05c9f1f934fdf1a9bfef946b63a9b827ce63b5516e63d1f"
+    },
+    {
+      "path": "docs/concept-scorecard.md",
+      "bytes": 349,
+      "sha256": "ab1fbcb698ee289530eeb6d62a8930fb5d7766bf0348345f62c14e517ad907f9"
+    },
+    {
+      "path": "docs/copy-system.md",
+      "bytes": 18,
+      "sha256": "ec5fa40d7975814e2e869f49137cefcbfc53bdecff5e2cd3970496ec541b0d42"
+    },
+    {
+      "path": "docs/qa-report.md",
+      "bytes": 322,
+      "sha256": "f23e7c072c8ce26eb42e3268929a5ba15f9933aa53274ca6c7d6caff62af0c46"
+    },
+    {
+      "path": "docs/research-brief.md",
+      "bytes": 21,
+      "sha256": "6d50aa2edf21e8d668eb687f5e7c63d94ef55d3976c4821b660cf58f0a4b0ddc"
+    },
+    {
+      "path": "docs/ship-decision.md",
+      "bytes": 775,
+      "sha256": "d2ddc531ba1aac588a60f16fefc14a071fc08bf17e067db319d76dd9c4111adf"
+    },
+    {
+      "path": "docs/visual-review.md",
+      "bytes": 423,
+      "sha256": "baaa7526b97ec3abfc8d65bcecff141a25a15dcdf11e554ddc36d5d52a1c7c46"
+    },
+    {
+      "path": "examples/GOLDEN_PROMPTS.md",
+      "bytes": 1656,
+      "sha256": "0858bbd7630e8c5c0f4cf9e1828336c907b5ec57f844d276c48a005f3fee1b16"
+    },
+    {
+      "path": "examples/SAMPLE_GOLDEN_RUN_LUXURY_DENTAL_CLINIC.md",
+      "bytes": 1339,
+      "sha256": "95c85d7ff5186b70237b3fb9f414b7636c1629fb87eae0e96be87e07ce06ab8d"
+    },
+    {
+      "path": "ops/generate_integrity_manifest.py",
+      "bytes": 925,
+      "sha256": "b855baf8010dec2920c9fe01abd42f6b9620167671ea0714f276a3ae869418f0"
+    },
+    {
+      "path": "ops/install.ps1",
+      "bytes": 1482,
+      "sha256": "a04b6f9e7b18746da22fdafd40fce7c657de595186e8b73137faad0e8f69240c"
+    },
+    {
+      "path": "ops/install.sh",
+      "bytes": 781,
+      "sha256": "46a56fa85fe594dc136571d830b6f9891d850790dd5d12514da685690d3cd46a"
+    },
+    {
+      "path": "ops/run_line_audit.py",
+      "bytes": 4314,
+      "sha256": "cddca2a7081e7cffa3212ae64d1389c2f72a43243f18cbbf8fbdc19a0b7bdd62"
+    },
+    {
+      "path": "ops/validate_pack.py",
+      "bytes": 6377,
+      "sha256": "5b767bf73b0a65643275bd190b8b6e19842414981aafc0480c80a6505a1c3b1a"
+    },
+    {
+      "path": "ops/verify_integrity_manifest.py",
+      "bytes": 931,
+      "sha256": "4b94d745d98d62e09fca2fd9d2e3e53dd1971dd4782f69af47ec5211a8ce39fd"
+    },
+    {
+      "path": "tooling/MCP_AND_TOOLING_SETUP.md",
+      "bytes": 1160,
+      "sha256": "a07dd8afff42ba00ceae09b0f3784f5082d47c8dc85dfa623bc6ea80052e5158"
+    },
+    {
+      "path": "tooling/MCP_CONFIG_TEMPLATE.md",
+      "bytes": 748,
+      "sha256": "64c0ba62c644732e1a6c14e73cd13c821e57942852027850a86b6d6e033d7264"
+    },
+    {
+      "path": "tooling/PAID_TOOLS_APPROVAL_TEMPLATE.md",
+      "bytes": 396,
+      "sha256": "7d5f31373619c26aea0355bbf08c13a920a716d0b31497f3c47b29635d35915a"
+    },
+    {
+      "path": "tooling/SECURITY_SECRETS_POLICY.md",
+      "bytes": 790,
+      "sha256": "2ce8d85cb875bfb9dda83df4b02e720c90bc324b0c0f335fa279239e662ff3ec"
+    }
+  ]
+}

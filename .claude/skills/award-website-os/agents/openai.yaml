@@ -1,0 +1,18 @@
+interface:
+  display_name: "Award Website OS"
+  short_description: "Build premium, Awwwards-aspiring websites from only a business type using specialist agents, assets, QA, and smart gates."
+  brand_color: "#111827"
+  default_prompt: "Use the $award-website-os skill. Business type: [insert business]. Infer the brief, use specialist agents, source/generate legal assets if needed, build, inspect screenshots, run QA, and return a truthful ship decision."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "browser-or-playwright"
+      description: "Recommended for rendered-site inspection and screenshots."
+    - type: "mcp"
+      value: "figma"
+      description: "Optional for extracting design references/tokens if a Figma file is provided."
+    - type: "mcp"
+      value: "filesystem"
+      description: "Needed to read/write project files."
