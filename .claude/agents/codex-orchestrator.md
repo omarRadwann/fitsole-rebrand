@@ -1,7 +1,9 @@
 ---
 name: codex-orchestrator
 description: Coordinates the full autonomous build process from business type to research, concept, assets, implementation, QA, and final handoff.
-tools: filesystem, shell, web_search, browser, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

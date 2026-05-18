@@ -529,3 +529,32 @@ Aim for the **details that nobody points to**: the 200ms exit animation, the 15m
 Ship something visible early, then refine.
 
 — end of handover —
+
+---
+
+## Appendix: Agent OS V7 upgrade (2026-05-18)
+
+The repo's Moon-Level Website Agent OS was upgraded from V3 (the layer that built Halo) to V7 on the `os-upgrade-v7` branch. Pre-upgrade state preserved at git tag `pre-v7-upgrade`. Pack SHA256: `5660A0D1C06B70678194DCA608F049E78641BB45B1B534EDCC9502C00F3020FF`.
+
+### What changed (no Halo artifact touched)
+
+- **Additive (Category A):** `ops/`, `tooling/`, `examples/`, `.claude/skills/award-website-os/` (V6 fix — Claude Code skill mirror), `.codex/config.toml`, `.codex/rules/`, all V4–V7 audit reports, `MASTER_DOCUMENT.md`, `START_HERE.md`, `INSTALL_ZERO_GAPS.md`, `Makefile`
+- **Archived (Category D):** `ULTIMATE_WEBSITE_AGENT_OS.md` → `ARCHIVE_ULTIMATE_WEBSITE_AGENT_OS_V3.md` (preserves Halo build history, breaks source-of-truth ambiguity; new SOT is `MASTER_DOCUMENT.md`)
+- **Updated (Category B):** `CLAUDE.md`, `AGENTS.md`, `.claude/settings.json`, `.codex/hooks.json`, all 19 `.claude/agents/*.md` (frontmatter swap `tools:` → `skills: + memory:` per V6), `SKILL.md`, and 4 knowledge files (04, 14, 19, 20). All deltas were V4–V7 layer additions per the pack design — **no Halo-specific customizations were present in any V3 spec file** (verified via spot-diffs on CLAUDE.md and two agent files). Pre-overwrite state in `git show pre-v7-upgrade:<path>`.
+- **README handling:** Pack `README.md` saved as `README_AGENT_OS.md`; Halo's `README.md` retained at root with a pointer at the top.
+
+### What was added but is empty until next build
+
+- `docs/` (12 V7 evidence templates: `assumptions.md`, `research-brief.md`, `concept-scorecard.md`, etc.) — distinct from Halo's root-level evidence (`DESIGN_BRIEF.md`, `ASSET_MANIFEST.md`, `QA_REPORT.md`, this file). Halo's are post-hoc handover; `docs/*` is forward-build artifacts for the next site.
+
+### Branch posture
+
+Branch `os-upgrade-v7` is local-only. `main` is untouched at `pre-v7-upgrade`. Public Halo deployment unaffected. Remote-handling decision (merge / detach / new remote / leave local) is open and surfaced to the user.
+
+### Tool readiness
+
+Per user-selected stack: Playwright + Lighthouse + axe + Blender. Image generation explicitly NOT enabled. See `tooling/LOCAL_TOOL_STATUS.md` (created in step 9 of the upgrade) for per-tool versions.
+
+### Audit trail file
+
+`upgrade-diffs/_compare-report.csv` (gitignored) records every file's pre-upgrade state classification (identical / differs / dst-missing).

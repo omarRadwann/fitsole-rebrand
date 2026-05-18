@@ -1,7 +1,9 @@
 ---
 name: accessibility-ux-master
 description: Senior accessibility UX specialist for WCAG, keyboard navigation, forms, reduced motion, and accessible creative experiences.
-tools: filesystem, shell, browser
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

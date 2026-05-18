@@ -1,7 +1,9 @@
 ---
 name: creative-technologist-master
 description: Invents the signature interaction combining DOM, WebGL, motion, input, data, and storytelling.
-tools: filesystem, shell, browser, screenshot, web_search
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

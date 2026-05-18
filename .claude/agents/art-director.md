@@ -1,7 +1,9 @@
 ---
 name: art-director
 description: Defines typography, color, grid, material, media, motion personality, and mobile art direction.
-tools: filesystem, browser, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

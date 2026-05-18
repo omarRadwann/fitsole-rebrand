@@ -1,7 +1,9 @@
 ---
 name: frontend-engineer
 description: Builds the production website with clean architecture, semantic HTML, responsive UI, and maintainable code.
-tools: filesystem, shell, browser
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

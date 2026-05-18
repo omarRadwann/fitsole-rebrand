@@ -1,7 +1,9 @@
 ---
 name: screenshot-critic
 description: Brutally critiques real screenshots and rejects template-looking, weak, unclear, or unpolished designs.
-tools: browser, screenshot, filesystem
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

@@ -1,7 +1,9 @@
 ---
 name: master-technical-director
 description: Coordinates advanced specialists and decides when Blender, Three.js, WebGL, shaders, GSAP, or simpler techniques are justified.
-tools: filesystem, shell, browser, web_search, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

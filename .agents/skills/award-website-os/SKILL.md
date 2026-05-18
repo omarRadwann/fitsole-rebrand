@@ -143,3 +143,108 @@ Before final delivery:
 ## Senior Rule
 
 Do not produce the most likely website. Produce the strongest website this specific business deserves.
+
+
+---
+
+# V4 Zero-Gap Operational Patch
+
+## Official Folder Mapping
+
+- Official Codex skill references: `references/`
+- Compatibility mirror: `knowledge/`
+- Official templates/assets: `assets/templates/`
+- Compatibility mirror: `templates/`
+- Official scripts: `scripts/`
+- Skill UI/tool metadata: `agents/openai.yaml`
+
+## Codex Agent Format
+
+Codex custom agents are TOML files in `.codex/agents/`.
+Claude Code custom agents are Markdown files with YAML frontmatter in `.claude/agents/`.
+
+When using Codex, refer to `.codex/agents/*.toml`.
+When using Claude Code, refer to `.claude/agents/*.md`.
+
+## Required Evidence Files
+
+Before implementation, ensure these exist under `docs/`:
+- `assumptions.md`
+- `research-brief.md`
+- `concept-scorecard.md`
+- `art-direction.md`
+- `copy-system.md`
+- `asset-ledger.csv`
+- `visual-review.md`
+- `qa-report.md`
+- `ship-decision.md`
+
+Use `scripts/create-evidence-files.sh`.
+
+## Truthfulness Gate
+
+The agent must classify every final claim as:
+- **Verified**: tool/command/screenshot evidence exists.
+- **Manual review**: checked by visual/code inspection but no automated tool.
+- **Not run**: explicitly not executed and reason stated.
+- **Blocked**: missing tool, credentials, asset, or approval.
+
+## Zero-Gap Loop
+
+1. Run readiness check.
+2. Create evidence docs.
+3. Research and document assumptions.
+4. Spawn specialist agents.
+5. Build.
+6. Inspect screenshots.
+7. Run final smart check.
+8. If a gate fails, fix and rerun.
+9. If still blocked, report the blocker honestly.
+
+No silent failures.
+
+
+---
+
+# V5 Operational Layer
+
+Before any major build, use:
+
+```bash
+bash ops/install.sh
+python ops/validate_pack.py
+bash .agents/skills/award-website-os/scripts/create-evidence-files.sh
+```
+
+If Windows PowerShell is preferred:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ops/install.ps1
+python ops/validate_pack.py
+```
+
+## Operational Requirements
+
+- Read `START_HERE.md`.
+- Use `examples/GOLDEN_PROMPTS.md` for prompt patterns.
+- Use `tooling/SECURITY_SECRETS_POLICY.md` before touching credentials.
+- Use `tooling/PAID_TOOLS_APPROVAL_TEMPLATE.md` before paid tools.
+- Use `docs/agent-manifest.md` to see available agents.
+- Use `docs/asset-ledger.csv` for every generated/external asset.
+- Use `docs/ship-decision.md` for the final verdict.
+
+## Final Claim Discipline
+
+Every final result must say what is:
+- Verified
+- Manual review
+- Not run
+- Blocked
+
+No vague "everything is done" claims.
+
+---
+
+# V6 Patient Audit Correction
+
+Use `.agents/skills/award-website-os/` for Codex and `.claude/skills/award-website-os/` for Claude Code. Do not assume one path covers both. Claude subagents preload this skill via their `skills` frontmatter.

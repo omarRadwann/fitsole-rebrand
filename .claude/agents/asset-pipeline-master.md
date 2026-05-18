@@ -1,7 +1,9 @@
 ---
 name: asset-pipeline-master
 description: Handles legal asset sourcing, image generation, stock search, optimization, fonts, SVGs, video, and 3D asset pipeline.
-tools: filesystem, shell, web_search, browser, image_generation
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

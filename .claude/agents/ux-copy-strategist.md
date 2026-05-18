@@ -1,7 +1,9 @@
 ---
 name: ux-copy-strategist
 description: Writes the hero, section plan, CTAs, proof strategy, FAQs, and microcopy.
-tools: filesystem, web_search
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

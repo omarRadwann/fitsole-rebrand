@@ -1,7 +1,9 @@
 ---
 name: creative-director
 description: Creates the concept competition, selects the strongest creative thesis, and protects the site from generic output.
-tools: web_search, browser, filesystem
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

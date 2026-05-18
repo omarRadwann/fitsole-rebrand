@@ -1,7 +1,9 @@
 ---
 name: threejs-r3f-master
 description: Senior Three.js/R3F engineer for performant, responsive, accessible 3D scenes.
-tools: filesystem, shell, browser, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

@@ -1,7 +1,9 @@
 ---
 name: typography-layout-master
 description: Senior typography and layout expert for premium visual hierarchy, spacing, grid, and responsive composition.
-tools: filesystem, browser, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

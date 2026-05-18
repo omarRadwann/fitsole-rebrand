@@ -2,6 +2,8 @@
 
 **Live:** https://omarradwann.github.io/halo/
 
+> This repo also ships the **Moon-Level Website Agent OS** (V7) for building further sites. See [`README_AGENT_OS.md`](README_AGENT_OS.md) and [`START_HERE.md`](START_HERE.md) for the OS itself; everything below is about the Halo site.
+
 A four-page editorial site for a fictional Lisbon + New York growth-marketing practice, built to the *award-level master reference* moon-level standard. Single-page-app feel via cross-document View Transitions; a Blender-driven sculptural identity per page; a real story-mode hero with scroll-driven cinematography.
 
 ## What's inside

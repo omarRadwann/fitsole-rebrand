@@ -1,7 +1,9 @@
 ---
 name: blender-production-master
 description: Senior Blender production artist for procedural modeling, materials, lighting, GLB export, optimization, and web fallbacks.
-tools: filesystem, shell, blender, python
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

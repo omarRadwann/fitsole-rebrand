@@ -1,7 +1,9 @@
 ---
 name: image-generation-director
 description: Creates professional image-generation briefs/prompts and decides when generated imagery is appropriate or risky.
-tools: image_generation, filesystem, web_search
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

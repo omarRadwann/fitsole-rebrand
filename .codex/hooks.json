@@ -1,15 +1,42 @@
 {
-  "note": "Example hook-style policy file. Exact Codex hook support may vary by environment. Use scripts directly if hooks are not supported.",
-  "post_edit": [
-    "bash .agents/skills/award-website-os/scripts/quick-check.sh"
-  ],
-  "pre_final": [
-    "bash .agents/skills/award-website-os/scripts/final-smart-check.sh"
-  ],
-  "smart_pass": {
-    "anti_genericity": true,
-    "asset_ledger": true,
-    "no_template_checklist": true,
-    "visual_review_required": true
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/tool-readiness-check.sh\"",
+            "timeout": 60,
+            "statusMessage": "Checking Award Website OS readiness"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/zero-gap-preflight.sh\"",
+            "timeout": 180,
+            "statusMessage": "Running zero-gap preflight"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/final-smart-check.sh\"",
+            "timeout": 600,
+            "statusMessage": "Running final smart check"
+          }
+        ]
+      }
+    ]
   }
 }

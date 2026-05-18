@@ -1,23 +1,48 @@
 {
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)",
+      "Bash(rm -rf /:*)",
+      "Bash(sudo:*)",
+      "Bash(curl * | sh:*)",
+      "Bash(wget * | sh:*)"
+    ]
+  },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc 'ROOT=\"${CLAUDE_PROJECT_DIR:-$(pwd)}\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/tool-readiness-check.sh\"'",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|MultiEdit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .agents/skills/award-website-os/scripts/quick-check.sh"
+            "command": "bash -lc 'ROOT=\"${CLAUDE_PROJECT_DIR:-$(pwd)}\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/zero-gap-preflight.sh\"'",
+            "timeout": 180
           }
         ]
       }
     ],
     "Stop": [
       {
-        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .agents/skills/award-website-os/scripts/final-smart-check.sh"
+            "command": "bash -lc 'ROOT=\"${CLAUDE_PROJECT_DIR:-$(pwd)}\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/final-smart-check.sh\"'",
+            "timeout": 600
           }
         ]
       }

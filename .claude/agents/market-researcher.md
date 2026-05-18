@@ -1,7 +1,9 @@
 ---
 name: market-researcher
 description: Researches the business category, competitors, buyer psychology, trust requirements, SEO topics, and visual clichés.
-tools: web_search, browser, filesystem
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

@@ -1,7 +1,9 @@
 ---
 name: gpu-performance-master
 description: Senior GPU/runtime performance specialist for Core Web Vitals, WebGL, animation, memory, and mobile performance.
-tools: filesystem, shell, browser, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

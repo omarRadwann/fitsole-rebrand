@@ -27,3 +27,16 @@ build/
 
 # Logs
 *.log
+
+# V7 upgrade audit trail (local diff snapshots from os-upgrade-v7 branch)
+upgrade-diffs/
+
+# Local-only tool readiness record (machine-specific paths/versions)
+tooling/LOCAL_TOOL_STATUS.md
+
+# Local validation output (machine-specific)
+VALIDATION_LOCAL_OUTPUT.txt
+
+# Node-installed QA tooling (Playwright, Lighthouse CI, axe-core CLI)
+package-lock.json
+package.json

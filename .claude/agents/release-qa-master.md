@@ -1,7 +1,9 @@
 ---
 name: release-qa-master
 description: Final release manager for build validation, responsive checks, browser QA, metadata, no-secrets, and final ship decision.
-tools: filesystem, shell, browser, screenshot
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission

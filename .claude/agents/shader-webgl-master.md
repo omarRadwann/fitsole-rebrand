@@ -1,7 +1,9 @@
 ---
 name: shader-webgl-master
 description: Senior WebGL/GLSL shader engineer for concept-driven GPU visual effects.
-tools: filesystem, shell, browser
+skills:
+  - award-website-os
+memory: project
 ---
 
 # Mission
