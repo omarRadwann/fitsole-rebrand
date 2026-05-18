@@ -1,0 +1,423 @@
+/* Caliper — core token system.
+ * Defines: palette (OKLCH), type, schematic grid, dim lines, leader lines.
+ * Reference: ../docs/art-direction.md
+ *
+ * Designed as an opposite pole to Halo's editorial-dark system.
+ * Halo: warm-amber-on-near-black, Instrument Serif italic display, cinematic motion.
+ * Caliper: cool-ink-on-cream-paper, Inter signage display, mechanical motion.
+ */
+
+:root {
+  /* Palette — see docs/art-direction.md §Palette */
+  --paper:          oklch(96% 0.015 85);
+  --paper-deep:     oklch(90% 0.018 80);
+  --ink:            oklch(20% 0.020 250);
+  --ink-mute:       oklch(45% 0.018 250);
+  --rule:           oklch(55% 0.04 245);
+  --rule-faint:     oklch(75% 0.03 245);
+  --measure:        oklch(62% 0.27 0);
+  --caliper-steel:  oklch(72% 0.012 250);
+  --caliper-shadow: oklch(35% 0.020 250 / 0.18);
+
+  /* Type — see docs/art-direction.md §Typography */
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Source Serif 4', 'Times New Roman', Times, serif;
+  --font-mono:    'JetBrains Mono', 'Berkeley Mono', ui-monospace, monospace;
+
+  --fs-hero:   clamp(40px, 6.2vw, 84px);
+  --fs-h2:     clamp(28px, 3.6vw, 44px);
+  --fs-h3:     clamp(20px, 2.2vw, 26px);
+  --fs-body:   17px;
+  --fs-mono:   13px;
+  --fs-foot:   13px;
+
+  --lh-tight:  1.05;
+  --lh-body:   1.55;
+  --lh-mono:   1.4;
+
+  /* Schematic grid */
+  --grid-cols: 12;
+  --grid-gap:  24px;
+  --margin-px: 80px;     /* persistent left ruler width */
+  --topedge-px: 56px;    /* persistent top ruler height */
+  --tick-mm:   80px;     /* "millimeter" interval between scroll rule ticks */
+  --rule-px:   1px;
+  --rule-px-bold: 1.5px;
+
+  /* Motion */
+  --ease-mech:    cubic-bezier(.5, 0, .2, 1);
+  --ease-jaw:     cubic-bezier(.3, 0, .15, 1.05);
+  --t-fast:       180ms;
+  --t-default:    240ms;
+  --t-slow:       420ms;
+}
+
+/* ============ reset / base ============ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-feature-settings: 'kern' 1, 'liga' 1, 'onum' 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+::selection { background: var(--measure); color: var(--paper); }
+
+/* ============ persistent rulers ============ */
+
+.ruler-top {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--topedge-px);
+  background: var(--paper);
+  border-bottom: var(--rule-px) solid var(--rule);
+  z-index: 10;
+  display: grid;
+  grid-template-columns: var(--margin-px) 1fr auto;
+  align-items: end;
+}
+.ruler-top__corner {
+  border-right: var(--rule-px) solid var(--rule);
+  height: 100%;
+  position: relative;
+}
+.ruler-top__corner::after {
+  content: 'caliper / studio';
+  position: absolute;
+  bottom: 6px;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--ink-mute);
+  text-transform: lowercase;
+}
+.ruler-top__scale {
+  height: 100%;
+  position: relative;
+  background:
+    repeating-linear-gradient(to right,
+      var(--rule-faint) 0, var(--rule-faint) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(to right,
+      var(--rule) 0, var(--rule) 1px, transparent 1px, transparent 200px);
+  background-position: 0 100%;
+  background-size: 100% 8px, 100% 14px;
+  background-repeat: no-repeat, no-repeat;
+}
+.ruler-top__nav {
+  display: flex;
+  gap: 28px;
+  padding: 0 24px 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.ruler-top__nav a { position: relative; }
+.ruler-top__nav a[aria-current="page"]::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: -4px; right: -4px;
+  height: 4px;
+  border-top: var(--rule-px-bold) solid var(--measure);
+}
+
+.ruler-left {
+  position: fixed;
+  inset: var(--topedge-px) auto 0 0;
+  width: var(--margin-px);
+  background: var(--paper);
+  border-right: var(--rule-px) solid var(--rule);
+  z-index: 5;
+  pointer-events: none;
+}
+.ruler-left::before {
+  /* tick marks every --tick-mm */
+  content: '';
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 12px;
+  background: repeating-linear-gradient(to bottom,
+    var(--rule-faint) 0, var(--rule-faint) 1px, transparent 1px, transparent var(--tick-mm));
+}
+.ruler-left::after {
+  content: 'depth →';
+  position: absolute;
+  left: 8px;
+  top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* ============ main schematic layout ============ */
+
+main {
+  padding-top: var(--topedge-px);
+  padding-left: var(--margin-px);
+}
+
+.sheet {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  column-gap: var(--grid-gap);
+  padding: 56px 56px 96px;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.sheet > .section-no {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.06em;
+  padding-bottom: 10px;
+  border-bottom: var(--rule-px) solid var(--rule);
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+}
+.sheet > .section-no span:last-child {
+  color: var(--ink);
+}
+
+/* ============ hero ============ */
+
+.hero {
+  grid-column: 1 / 9;
+  position: relative;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  margin: 0 0 28px;
+  font-stretch: 87.5%;
+}
+.hero h1 .measure {
+  color: var(--measure);
+  font-style: normal;
+}
+.hero p.lede {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 52ch;
+  margin: 0 0 32px;
+}
+.hero .meta {
+  display: flex;
+  gap: 32px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+  margin-bottom: 36px;
+}
+.hero .meta strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* CTA */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: var(--rule-px-bold) solid var(--ink);
+  background: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  transition: background var(--t-fast) var(--ease-mech), color var(--t-fast) var(--ease-mech), border-color var(--t-fast) var(--ease-mech);
+}
+.cta:hover, .cta:focus-visible {
+  background: var(--measure);
+  color: var(--paper);
+  border-color: var(--measure);
+  outline: none;
+}
+.cta--ghost {
+  border-color: var(--rule);
+  color: var(--ink-mute);
+}
+.cta--ghost:hover, .cta--ghost:focus-visible {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* ============ caliper instrument area (placeholder) ============ */
+
+.instrument {
+  grid-column: 9 / -1;
+  position: relative;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#instrument-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.instrument__fallback {
+  /* Visible whenever .instrument is missing JS or reduced-motion is set */
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============ dim/leader lines (utility) ============ */
+
+.dim {
+  position: absolute;
+  background: var(--rule);
+  pointer-events: none;
+}
+.dim--h { height: 1px; }
+.dim--v { width: 1px; }
+.dim-tag {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--ink-mute);
+  background: var(--paper);
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+/* ============ first content section: the spread test ============ */
+
+.spread {
+  grid-column: 1 / -1;
+  margin-top: 96px;
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  column-gap: var(--grid-gap);
+}
+.spread h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin: 0;
+  font-stretch: 87.5%;
+}
+.spread .body p {
+  margin: 0 0 18px;
+  max-width: 60ch;
+}
+.spread .table {
+  grid-column: 1 / -1;
+  margin-top: 36px;
+  border-top: var(--rule-px) solid var(--rule);
+}
+.spread .row {
+  display: grid;
+  grid-template-columns: 1.4fr 0.4fr 2fr;
+  align-items: baseline;
+  column-gap: var(--grid-gap);
+  padding: 18px 0;
+  border-bottom: var(--rule-px) solid var(--rule-faint);
+}
+.spread .row .label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+}
+.spread .row .said {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.spread .row .arrow {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--measure);
+  text-align: center;
+}
+.spread .row .shipped {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* ============ footer ============ */
+
+footer.colophon {
+  border-top: var(--rule-px) solid var(--rule);
+  margin: 96px 0 0;
+  padding: 28px 56px 36px;
+  padding-left: calc(var(--margin-px) + 56px);
+  font-family: var(--font-mono);
+  font-size: var(--fs-foot);
+  color: var(--ink-mute);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+footer.colophon strong { color: var(--ink); font-weight: 500; }
+footer.colophon a { border-bottom: 1px dotted var(--rule); }
+footer.colophon a:hover, footer.colophon a:focus-visible { color: var(--measure); border-color: var(--measure); outline: none; }
+
+/* ============ responsive ============ */
+
+@media (max-width: 960px) {
+  :root {
+    --margin-px: 56px;
+    --grid-gap: 16px;
+  }
+  .ruler-top { grid-template-columns: var(--margin-px) 1fr; }
+  .ruler-top__nav { display: none; }
+  .ruler-top__corner::after { font-size: 10px; }
+  .sheet { padding: 32px 24px 64px; }
+  .hero, .instrument, .spread {
+    grid-column: 1 / -1;
+  }
+  .instrument { min-height: 420px; margin-top: 24px; }
+  .spread { grid-template-columns: 1fr; }
+  .spread .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .spread .row .arrow { display: none; }
+  footer.colophon { padding-left: calc(var(--margin-px) + 24px); padding-right: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Caliper instrument falls back to SVG; transitions reduced. */
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  #instrument-canvas { display: none; }
+  .instrument__fallback { display: block; }
+}

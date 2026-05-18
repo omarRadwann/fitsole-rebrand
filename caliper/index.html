@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Caliper — a precision-marketing studio that ships in two weeks</title>
+  <meta name="description" content="Caliper is a fictional four-person marketing studio. We run a $9,500 fixed-fee diagnostic in two weeks and end with a written brief, not a deck.">
+  <link rel="canonical" href="./">
+
+  <!-- Inter (display) + Source Serif 4 (body) + JetBrains Mono (labels). See ../docs/art-direction.md -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="caliper-core.css">
+
+  <meta name="theme-color" content="#f5efe2">
+</head>
+<body>
+
+  <!-- Persistent top edge — section nav + horizontal mm rule -->
+  <header class="ruler-top" role="banner">
+    <div class="ruler-top__corner" aria-hidden="true"></div>
+    <div class="ruler-top__scale" aria-hidden="true"></div>
+    <nav class="ruler-top__nav" aria-label="Primary">
+      <a href="./" aria-current="page">index</a>
+      <a href="./method.html">method</a>
+      <a href="./work.html">work</a>
+      <a href="./studio.html">studio</a>
+    </nav>
+  </header>
+
+  <!-- Persistent left ruler — depth scale -->
+  <aside class="ruler-left" aria-hidden="true"></aside>
+
+  <main id="main" role="main">
+    <article class="sheet">
+
+      <!-- Section number / heading rule -->
+      <div class="section-no" aria-hidden="true">
+        <span>§ 01 / 09  —  hero</span>
+        <span>caliper / studio / index</span>
+      </div>
+
+      <!-- Hero copy ←→ caliper instrument -->
+      <section class="hero" aria-labelledby="hero-h1">
+        <h1 id="hero-h1">
+          Most marketing fails the
+          <span class="measure">spread test</span>.
+        </h1>
+        <p class="lede">
+          We close the gap between what the agency says and what shipped — in two weeks, $9,500 fixed.
+          Four operators. One diagnostic. A written brief, not a deck.
+        </p>
+        <div class="meta">
+          <span><strong>Engagement</strong> — diagnostic</span>
+          <span><strong>Fee</strong> — $9,500 fixed</span>
+          <span><strong>Duration</strong> — 14 days</span>
+        </div>
+        <a class="cta" href="#run-a-diagnostic">Run a diagnostic →</a>
+        &nbsp;
+        <a class="cta cta--ghost" href="./method.html">Read the method →</a>
+      </section>
+
+      <section class="instrument" aria-labelledby="instrument-label">
+        <h2 id="instrument-label" class="sr-only" style="position:absolute;width:1px;height:1px;clip:rect(0 0 0 0);overflow:hidden">Caliper measurement instrument</h2>
+        <canvas id="instrument-canvas" aria-hidden="true"></canvas>
+        <object class="instrument__fallback" type="image/svg+xml" data="assets/caliper-static.svg" aria-label="Static caliper schematic at 28 millimetres"></object>
+        <div id="measurement-announce" aria-live="polite" style="position:absolute;width:1px;height:1px;clip:rect(0 0 0 0);overflow:hidden"></div>
+      </section>
+
+      <!-- Section 2: The spread test -->
+      <div class="section-no" aria-hidden="true" style="margin-top:64px">
+        <span>§ 02 / 09  —  the spread test</span>
+        <span>method / 1 of 12</span>
+      </div>
+
+      <section class="spread" aria-labelledby="spread-h2">
+        <div class="head">
+          <h2 id="spread-h2">
+            What the agency<br>said, and what<br><span style="color:var(--measure)">shipped</span>.
+          </h2>
+        </div>
+        <div class="body">
+          <p>
+            The first measurement in every diagnostic is the spread test: for each claim an agency makes
+            on its site, what is the verifiable artifact in the world? "Strategic" — show the strategy doc.
+            "Creative" — show the creative. "Growth" — show the growth.
+          </p>
+          <p>
+            Most spreads are wide. The four below are paraphrased from real category language. We measure
+            the gap between the claim and the artifact in millimetres.
+          </p>
+        </div>
+
+        <div class="table" role="table" aria-label="Four representative category-claim spreads">
+          <div class="row" role="row">
+            <div class="label" role="cell">CLAIM 01</div>
+            <div class="said" role="cell">"Strategic creative."</div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div class="shipped" role="cell">Two decks; no strategy doc, no creative brief, no production calendar. Spread: <strong style="font-family:var(--font-mono);color:var(--measure)">62.5 mm</strong>.</div>
+          </div>
+          <div class="row" role="row">
+            <div class="label" role="cell">CLAIM 02</div>
+            <div class="said" role="cell">"Data-driven growth."</div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div class="shipped" role="cell">Two dashboards inherited from the previous agency; no measurement plan; no integration to the warehouse. Spread: <strong style="font-family:var(--font-mono);color:var(--measure)">48.0 mm</strong>.</div>
+          </div>
+          <div class="row" role="row">
+            <div class="label" role="cell">CLAIM 03</div>
+            <div class="said" role="cell">"Premium brand work."</div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div class="shipped" role="cell">A logo refresh and a Notion brand guideline. No system, no kit, no rollout. Spread: <strong style="font-family:var(--font-mono);color:var(--measure)">55.0 mm</strong>.</div>
+          </div>
+          <div class="row" role="row">
+            <div class="label" role="cell">CLAIM 04</div>
+            <div class="said" role="cell">"Full-funnel campaigns."</div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div class="shipped" role="cell">Top-of-funnel paid social; no MQL definition, no sales-handoff, no lifecycle. Spread: <strong style="font-family:var(--font-mono);color:var(--measure)">71.0 mm</strong>.</div>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <footer class="colophon">
+      <span>caliper / fictional studio / portfolio piece in this repo</span>
+      <span>built on the moon-level website agent OS · <a href="../README.md">repo</a> · <a href="../README_AGENT_OS.md">OS</a></span>
+      <span><strong>stage 1</strong> — hero + § 02; § 03–09 next</span>
+    </footer>
+  </main>
+
+  <script src="caliper-core.js" defer></script>
+</body>
+</html>

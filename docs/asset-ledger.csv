@@ -1,2 +1,17 @@
 asset,section,source,license_status,commercial_use,generated_or_real,optimization,fallback,risk_notes
-hero-poster,hero,TBD,TBD,TBD,TBD,TBD,TBD,TBD
+caliper.glb,home hero / work measurement,Blender script ./caliper/blender/caliper_instrument.py,owned (in-repo),fictional studio use,generated (Blender 5.1.1),Draco compression <= 80KB,SVG schematic at ./caliper/assets/caliper-static.svg,Must justify per V7 master-technical-director gate before keeping
+caliper.glb (mobile vertical),home hero mobile,Blender script (same source, orientation variant),owned,fictional studio use,generated,Draco <= 80KB,same SVG fallback,Rotated 90 in CSS; no second GLB
+caliper-static.svg,reduced-motion / WebGL-fail fallback,hand-coded SVG in ./caliper/assets/,owned,fictional studio use,generated (code),inline in HTML (<4KB),N/A (this IS the fallback),Must label four positions on screen
+schematic-grid.css tokens,every page,hand-coded CSS,owned,fictional studio use,generated (code),CSS variables under :root,no fallback needed,Define once in caliper-core.css
+case-specimen-1.svg,/work.html,hand-coded SVG schematic of fictional case artifact,owned,fictional studio use,generated (code),inline (<6KB),text-only description,Must label as fictional/illustrative
+case-specimen-2.svg,/work.html,hand-coded SVG schematic,owned,fictional studio use,generated (code),inline (<6KB),text-only description,Same
+case-specimen-3.svg,/work.html,hand-coded SVG schematic,owned,fictional studio use,generated (code),inline (<6KB),text-only description,Same
+methodology-diagram.svg,/method.html,hand-coded SVG of the 12-measurement schematic,owned,fictional studio use,generated (code),inline (<10KB),text-only fallback,Each measurement must be reachable via keyboard
+favicon-caliper.svg,every page,hand-coded SVG,owned,fictional studio use,generated (code),inline-able (<2KB),N/A,Must be visually distinct from Halo favicon
+og-image-caliper.svg -> .png,OG share preview,hand-coded SVG then Blender headless render,owned,fictional studio use,generated,1200x630 PNG <=120KB,SVG raw,Required for any link share
+fonts: Inter / Source Serif 4 / JetBrains Mono,every page,Google Fonts CDN,SIL OFL 1.1 / OFL / Apache 2.0,yes,real (3rd-party hosted),subset Latin only / display=swap,system-ui fallback declared,Berkeley Mono substituted with JetBrains Mono due to paid licence - documented
+audio,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Intentionally none (anti-Halo decision)
+photography,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Intentionally none (V7 anti-genericity)
+icons,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Intentionally none - replaced with numbered schematic callouts
+stock,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Banned by docs/assumptions.md
+image-generation API,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Not requested by user - per LOCAL_TOOL_STATUS.md

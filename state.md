@@ -1,13 +1,24 @@
-# Halo — Project State
+# test1 — Project State (Halo + Caliper workbench)
 
 **Last updated:** 2026-05-18
-**Repo:** https://github.com/omarRadwann/halo
-**Live:** https://omarradwann.github.io/halo/
+**Repo:** https://github.com/omarRadwann/halo (Halo's remote — Caliper has NOT been pushed)
+**Halo Live:** https://omarradwann.github.io/halo/
 **Local working dir:** `C:\Users\acer\Desktop\test1\`
 
 ## What this project is
 
-A four-page editorial site for a fictional Lisbon + New York growth-marketing practice (Halo). Built to the *Ultimate Moon-Level Website Agent OS* standard. Single signature 3D moment per page (Blender-baked), cross-document View Transitions between pages, story-mode hero on the home page.
+`test1/` now hosts **two fictional marketing-agency portfolio sites** built on the **Moon-Level Website Agent OS V7** (upgraded from V3 on 2026-05-18). The two sites are deliberately opposite-pole studies in the same category:
+
+| Site | Path | Status | Aesthetic | Metaphor |
+|---|---|---|---|---|
+| **Halo** | `/` (root) | Shipped, deployed at `omarradwann.github.io/halo/` | Editorial dark · warm amber accent · Instrument Serif italic · cinematic motion | Gravity field · dispersion-glass sculpture · "presence not noise" |
+| **Caliper** | `/caliper/` | Stage 1 — strategy locked, hero shipped, sections 3–9 + Three.js GLB pending | Cool ink on cream paper · single fluorescent magenta · Inter signage + Times serif + JetBrains Mono · mechanical motion | Precision instrument · static caliper SVG (Three.js next) · "spread test"
+
+Halo is the meditative brand-led practice; Caliper is the mechanical operator-led studio. Together they're a deliberate pair — two answers to the same brief from opposite directions.
+
+## Halo (the original) — four-page editorial site
+
+A four-page editorial site for a fictional Lisbon + New York growth-marketing practice. Built to the *Ultimate Moon-Level Website Agent OS* standard. Single signature 3D moment per page (Blender-baked), cross-document View Transitions between pages, story-mode hero on the home page.
 
 ## Pages live
 
@@ -33,22 +44,40 @@ A four-page editorial site for a fictional Lisbon + New York growth-marketing pr
 - Variants: full sculpture + halo ring (home); elaborate knot (work); calm icosphere (studio); twisted ribbon (journal)
 - Idempotent — re-running clears the scene between bakes
 
-## Agent OS
+## Agent OS — upgraded V3 → V7 on 2026-05-18
 
-This repo ships with the **Ultimate Moon-Level Website Agent OS** wired up for both Claude Code and Codex:
+This repo ships the **Moon-Level Website Agent OS V7** wired up for both Claude Code and Codex. The upgrade is on branch `os-upgrade-v7`; tag `pre-v7-upgrade` anchors the V3 state on `main`. Halo `main` is **untouched** by the upgrade.
 
-- `ULTIMATE_WEBSITE_AGENT_OS.md` — source of truth (38 sections, single document)
-- `CLAUDE.md` — Claude Code loader pointing at the OS
-- `AGENTS.md` — Codex loader pointing at the OS
-- `.claude/agents/` — 19 specialist subagents for Claude Code (creative-director, art-director, frontend-engineer, blender-production-master, gpu-performance-master, screenshot-critic, etc.)
-- `.claude/settings.json` — Claude Code project settings
-- `.codex/agents/` — same 19 specialists for Codex
-- `.codex/hooks.json` — Codex hook configuration
-- `.agents/skills/award-website-os/` — codex-style skill with 31 knowledge masters, scripts, and templates
+- `MASTER_DOCUMENT.md` — V7 source of truth (supersedes the archived `ARCHIVE_ULTIMATE_WEBSITE_AGENT_OS_V3.md` which built Halo)
+- `START_HERE.md`, `INSTALL_ZERO_GAPS.md`, `README_AGENT_OS.md` — V5/V7 entry points
+- `CLAUDE.md` — Claude Code loader (V4/V5/V6/V7 patches included)
+- `AGENTS.md` — Codex loader
+- `.claude/agents/*.md` (19) + `.claude/skills/award-website-os/` — Claude Code subagents and skill (V6 added the parallel skill mirror)
+- `.codex/agents/*.toml` (19 — V4 added these) + `.codex/agents/*.md` + `.codex/config.toml` + `.codex/hooks.json` + `.codex/rules/`
+- `.agents/skills/award-website-os/` — skill with 34 knowledge masters + 36 references + 12 scripts + 8 asset-templates + `agents/openai.yaml`
+- `docs/` — V7 evidence framework (assumptions.md, research-brief.md, concept-scorecard.md, art-direction.md, copy-system.md, asset-ledger.csv, visual-review.md, qa-report.md, ship-decision.md, agent-manifest.{md,csv}, agent-court-report.md). Currently populated for the Caliper build.
+- `ops/` — V5 operational layer (validate_pack.py, integrity manifest, install scripts)
+- `tooling/` — security/secrets policy, paid-tools approval template, MCP setup; plus local `LOCAL_TOOL_STATUS.md` (gitignored)
+- `examples/GOLDEN_PROMPTS.md` — prompt templates for the V7 workflow
+
+Halo evidence (`DESIGN_BRIEF.md`, `ASSET_MANIFEST.md`, `QA_REPORT.md`, `HANDOVER.md`) sits at the repo root unchanged — that's Halo's post-hoc handover. The V7 `docs/*` is forward-build evidence for the next site (currently Caliper).
 
 ## Open work / next directions
 
-These were on the table when the last session ended:
+### Caliper (next-up — actively under construction)
+
+Stage-1 evidence locked in `docs/`. Stage-1 hero shipped at `/caliper/index.html`. Remaining stages:
+
+- **Stage 2 — Blender caliper instrument.** Author `caliper/blender/caliper_instrument.py` (idempotent Blender script). Export Draco-compressed GLB ≤80KB. Four animation clips: idle, measuring, seeking, disengaged. Reference: `docs/art-direction.md §The caliper instrument`.
+- **Stage 3 — Three.js scene.** Mount in `#instrument-canvas`; couple scroll progress to the `measuring` clip; wire ArrowLeft/Right keyboard control to discrete jaw positions; emit `measurement-announce` updates to the aria-live region.
+- **Stage 4 — Home sections 3–9.** § 03 the diagnostic (12 measurements), § 04 three engagements with pricing, § 05 what we don't do (4 refusals), § 06 recent work (3 specimens), § 07 studio (4 operators), § 08 run-a-diagnostic CTA + form, § 09 footer.
+- **Stage 5 — method.html, work.html, studio.html.** Three additional pages per `docs/copy-system.md §Pages 2-4 copy plans`.
+- **Stage 6 — QA.** Playwright screenshot critique, Lighthouse perf budget enforcement (LCP ≤1.8s, JS ≤60KB), axe a11y scan. Tools installed; see `tooling/LOCAL_TOOL_STATUS.md`.
+- **Stage 7 — Ship decision.** Populate `docs/ship-decision.md` with Verified / Manual review / Not run / Blocked labels per V7 truthfulness gate.
+
+### Halo (paused — already shipped at omarradwann.github.io/halo/)
+
+These were on the table when the Halo session ended (now paused while Caliper builds out):
 
 - Persistent canvas across navigations (per moon-level §11.3) — requires a SPA shim or service worker; right now each page mounts its own canvas
 - Per-case detail pages (`/work/halcyon.html` etc.) — currently cases route to the home drawer
@@ -57,6 +86,10 @@ These were on the table when the last session ended:
 - 5th Blender variant for a future `/now.html` or 404 page
 - Mobile-specific 3D treatment — currently dimmed at 0.35 on narrow viewports; could be replaced with still SVG silhouettes
 - Build pipeline graduation to Next.js + R3F (per HANDOVER §9 sketch) — only if the project grows beyond editorial multi-page
+
+### Repo-level open decision
+
+`os-upgrade-v7` branch is local-only. Remote handling not yet decided (merge to Halo main / detach / new remote / stay local). See [`HANDOVER.md` §Agent OS V7 upgrade](HANDOVER.md).
 
 ## Where to look first if returning to this project
 
