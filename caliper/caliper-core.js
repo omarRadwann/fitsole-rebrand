@@ -87,11 +87,23 @@
   // the caliper closes.
   // -------------------------------------------------------------------------
 
+  // Anchor element: the spread test section's bottom is where the caliper
+  // should be fully closed (mix = 1.0). Past that point, the measurement
+  // is "locked" — caliper holds at the measured value while the rest of the
+  // page reads. Falls back to a heuristic if the anchor isn't found.
+  const spreadAnchor = document.querySelector('.spread');
   function scrollMix() {
-    // Heuristic: map [0..600px] of scroll to [0..1] of mix.
-    // (Real scroll-trigger would be linked to spread section's bounding rect,
-    // but on stage 1/2 we keep it heuristic so it works before Lenis lands.)
     const y = window.scrollY || window.pageYOffset || 0;
+    if (spreadAnchor) {
+      const rect = spreadAnchor.getBoundingClientRect();
+      const bottom = rect.bottom + y;       // page-absolute bottom of spread section
+      const startY = 80;                    // start closing after this much scroll
+      const endY = bottom - window.innerHeight * 0.45;
+      if (y <= startY) return 0;
+      if (y >= endY) return 1;
+      return (y - startY) / Math.max(1, (endY - startY));
+    }
+    // Fallback for stage 1/2 layout
     return Math.min(1, Math.max(0, y / 600));
   }
   let scrolling = false;
@@ -195,6 +207,15 @@
       glbRoot = gltf.scene;
       glbRoot.position.set(0, 0, 0);
       glbRoot.scale.setScalar(1);
+      // Mobile orientation: rotate the caliper to vertical when the canvas
+      // is narrow. Per docs/art-direction.md §The caliper instrument · Mobile.
+      const isNarrow = window.matchMedia('(max-width: 960px)').matches;
+      if (isNarrow) {
+        glbRoot.rotation.z = Math.PI / 2;
+        // Re-frame camera for the vertical orientation
+        camera.position.set(2, 8, 36);
+        camera.lookAt(2, 8, 0);
+      }
       scene.add(glbRoot);
 
       mixer = new THREE.AnimationMixer(glbRoot);
@@ -289,6 +310,41 @@
   }
   initIdleSweep();
 
+  // -------------------------------------------------------------------------
+  // Diagnostic form — submit is a no-op (no backend); shows the success
+  // microcopy locked in docs/copy-system.md §Microcopy locks.
+  // -------------------------------------------------------------------------
+
+  const form = document.querySelector('.diagnostic-form');
+  const status = document.getElementById('form-status');
+  if (form && status) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Clear any prior error styling
+      form.querySelectorAll('input, select, textarea').forEach((el) => {
+        el.style.borderBottomColor = '';
+      });
+      // Lightweight validation
+      const missing = [];
+      form.querySelectorAll('[required]').forEach((el) => {
+        const val = (el.value || '').trim();
+        if (!val) {
+          missing.push(el);
+          el.style.borderBottomColor = 'var(--measure)';
+        }
+      });
+      if (missing.length) {
+        status.textContent = 'That didn’t go through. The fields outlined in magenta are missing.';
+        status.classList.remove('is-ok');
+        missing[0].focus();
+        return;
+      }
+      status.textContent = 'We’ll reply within one working day. If we don’t, we’ve decided not to.';
+      status.classList.add('is-ok');
+      form.reset();
+    });
+  }
+
   // Console signature
-  console.log('%ccaliper — stage 2/3 build, Three.js + Blender GLB', 'font-family:monospace;font-size:12px;color:#a31764');
+  console.log('%ccaliper — stage 4 build, home complete', 'font-family:monospace;font-size:12px;color:#a31764');
 }());
