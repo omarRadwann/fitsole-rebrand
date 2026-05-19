@@ -17,7 +17,8 @@ export function EditorialFeature() {
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
             <Link
-              href="/editorial/samba-in-cairo"
+              href="/journal/samba-fourth-month"
+              data-cursor="Read"
               className="font-mono text-eyebrow tracking-[0.18em] hover:opacity-70 transition-opacity duration-[--dur-micro] ease-smooth"
             >
               Read this week&apos;s piece →

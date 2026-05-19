@@ -133,6 +133,29 @@ test('Sound is wired to CartDrawer, BranchPin, and PageTransition', () => {
   assert.ok(pt.includes("pageNavigate"), 'PageTransition must fire pageNavigate sfx on route change')
 })
 
+test('Editorial layer exists with 4 articles, /journal route, draft banner', () => {
+  assert.ok(existsSync(join(ROOT, 'lib', 'data', 'articles.ts')), 'articles data file must exist')
+  assert.ok(existsSync(join(ROOT, 'app', 'journal', 'page.tsx')), '/journal index route must exist')
+  assert.ok(existsSync(join(ROOT, 'app', 'journal', '[slug]', 'page.tsx')), '/journal/[slug] route must exist')
+
+  const articles = readFileSync(join(ROOT, 'lib', 'data', 'articles.ts'), 'utf-8')
+  for (const slug of ['samba-fourth-month', 'cairo-summer-sizing', 'triangle-maadi-zamalek-heliopolis', 'ac-vs-the-customer']) {
+    assert.ok(articles.includes(`slug: '${slug}'`), `missing article: ${slug}`)
+  }
+  assert.ok(articles.includes("status: 'draft-pending-founder-review'"), 'articles must carry the draft-pending status')
+
+  const slugRoute = readFileSync(join(ROOT, 'app', 'journal', '[slug]', 'page.tsx'), 'utf-8')
+  assert.ok(slugRoute.includes('DRAFT — pending Fitsole founder review'), 'article route must show draft banner')
+
+  const editorial = readFileSync(join(ROOT, 'components', 'sections', 'EditorialFeature.tsx'), 'utf-8')
+  assert.ok(editorial.includes('/journal/samba-fourth-month'), 'EditorialFeature must link to real article, not placeholder')
+})
+
+test('Header points "Inside Fitsole" at /journal (not /editorial)', () => {
+  const header = readFileSync(join(ROOT, 'components', 'Header.tsx'), 'utf-8')
+  assert.ok(header.includes('/journal'), 'Header Inside Fitsole link must point at /journal')
+})
+
 test('layout wires the Full-Lift motion shell', () => {
   const layout = readFileSync(join(ROOT, 'app', 'layout.tsx'), 'utf-8')
   for (const sym of ['CustomCursor', 'PageTransition', 'ScrollCue']) {
