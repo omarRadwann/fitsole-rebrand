@@ -3,6 +3,9 @@ import { Manrope, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { CustomCursor } from '@/components/motion/CustomCursor'
+import { PageTransition } from '@/components/motion/PageTransition'
+import { ScrollCue } from '@/components/motion/ScrollCue'
 
 const display = Manrope({
   subsets: ['latin'],
@@ -42,9 +45,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="bg-bg text-fg antialiased font-body">
+        <PageTransition />
         <Header />
         {children}
         <Footer />
+        <ScrollCue />
+        <CustomCursor />
       </body>
     </html>
   )

@@ -9,6 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="group">
       <Link
         href={`/products/${product.slug}`}
+        data-cursor="Open"
         className="block aspect-[4/5] relative overflow-hidden bg-bg-elevated focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
       >
         {/* Faint shelf-line backdrop so transparent-PNG products sit on something */}

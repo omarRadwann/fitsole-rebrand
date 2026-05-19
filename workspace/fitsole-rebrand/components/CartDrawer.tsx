@@ -12,6 +12,7 @@ export function CartDrawer() {
       <Dialog.Trigger asChild>
         <button
           aria-label={`Cart · ${count} items`}
+          data-cursor="Cart"
           className="hover:opacity-70 transition-opacity focus:outline-none focus-visible:opacity-70 relative"
         >
           <CartIcon className="w-5 h-5" />
