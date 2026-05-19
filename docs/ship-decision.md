@@ -12,32 +12,35 @@ The final, truth-labeled handoff for the Fitsole rebrand prototype. Labels are e
 
 - **Selected concept:** B — "The Branch" (per `concept-scorecard.md`).
 - **Signature idea:** Fitsole is the digital aisle of a real Cairo shop you can walk into; physical retail is the rebrand's trust spine, not a footer detail.
-- **Signature visual:** Full-bleed photograph of a Cairo sneaker-shop branch interior + H1 "The shop you can walk into." set at editorial scale. **Verified (demo)** — AI-generated branch interiors via Higgsfield Nano Banana Pro + Soul Location (Pro plan commercial license) integrated and rendering. Replace with commissioned real branch photography before public production launch (see `asset-ledger.csv`).
-- **Signature interaction:** Branch-as-pin geography — every product card and PDP carries "In stock at `<branch>` today" + Reserve-at-branch CTA. **Verified** at structural level (built, tested, accessible); **Manual review** for production data integration (needs Shopify Multi-Locations).
+- **Signature visual:** Full-bleed photograph of a Cairo sneaker-shop branch interior + H1 "The shop you can walk into." set at editorial scale. **Verified (demo)** — AI-generated branch interiors via Higgsfield Nano Banana Pro + Soul Location (Pro plan commercial license) integrated and rendering. **Full Lift 2026-05-20:** added the Cairo Evening WebGL shader behind the hero photograph (terracotta sky bleed + sun-disk drift + heat-haze + scroll-tied warm-up); poster fallback for mobile + reduce-motion. Replace AI hero with commissioned real branch photography before public production launch (see `asset-ledger.csv`).
+- **Signature interactions (Full Lift):** Two signature interactions now ship: (1) BranchPin geography — "In stock at `<branch>` today" + Reserve-at-branch CTA on every product card/PDP. **Verified** structurally; **Manual review** for production data integration (needs Shopify Multi-Locations). (2) Cairo Evening shader — fragment shader behind hero photo with scroll-tied uniforms. **Verified** in code; visual confirmation in screenshots.
 - **Memorable screenshot reference:** Pending Phase 6 capture.
 - **Brave decision:** **Hero is the actual shop, not abstract product.** The one move END. / Patta / Nike.com EG / KSPORT reliably do not make.
 
 **Label:** **Verified** · Brave decision named in `creative-brief.md`; trade-offs explicit in `concept-scorecard.md` § Trade-offs.
 
-## Build checks
+## Build checks — UPDATED Full Lift 2026-05-20
 
 | Gate | Result | Label | Evidence |
 |---|---|---|---|
 | typecheck | PASS (exit 0) | **Verified** | `tsc --noEmit` → no errors. |
 | lint | PASS (exit 0) | **Verified** | `next lint` → "No ESLint warnings or errors." |
-| build | PASS (exit 0) | **Verified** | Compiled in 8.3s. 134 KB First-Load JS (budget 165 KB — 18% under). |
-| test | PASS (12/12) | **Verified** | All 12 smoke tests pass — concept anchors, voice line, accent token, motion respect, no 3D residue. |
+| build | PASS (exit 0) | **Verified** | Compiled successfully. 139 KB First-Load JS on home (budget 165 KB — 16% under). 22 routes prerendered including 4 journal article slugs. |
+| test | PASS (24/24) | **Verified** | All 24 smoke tests pass — concept anchors, voice line, accent token, motion respect, motion components, WebGL signature contract, brand identity contract, sound design contract, editorial layer contract. |
+| pack validate | PASS | **Verified** | `python ops/validate_pack.py --strict` exits 0. |
+| project ship check | PASS | **Verified** | `python ops/project_ship_check.py` exits 0. |
+| asset budgets | all green | **Verified** | `npm run analyze:assets` → hero-images 741 KB / 800 KB, js 136 KB / 250 KB, others 0 KB under their respective budgets. |
 
-## Visual QA
+## Visual QA — UPDATED Full Lift 2026-05-20
 
 | Gate | Result | Label | Evidence |
 |---|---|---|---|
-| Desktop screenshots captured | Not yet captured | **Not run** | `npm run screenshots` deferred to Phase 6. Playwright Chromium install kicked off in background; capture follows. |
-| Mobile screenshots captured | Not yet captured | **Not run** | Same. iPhone 14 + Android 360 viewports defined in `scripts/screenshots.mjs`. |
-| Reduced-motion screenshots | Not yet captured | **Not run** | Same. Reduced-motion desktop + mobile defined in script. |
-| Taste rubric average ≥ 8.5 | Not yet scored | **Not run** | `design-red-team-rubric.md` Phase-6 output. |
-| No category < 7.5 | Not yet scored | **Not run** | Same. |
-| Anti-genericity checks all pass | Pass at structural level | **Manual review** | Anti-pattern list locked in `art-direction.md` (12 banned patterns); implemented code respects them (no brand-logo collage, no red/yellow SALE badges, no bento, no carousel hero, no cliché). Final visual confirmation Phase 6. |
+| Desktop screenshots captured | 9 captures (3 pages × 3 desktop viewports) | **Verified** | `npm run screenshots` against running dev server. Files in `workspace/fitsole-rebrand/screenshots/*-desktop-*.png` (1920, 1440, tablet-1024). |
+| Mobile screenshots captured | 6 captures (3 pages × 2 mobile viewports) | **Verified** | Files in `workspace/fitsole-rebrand/screenshots/*-mobile-*.png` (390, 360). |
+| Reduced-motion screenshots | 6 captures (3 pages × 2 reduce-motion viewports) | **Verified** | `*-reduced-desktop.png` and `*-reduced-mobile.png`. At-rest state visually identical to full-motion state (motion is RAF-driven, paused when reduce-motion). |
+| Taste rubric average ≥ 8.5 | **7.4** | **Manual review (below SOTD threshold; meets Full Lift interim milestone)** | See `design-red-team-rubric.md` Full Lift entry. Pre-lift baseline 6.7, Δ +0.7. SOTD requires +1.1 more (commissioned photography + commercial typeface + senior motion designer per `handover-and-gap-analysis.md` § 6). |
+| No category < 7.5 | **Lowest = 6.5 (Performance Feel)** | **Manual review (below SOTD threshold; meets Full Lift interim milestone of ≥ 6.5)** | Performance Feel honestly downgraded pending Cairo Lighthouse run. All other categories ≥ 7.0. |
+| Anti-genericity checks all pass | Pass at structural level | **Verified** | Anti-pattern list (12 banned patterns from `art-direction.md`) verified in screenshots: no brand-logo collage, no red/yellow SALE badges, no bento, no carousel hero, no spinning sneaker, no fake countdown timers. |
 
 ## Accessibility
 
