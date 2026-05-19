@@ -156,6 +156,7 @@ Hard rejections enforced in `docs/design-red-team-rubric.md`:
 10. **Background gradient as the entire personality.**
 11. **Scroll-jacking, scroll-snap as primary navigation, cursor-follower dots.**
 12. **Stock "athlete in slow-motion" video.**
+13. **The "plastic 3D pin on cartoon globe" hero illustration.** *Added 2026-05-20 after Abraham John (@Abmankendrick, May 19 2026) ran a viral thread titled "Stop using boring 3D sites" — the cover image is exactly this cliché. The shape says "tech startup that pays for stock 3D," not "a real shop you can walk into." Cairo Evening fragment shader (`components/three/CairoEvening.tsx`) is the explicit anti-cliché answer: bespoke atmospheric shader, not stock library 3D.*
 
 ## Reference anchors (from `benchmark-reference-board.md`)
 
