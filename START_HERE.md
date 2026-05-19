@@ -1,71 +1,72 @@
-# START HERE — V5 Operational Edition
+# START_HERE.md
 
-This is the practical entry point.
+Read this first if you (Claude Code or human user) have just opened this repo.
 
-## What this package is
+## What this is
 
-A website-agent operating system that lets Codex/Claude take a business type and run a senior creative/technical workflow:
-research, concept, art direction, copy, assets, implementation, screenshots, QA, and ship decision.
+A self-contained operating system that turns Claude Code into a senior creative-technical studio for building Awwwards-level websites. Strategy → concept → art direction → copy → assets → tech → implementation → motion → 3D (when justified) → QA → ship, with truth-labeled handoff.
 
-## What V5 adds
+## What it is NOT
 
-V5 adds the missing operational layer:
-- one-command install helpers
-- pack validator
-- integrity manifest
-- project evidence scaffolding
-- MCP/tooling setup templates
-- security and secrets policy
-- operator runbook
-- golden prompts
-- sample golden run
-- acceptance criteria
-- recovery playbooks
+It is not a no-touch button. It is a discipline scaffold. It produces award-capable sites because it forces the operator (Claude or human) through the senior-studio steps that AI normally skips.
 
-## Fastest Use
+## 60-second tour
 
-1. Copy this package into a website repo.
-2. Run:
-
-```bash
-bash ops/install.sh
-python ops/validate_pack.py
-bash .agents/skills/award-website-os/scripts/create-evidence-files.sh
+```
+/CLAUDE.md                ← project instructions Claude reads first
+/SOURCE_OF_TRUTH.md       ← the law
+/AGENTS.md                ← the studio roster
+/CLAUDE_FLOWCHART.md      ← the no-skip flow
+/VALIDATION_PROTOCOL.md   ← what passes, what blocks
+/Makefile                 ← validate, scaffold, ship-check
+/.claude/skills/          ← award-website-os (main brain) + award-start (entry)
+/.claude/agents/          ← 22 specialists
+/.claude/hooks/           ← protection, audit log, session greeting
+/docs/                    ← per-project evidence (created by `make evidence`)
+/docs/_templates/         ← the doc templates `make evidence` copies from
+/ops/                     ← create_project.py, validate_pack.py, project_ship_check.py
+/starter-next-awwwards/   ← Next.js + R3F + GSAP + Tailwind starter
+/workspace/               ← actual built sites live here, one folder per project
 ```
 
-3. Ask Codex:
+## Five-step quickstart for a human
 
-```txt
-Use the $award-website-os skill.
-Business type: luxury dental clinic in Cairo.
-Use the V5 operational workflow and Real Masters agents.
-Create evidence files, research, concept, art-direct, copywrite, source/generate legal assets if needed, build, inspect screenshots, run final-smart-check.sh, and return a ship decision with Verified / Manual review / Not run / Blocked labels.
-```
+1. `make validate-everything` → confirms the pack is healthy.
+2. Open Claude Code in this directory.
+3. Type: `/award-start luxury dental clinic` (or your business type / brief).
+4. Let Claude run the flow. Approve only the things `CLAUDE.md` says you should be asked about.
+5. At the end, read `docs/ship-decision.md` and act on its truth labels.
 
-## Reality Rule
+## Five-step quickstart for Claude Code
 
-This package cannot magically connect tools. You must provide/enable:
-- web search/browser
-- shell/filesystem
-- image generation if you want generated visuals
-- Blender if you want 3D
-- Playwright/Lighthouse/axe if you want automated QA
-- deployment credentials if you want deployment
-- paid API/stock accounts if you want paid assets
+1. Read `SOURCE_OF_TRUTH.md`, `CLAUDE.md`, `AGENTS.md`, `CLAUDE_FLOWCHART.md`, `VALIDATION_PROTOCOL.md`, and `.claude/skills/award-website-os/SKILL.md`.
+2. Run `make validate-everything`. If it fails, fix the pack first.
+3. Run `make evidence`. Fill `docs/one-input-brief.md` and `docs/assumptions.md`.
+4. Spawn the agent court (`AGENTS.md` § "Full-project order"). Consolidate to `docs/agent-court-report.md`.
+5. Pass implementation gates → scaffold → build → screenshot → red-team → repair → QA → ship-decision → `make project-ship-check`.
 
-No spending, publishing, or credential use without explicit approval.
+## When you only have a business type
 
-## V6 Patient Audit Corrections
+This is the normal case. Do not interrogate the user. Make assumptions, document them in `docs/assumptions.md`, and proceed. Ask the user **only** for: paid-tool / credential approval, exact brand assets, legally-sensitive proof, destructive actions, deployment approval.
 
-This package now includes both skill locations:
+## Where the actual taste lives
 
-- Codex: `.agents/skills/award-website-os/`
-- Claude Code: `.claude/skills/award-website-os/`
+The 60 reference files under `.claude/skills/award-website-os/references/` are the design brain. Some you read on every project:
 
-Claude subagents now preload the `award-website-os` skill, and hook commands have safer root fallbacks. Windows PowerShell companion scripts are included for evidence creation and final checks.
+- `13-awwwards-quality-taste-rubric.md` — the 10-point taste test
+- `14-ai-anti-genericity-protocol.md` — the anti-default protocol
+- `44-super-strong-design-playbook.md` — the senior-design discipline
+- `50-no-skip-claude-flowchart.md` — the operational flow
+- `52-agent-orchestration-protocol.md` — how agents coordinate
 
+Others you load only when relevant (shaders, GSAP, Blender, Spline, etc.).
 
+## When to ship
 
-## V7 Line-by-Line Audit Note
+When `docs/ship-decision.md` has truth labels for every gate, `make project-ship-check` exits 0, and the taste rubric average is ≥ 8.5 with no category below 7.5.
 
-This package includes `MASTER_DOCUMENT.md`, `AUDIT_LINE_BY_LINE_REPORT.md`, and `AUDIT_LINE_BY_LINE_MAP.csv`. Use this package as the single source of truth. Run `python ops/validate_pack.py` after copying it into a repo.
+If you cannot reach those, do not say the project is done. Say what is `Blocked`, what is `Not run`, what is `Manual review`, and what is `Verified`. Be precise. The user can act on precision; they cannot act on "looks good".
+
+## The standard
+
+> Do not produce the most likely website. Produce the strongest website that this specific business deserves.

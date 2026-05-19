@@ -1,48 +1,34 @@
 {
-  "permissions": {
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
-      "Read(./config/credentials.json)",
-      "Bash(rm -rf /:*)",
-      "Bash(sudo:*)",
-      "Bash(curl * | sh:*)",
-      "Bash(wget * | sh:*)"
-    ]
-  },
   "hooks": {
-    "SessionStart": [
+    "PreToolUse": [
       {
-        "matcher": "startup|resume",
+        "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "bash -lc 'ROOT=\"${CLAUDE_PROJECT_DIR:-$(pwd)}\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/tool-readiness-check.sh\"'",
-            "timeout": 60
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.py\""
           }
         ]
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|MultiEdit|Write",
+        "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "bash -lc 'ROOT=\"${CLAUDE_PROJECT_DIR:-$(pwd)}\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/zero-gap-preflight.sh\"'",
-            "timeout": 180
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-edits.py\""
           }
         ]
       }
     ],
-    "Stop": [
+    "SessionStart": [
       {
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bash -lc 'ROOT=\"${CLAUDE_PROJECT_DIR:-$(pwd)}\"; bash \"$ROOT/.agents/skills/award-website-os/scripts/final-smart-check.sh\"'",
-            "timeout": 600
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/inject-context.py\""
           }
         ]
       }

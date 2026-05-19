@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Fitsole product secondary view pending">
+  <rect width="600" height="600" fill="oklch(91% 0.012 80)"/>
+  <rect x="0" y="450" width="600" height="150" fill="oklch(85% 0.015 75)"/>
+  <line x1="0" y1="450" x2="600" y2="450" stroke="oklch(75% 0.02 75)" stroke-width="1.5"/>
+  <g font-family="ui-monospace, 'JetBrains Mono', monospace" fill="oklch(45% 0.01 80)" text-anchor="middle">
+    <text x="300" y="220" font-size="13" letter-spacing="3" font-weight="500">[ SHELF-CONTEXT SHOT PENDING ]</text>
+    <text x="300" y="245" font-size="11" letter-spacing="1.5" fill="oklch(55% 0.01 80)">hover-reveal frame · asset-ledger.csv</text>
+  </g>
+  <ellipse cx="300" cy="450" rx="80" ry="10" fill="oklch(60% 0.02 75)" opacity="0.4"/>
+  <circle cx="300" cy="400" r="45" fill="none" stroke="oklch(70% 0.02 75)" stroke-width="1.2"/>
+</svg>

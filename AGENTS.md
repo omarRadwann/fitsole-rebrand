@@ -1,100 +1,137 @@
-# Moon-Level Website Agent OS — Real Masters Loader
+# AGENTS.md — Studio Roster
 
-This repo uses the Real Masters Website Agent OS.
+This pack ships 22 specialist subagents under `.claude/agents/`. They are real Claude Code project subagents; verify with `/agents` inside Claude Code.
 
-When the user asks for a website, landing page, Awwwards-level site, premium site, 3D/WebGL site, cinematic site, or business site, load:
+## Roster
 
-`.agents/skills/award-website-os/SKILL.md`
+| Agent | Role | Mode |
+|---|---|---|
+| `claude-orchestrator` | Runs the full build, coordinates the others, owns ship decision. | write |
+| `market-researcher` | Category, audience, competitors, clichés, opportunities. | read-only |
+| `creative-director` | Concept competition (3 territories), strategic recommendation. | read-only |
+| `art-director` | Visual system, references, image direction, mood. | read-only |
+| `typography-layout-master` | Type scale, grid, spacing, responsive rules. | write |
+| `ux-copy-strategist` | Hero, sections, proof, CTA, objections. | read-only |
+| `asset-pipeline-master` | Asset plan, rights, sourcing/generation route, ledger. | write |
+| `image-generation-director` | Prompts and direction for generated imagery. | read-only |
+| `master-technical-director` | Stack, architecture, risks, build plan. | read-only |
+| `web-native-3d-master` | 3D route (R3F / Spline / Blender / static), budget, fallback. | write |
+| `threejs-r3f-master` | R3F or vanilla Three.js implementation. | write |
+| `shader-webgl-master` | Shaders, postprocessing, particles, custom materials. | write |
+| `spline-integration-master` | Spline scene import, optimization, integration. | write |
+| `blender-production-master` | Procedural GLB, lighting, baked assets, poster renders. | write |
+| `gsap-animation-master` | Timeline motion, scroll choreography, micro-interactions. | write |
+| `creative-technologist-master` | Non-standard interactions, installation-feel features. | write |
+| `frontend-engineer` | Production HTML/CSS/TS, semantic structure, components. | write |
+| `accessibility-ux-master` | a11y risks and fixes (WCAG 2.2, focus, ARIA, contrast). | read-only |
+| `gpu-performance-master` | WebGL/GPU budget, mobile constraints, runtime risk. | read-only |
+| `screenshot-critic` | Brutal screenshot critique; gates visual ship. | read-only |
+| `release-qa-master` | Final QA, evidence labels, no-ship risks. | read-only |
 
-Then use the specialist agents in:
-- `.codex/agents/` for Codex-style environments
-- `.claude/agents/` for Claude Code-style environments
+## Full-project order (the "agent court")
 
-## Important
+For a complete new-site project run:
 
-The user may provide only a business type. Do not get stuck asking for details. Research, infer, build, inspect, and QA.
+1. `market-researcher` — read-only
+2. `creative-director` — read-only
+3. `art-director` — read-only
+4. `typography-layout-master` — write (type scale + grid)
+5. `ux-copy-strategist` — read-only
+6. `asset-pipeline-master` — write (asset ledger)
+7. `master-technical-director` — read-only
+8. `web-native-3d-master` — only if 3D is on the table
+9. `frontend-engineer` — write (implementation)
+10. `accessibility-ux-master` — read-only
+11. `gpu-performance-master` — only if heavy motion / 3D exists
+12. `screenshot-critic` — read-only
+13. `release-qa-master` — read-only
 
-## Prime Directive
+The orchestrator collects every report and writes `docs/agent-court-report.md` with:
+- agents spawned
+- per-agent summary
+- conflicts between agents
+- decisions made by the orchestrator
+- rejected recommendations
+- implementation tasks created
+- unresolved risks
 
-Build the clearest site that can carry the strongest idea with the least unnecessary weight.
+## Conditional agents
 
-## Must Use Specialist Pressure
+Spawn these only when the selected concept needs them:
 
-A moon-level site must be reviewed by:
-- strategy
-- creative direction
-- art direction
-- copy
-- assets
-- engineering
-- motion/3D when justified
-- accessibility
-- performance
-- screenshots
-- release QA
+- `threejs-r3f-master` — if R3F or custom Three.js code is in scope.
+- `shader-webgl-master` — if shaders, postprocessing, particles.
+- `spline-integration-master` — if a Spline scene is supplied / chosen.
+- `blender-production-master` — if procedural GLB or poster rendering is justified.
+- `gsap-animation-master` — if timeline motion or scroll choreography is used.
+- `creative-technologist-master` — if a signature, non-standard interaction is part of the concept.
+- `image-generation-director` — if generated imagery is needed.
 
-## Paid / Legal Rule
+## Collaboration patterns
 
-Do not spend money, use subscriptions, publish, deploy to real accounts, or use external copyrighted assets without explicit authorization.
+See `.claude/skills/award-website-os/references/28-agent-collaboration-patterns.md`. Quick summary:
 
+- **Parallel concept pressure** — researcher + creative + art directors run in parallel, orchestrator reconciles.
+- **Build then brutal critique** — frontend builds → screenshot-critic rejects → typography-layout-master fixes hierarchy → frontend reapplies. Loop until visual passes.
+- **Motion safety** — creative-technologist proposes → gsap implements → a11y defines fallback → gpu audits.
+- **3D sanity** — creative-director justifies → tech-director approves → blender or threejs implements → gpu audits → screenshot-critic confirms the site is better with 3D than without.
+- **Asset legality loop** — asset-pipeline ledgers → image-gen-director provides prompts → orchestrator checks rights → release-qa blocks if unclear.
+- **Final ship court** — screenshot-critic, a11y-master, gpu-master, release-qa, orchestrator each give PASS / NO-SHIP. Any NO-SHIP blocks the ship.
 
-## Final Smart Pass
+## If subagent spawning is not available in the runtime
 
-Before calling work complete, apply:
-- anti-genericity protocol
-- no-template checklist
-- visual composition review
-- smart content smell check
-- asset ledger check
-- screenshot critique
-- accessibility/performance/release QA
+Read the matching `.claude/agents/*.md` body as a simulated specialist system prompt and produce the same `## <agent> Report` block. Mark that section as `Manual review` in `docs/agent-court-report.md`.
 
-Use `.agents/skills/award-website-os/scripts/final-smart-check.sh` when possible.
+## Handoff template
 
-Senior rule: do not produce the most likely website; produce the strongest website this specific business deserves.
+```md
+## Handoff to [agent]
 
+Context:
+- business: ...
+- selected concept: ...
+- relevant docs: ...
 
-## Zero-Gap V4 Rules
+Decisions already made:
+- ...
 
-This repository uses the V4 Zero-Gap Website Agent OS.
+Your task:
+- ...
 
-Before any serious website build:
-1. Invoke `$award-website-os` explicitly.
-2. Create evidence docs with `create-evidence-files.sh`.
-3. Spawn or explicitly use the required specialist agents.
-4. Use Codex `.toml` agents for Codex; use Claude Markdown/YAML agents for Claude Code.
-5. Treat `references/` as the official skill reference folder; `knowledge/` is kept as a compatibility mirror.
-6. Treat `assets/templates/` as the official template folder; `templates/` is kept as a compatibility mirror.
-7. Run `zero-gap-preflight.sh` before implementation and `final-smart-check.sh` before final delivery.
-8. Never claim a check passed unless it actually ran or was manually verified.
-9. For 3D/WebGL, require a written justification, performance budget, mobile fallback, and reduced-motion fallback.
-10. For generated/sourced assets, require `docs/asset-ledger.csv`.
+Constraints:
+- ...
 
-The goal is not literal perfection; the goal is to close every known operational gap and surface any remaining unknowns honestly.
+Do not change:
+- ...
 
+Return:
+- decisions
+- reasoning
+- risks
+- next specialist needed
+- no-ship blockers
+```
 
-## V5 Operational Rules
+## Anti-chaos rules
 
-Before a serious build:
-1. Read `START_HERE.md`.
-2. Run `python ops/validate_pack.py`.
-3. Run `bash .agents/skills/award-website-os/scripts/create-evidence-files.sh`.
-4. Use `examples/GOLDEN_PROMPTS.md` for the prompt pattern.
-5. Use `tooling/SECURITY_SECRETS_POLICY.md` and `tooling/PAID_TOOLS_APPROVAL_TEMPLATE.md` for risky actions.
-6. Maintain `docs/ship-decision.md` with evidence labels.
-7. Do not use paid tools, credentials, deployment, or real external accounts without explicit approval.
-
-## V6 Patient Audit Rules
-
-- Codex uses `.agents/skills/award-website-os/` and `.codex/agents/*.toml`.
-- Claude Code uses `.claude/skills/award-website-os/` and `.claude/agents/*.md`.
-- Do not assume `.agents/skills` alone is enough for Claude Code.
-- Claude subagents should preload the `award-website-os` skill.
-- Use PowerShell scripts on Windows when Bash is unavailable.
-- Treat `.codex/rules/safety.rules` as an experimental safety template; review before enabling.
+- Do not ask every agent everything.
+- Do not let agents contradict each other without the orchestrator resolving in `docs/agent-court-report.md`.
+- Do not spawn the 3D agent before the concept is approved.
+- Do not spawn the implementation agent before art direction + copy.
+- Do not accept QA without evidence.
+- Do not bury no-ship blockers in long prose; list them.
 
 
+## V6 — Agent depth
 
-## V7 Line-by-Line Audit Note
+All 22 specialist agents have distinct, role-specific system prompts (44–126 lines each, validated by `diff` to be substantively different). The system prompts in `.claude/agents/*.md` carry:
 
-This package includes `MASTER_DOCUMENT.md`, `AUDIT_LINE_BY_LINE_REPORT.md`, and `AUDIT_LINE_BY_LINE_MAP.csv`. Use this package as the single source of truth. Run `python ops/validate_pack.py` after copying it into a repo.
+- The required reading list for that role.
+- The decisions the agent owns.
+- The rejection rules (what the agent refuses to do).
+- The output specification.
+- The handoff: which agent comes next, with what artifact.
+
+The deeper domain expertise lives in `.claude/skills/award-website-os/references/` and is loaded by each agent on demand. The agent prompts are the orchestration layer; the references are the encyclopedia.
+
+If you spawn an agent and the work output reads generic, the most likely cause is the agent didn't read its required references. Check the report's `Inputs Understood` field.

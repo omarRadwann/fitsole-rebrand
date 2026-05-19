@@ -37,6 +37,24 @@ tooling/LOCAL_TOOL_STATUS.md
 # Local validation output (machine-specific)
 VALIDATION_LOCAL_OUTPUT.txt
 
-# Node-installed QA tooling (Playwright, Lighthouse CI, axe-core CLI)
-package-lock.json
-package.json
+# Halo-era root-level Node QA tooling (preserved under .archive/halo-2026-05/)
+# Do NOT ignore workspace/*/package.json — those are V6 project packages we track.
+/package-lock.json
+/package.json
+
+# Archive layer (Halo + Caliper preserved here; keep light artifacts, ignore heavy)
+.archive/halo-2026-05/node_modules/
+.archive/halo-2026-05/.tmp-lighthouse-profile/
+.archive/halo-2026-05/upgrade-diffs/
+
+# Next.js / Node build artifacts inside workspaces
+workspace/**/.next/
+workspace/**/node_modules/
+workspace/**/.turbo/
+workspace/**/dist/
+workspace/**/build/
+
+# Playwright artifacts
+**/test-results/
+**/playwright-report/
+**/.playwright/

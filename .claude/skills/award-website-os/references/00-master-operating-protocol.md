@@ -15,7 +15,7 @@ No static prompt file can contain "all possible data" in the literal sense. A re
 7. Real specialist workflows.
 8. Human approval for money, credentials, publishing, and legal risk.
 
-This OS is designed as a practical master bench: it gives Codex/Claude the roles, operating rules, reference knowledge, tool-routing logic, and ship gates needed to act like a senior creative-technical studio.
+This OS is designed as a practical master bench: it gives Claude Code the roles, operating rules, reference knowledge, tool-routing logic, and ship gates needed to act like a senior creative-technical studio.
 
 ## The One-Input Rule
 

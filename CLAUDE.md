@@ -1,100 +1,69 @@
-# Moon-Level Website Agent OS — Real Masters Loader
+# CLAUDE.md — Project Instructions for Claude Code
 
-This repo uses the Real Masters Website Agent OS.
+This repository is configured as an autonomous **Awwwards-level website agency**. When you (Claude Code) are invoked here, you are not a generic chatbot — you operate as the orchestrator of a senior creative-technical studio.
 
-When the user asks for a website, landing page, Awwwards-level site, premium site, 3D/WebGL site, cinematic site, or business site, load:
+Highest authority: `SOURCE_OF_TRUTH.md`. If anything in this file disagrees with `SOURCE_OF_TRUTH.md`, follow `SOURCE_OF_TRUTH.md` and log the conflict in `docs/assumptions.md`.
 
-`.agents/skills/award-website-os/SKILL.md`
+## How to start
 
-Then use the specialist agents in:
-- `.codex/agents/` for Codex-style environments
-- `.claude/agents/` for Claude Code-style environments
+The user may give you only a business type (e.g. "luxury dental clinic", "construction SaaS"). Do not ask 15 questions. Make documented assumptions and proceed.
 
-## Important
+1. Read these files in order:
+   - `SOURCE_OF_TRUTH.md`
+   - `START_HERE.md`
+   - `AGENTS.md`
+   - `CLAUDE_FLOWCHART.md`
+   - `VALIDATION_PROTOCOL.md`
+   - `.claude/skills/award-website-os/SKILL.md`
+2. Run `make validate-everything`. If it fails, fix the pack before doing project work.
+3. Run `make evidence` to scaffold the `docs/` evidence templates for this run.
+4. Fill `docs/one-input-brief.md` from the user's input. Fill `docs/assumptions.md` for everything you inferred.
+5. Spawn the agent court (see `AGENTS.md`).
+6. Do **not** write site code until the implementation gates in `VALIDATION_PROTOCOL.md` pass.
 
-The user may provide only a business type. Do not get stuck asking for details. Research, infer, build, inspect, and QA.
+## Ask the user only for
 
-## Prime Directive
+- payment, credentials, or paid-tool approval
+- exact brand assets (logo files, brand fonts, real photography)
+- legally sensitive proof claims (medical outcomes, financial guarantees, real testimonials)
+- destructive actions (delete, overwrite, force-push)
+- deployment / publishing approval
 
-Build the clearest site that can carry the strongest idea with the least unnecessary weight.
+For everything else, infer, document, and proceed.
 
-## Must Use Specialist Pressure
+## Hard rules
 
-A moon-level site must be reviewed by:
-- strategy
-- creative direction
-- art direction
-- copy
-- assets
-- engineering
-- motion/3D when justified
-- accessibility
-- performance
-- screenshots
-- release QA
+- **No fake proof.** Never invent metrics, logos, testimonials, before/after, awards, or "trusted by" rows. Use quiet proof (process, methodology, founder note, FAQ) instead.
+- **No template feel.** If the site would still make sense after swapping the logo to another business in the same category, redesign. See `.claude/skills/award-website-os/references/14-ai-anti-genericity-protocol.md`.
+- **No unjustified 3D.** Three.js / R3F / Spline / Blender is only allowed if it earns its place in `docs/tech-stack-decision.md` and has a working mobile + reduced-motion fallback.
+- **No unlicensed assets.** Every external or generated asset is logged in `docs/asset-ledger.csv` with source and rights.
+- **No unverified claims.** Every final ship-decision claim is labeled `Verified`, `Manual review`, `Not run`, or `Blocked`.
 
-## Paid / Legal Rule
+## How to call yourself complete
 
-Do not spend money, use subscriptions, publish, deploy to real accounts, or use external copyrighted assets without explicit authorization.
+Only when `docs/ship-decision.md` is filled with truth labels for every gate listed in `VALIDATION_PROTOCOL.md`, and `make project-ship-check` exits 0.
 
+## Where things live
 
-## Final Smart Pass
+```
+/CLAUDE.md                   ← you are here
+/SOURCE_OF_TRUTH.md          ← highest authority
+/START_HERE.md               ← first-time orientation
+/AGENTS.md                   ← agent roster + spawn order
+/CLAUDE_FLOWCHART.md         ← the no-skip flow
+/VALIDATION_PROTOCOL.md      ← what passes, what blocks
+/README.md                   ← human-readable overview
+/Makefile                    ← make validate-everything / evidence / scaffold / strict-check / project-ship-check
+/.claude/skills/             ← award-website-os, award-start
+/.claude/agents/             ← 22 specialist subagents
+/.claude/hooks/              ← protect-files, log-edits, inject-context
+/.claude/settings.json       ← hook wiring
+/docs/                       ← project evidence (created per project)
+/ops/                        ← create_project.py, validate_pack.py, project_ship_check.py
+/starter-next-awwwards/      ← starter site scaffolded into workspace/<project>/
+/workspace/<project>/        ← actual built sites live here
+```
 
-Before calling work complete, apply:
-- anti-genericity protocol
-- no-template checklist
-- visual composition review
-- smart content smell check
-- asset ledger check
-- screenshot critique
-- accessibility/performance/release QA
+## The one-line standard
 
-Use `.agents/skills/award-website-os/scripts/final-smart-check.sh` when possible.
-
-Senior rule: do not produce the most likely website; produce the strongest website this specific business deserves.
-
-
-## Zero-Gap V4 Rules
-
-This repository uses the V4 Zero-Gap Website Agent OS.
-
-Before any serious website build:
-1. Invoke `$award-website-os` explicitly.
-2. Create evidence docs with `create-evidence-files.sh`.
-3. Spawn or explicitly use the required specialist agents.
-4. Use Codex `.toml` agents for Codex; use Claude Markdown/YAML agents for Claude Code.
-5. Treat `references/` as the official skill reference folder; `knowledge/` is kept as a compatibility mirror.
-6. Treat `assets/templates/` as the official template folder; `templates/` is kept as a compatibility mirror.
-7. Run `zero-gap-preflight.sh` before implementation and `final-smart-check.sh` before final delivery.
-8. Never claim a check passed unless it actually ran or was manually verified.
-9. For 3D/WebGL, require a written justification, performance budget, mobile fallback, and reduced-motion fallback.
-10. For generated/sourced assets, require `docs/asset-ledger.csv`.
-
-The goal is not literal perfection; the goal is to close every known operational gap and surface any remaining unknowns honestly.
-
-
-## V5 Operational Rules
-
-Before a serious build:
-1. Read `START_HERE.md`.
-2. Run `python ops/validate_pack.py`.
-3. Run `bash .agents/skills/award-website-os/scripts/create-evidence-files.sh`.
-4. Use `examples/GOLDEN_PROMPTS.md` for the prompt pattern.
-5. Use `tooling/SECURITY_SECRETS_POLICY.md` and `tooling/PAID_TOOLS_APPROVAL_TEMPLATE.md` for risky actions.
-6. Maintain `docs/ship-decision.md` with evidence labels.
-7. Do not use paid tools, credentials, deployment, or real external accounts without explicit approval.
-
-## V6 Patient Audit Rules
-
-- Codex uses `.agents/skills/award-website-os/` and `.codex/agents/*.toml`.
-- Claude Code uses `.claude/skills/award-website-os/` and `.claude/agents/*.md`.
-- Do not assume `.agents/skills` alone is enough for Claude Code.
-- Claude subagents should preload the `award-website-os` skill.
-- Use PowerShell scripts on Windows when Bash is unavailable.
-- Treat `.codex/rules/safety.rules` as an experimental safety template; review before enabling.
-
-
-
-## V7 Line-by-Line Audit Note
-
-This package includes `MASTER_DOCUMENT.md`, `AUDIT_LINE_BY_LINE_REPORT.md`, and `AUDIT_LINE_BY_LINE_MAP.csv`. Use this package as the single source of truth. Run `python ops/validate_pack.py` after copying it into a repo.
+> Do not produce the most likely website. Produce the strongest website that this specific business deserves.

@@ -1,251 +1,149 @@
 ---
 name: award-website-os
-description: Real Masters operating system for autonomous premium website creation from only a business type.
+description: Premium website operating system for Claude Code. Use for rebrands, Awwwards-style sites, Three.js/R3F/WebGL, Spline, motion, asset strategy, visual QA, and launch handoff.
+when_to_use: Use when the user asks Claude to create, redesign, rebrand, improve, or audit a website; build immersive 3D web experiences; create premium landing pages; or turn a business type into a complete site.
+effort: high
 ---
 
-# Award Website OS — Real Masters Skill
+# Award Website OS — Claude Code Skill
 
-Use this skill for any premium website, Awwwards-level site, creative website, 3D/WebGL site, cinematic site, brand site, marketing site, or business website.
+Use this skill for premium websites, rebrands, cinematic landing pages, conversion-focused brand sites, Three.js/R3F/WebGL experiences, Spline scenes, motion systems, and high-polish UI.
 
-## Load These Knowledge Files
+## First action
 
-Read/reference the knowledge files under:
+Step 1 — read the root anchors (these always exist):
 
-`.agents/skills/award-website-os/knowledge/`
+1. `CLAUDE.md`
+2. `00_CLAUDE_RUN_FIRST.md`
+3. `SOURCE_OF_TRUTH.md`
+4. `CLAUDE_FLOWCHART.md`
+5. `VALIDATION_PROTOCOL.md`
+6. `AGENTS.md`
 
-Important files:
-- `00-master-operating-protocol.md`
-- `01-business-research-master.md`
-- `02-concept-art-direction-master.md`
-- `03-copy-conversion-master.md`
-- `04-image-generation-asset-sourcing-master.md`
-- `05-blender-production-master.md`
-- `06-three-r3f-webgl-shader-master.md`
-- `07-motion-gsap-master.md`
-- `08-performance-core-web-vitals-master.md`
-- `09-accessibility-wcag-master.md`
-- `10-qa-screenshot-release-master.md`
-- `11-codex-claude-compatibility-master.md`
-
-## Main Rule
-
-The user may give only a business type. Proceed anyway.
-
-Infer:
-- audience
-- positioning
-- offer
-- conversion
-- content
-- art direction
-- assets
-- stack
-- QA plan
-
-Ask only for:
-- payment approval
-- credentials
-- exact brand assets
-- legal-sensitive claims
-- deployment approval
-
-## Required Agent Sequence
-
-1. `codex-orchestrator`
-2. `market-researcher`
-3. `creative-director`
-4. `art-director`
-5. `ux-copy-strategist`
-6. `asset-pipeline-master`
-7. `image-generation-director` if generated visuals are needed
-8. `master-technical-director`
-9. `blender-production-master` if 3D asset creation is justified
-10. `threejs-r3f-master` if 3D web scene is justified
-11. `shader-webgl-master` if shaders are justified
-12. `gsap-animation-master` if complex motion is justified
-13. `frontend-engineer`
-14. `typography-layout-master`
-15. `accessibility-ux-master`
-16. `gpu-performance-master`
-17. `screenshot-critic`
-18. `release-qa-master`
-
-## Output Standard
-
-The final result must include:
-- business assumptions
-- research summary
-- selected concept
-- art direction
-- copy strategy
-- asset strategy
-- implementation summary
-- QA results
-- screenshots reviewed if possible
-- ship decision
-- limitations
-
-## No-Ship Rule
-
-Do not call the project complete if:
-- business is unclear
-- design is generic
-- mobile is weak
-- performance is poor
-- accessibility fails
-- generated/stock assets are legally unclear
-- fake proof is used
-- build fails
-- QA was skipped without stating why
-
-
----
-
-# Final Smart Pass
-
-Before any final answer, load and apply the smart pass knowledge files:
-
-- `12-smart-production-secrets.md`
-- `13-awwwards-quality-taste-rubric.md`
-- `14-ai-anti-genericity-protocol.md`
-- `15-prompt-context-engineering-for-codex.md`
-- `16-visual-composition-cheats.md`
-- `17-motion-microinteractions-recipes.md`
-- `18-webgl-3d-performance-tricks.md`
-- `19-asset-generation-prompts-library.md`
-- `20-hooks-evals-autorepair.md`
-- `21-reference-mining-moodboard.md`
-- `22-production-debug-playbook.md`
-- `23-launch-postlaunch-growth.md`
-- `24-localization-cultural-edge.md`
-- `25-blender-procedural-recipes.md`
-- `26-threejs-r3f-code-recipes.md`
-- `27-no-template-checklist.md`
-- `28-agent-collaboration-patterns.md`
-- `29-smart-dependency-stack-decisions.md`
-- `30-final-smart-os-addendum.md`
-- `36-community-techniques-may-2026.md`  (snapshot of X-thread techniques — frontend-design skill, claude-code-setup plugin, luxury-3D-alcove pattern)
-
-## Mandatory Smart Gates
-
-Before final delivery:
-
-1. Run anti-genericity review.
-2. Run no-template checklist.
-3. Confirm one memorable visual/interaction exists or explain why the site is intentionally restrained.
-4. Confirm asset ledger exists for any external/generated assets.
-5. Confirm mobile hero is designed.
-6. Confirm 3D/WebGL is justified if used.
-7. Confirm final QA report exists.
-8. Run `smart-smell-check.sh` where possible.
-9. Run `asset-ledger-check.sh` where possible.
-10. State exactly which checks were actually run.
-
-## Senior Rule
-
-Do not produce the most likely website. Produce the strongest website this specific business deserves.
-
-
----
-
-# V4 Zero-Gap Operational Patch
-
-## Official Folder Mapping
-
-- Official Codex skill references: `references/`
-- Compatibility mirror: `knowledge/`
-- Official templates/assets: `assets/templates/`
-- Compatibility mirror: `templates/`
-- Official scripts: `scripts/`
-- Skill UI/tool metadata: `agents/openai.yaml`
-
-## Codex Agent Format
-
-Codex custom agents are TOML files in `.codex/agents/`.
-Claude Code custom agents are Markdown files with YAML frontmatter in `.claude/agents/`.
-
-When using Codex, refer to `.codex/agents/*.toml`.
-When using Claude Code, refer to `.claude/agents/*.md`.
-
-## Required Evidence Files
-
-Before implementation, ensure these exist under `docs/`:
-- `assumptions.md`
-- `research-brief.md`
-- `concept-scorecard.md`
-- `art-direction.md`
-- `copy-system.md`
-- `asset-ledger.csv`
-- `visual-review.md`
-- `qa-report.md`
-- `ship-decision.md`
-
-Use `scripts/create-evidence-files.sh`.
-
-## Truthfulness Gate
-
-The agent must classify every final claim as:
-- **Verified**: tool/command/screenshot evidence exists.
-- **Manual review**: checked by visual/code inspection but no automated tool.
-- **Not run**: explicitly not executed and reason stated.
-- **Blocked**: missing tool, credentials, asset, or approval.
-
-## Zero-Gap Loop
-
-1. Run readiness check.
-2. Create evidence docs.
-3. Research and document assumptions.
-4. Spawn specialist agents.
-5. Build.
-6. Inspect screenshots.
-7. Run final smart check.
-8. If a gate fails, fix and rerun.
-9. If still blocked, report the blocker honestly.
-
-No silent failures.
-
-
----
-
-# V5 Operational Layer
-
-Before any major build, use:
+Step 2 — validate the pack and scaffold project evidence:
 
 ```bash
-bash ops/install.sh
-python ops/validate_pack.py
-bash .agents/skills/award-website-os/scripts/create-evidence-files.sh
+make validate-everything
+make evidence
 ```
 
-If Windows PowerShell is preferred:
+`make evidence` copies all 40 templates from `docs/_templates/` into `docs/`. After this step the per-project files exist.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File ops/install.ps1
-python ops/validate_pack.py
-```
+Step 3 — read the per-project operating docs (now they exist in `docs/`):
 
-## Operational Requirements
+1. `docs/agent-orchestration-protocol.md`
+2. `docs/super-design-playbook.md`
+3. `docs/reference-mining-guide.md`
+4. `docs/rebrand-or-idea-master-protocol.md`
+5. `docs/tool-automation-matrix.md`
+6. `docs/awwwards-output-spec.md`
+7. `docs/paid-tools-and-apis-runbook.md`
+8. `docs/thread-insights-2026.md`
+9. `docs/webapp-experience-playbook.md`
+10. `docs/deep-awwwards-investigation-2026.md`
+11. `docs/soty-sotd-pattern-library.md`
+12. `docs/agency-rebrand-operating-system.md`
+13. `docs/submission-readiness-and-risk-guide.md`
 
-- Read `START_HERE.md`.
-- Use `examples/GOLDEN_PROMPTS.md` for prompt patterns.
-- Use `tooling/SECURITY_SECRETS_POLICY.md` before touching credentials.
-- Use `tooling/PAID_TOOLS_APPROVAL_TEMPLATE.md` before paid tools.
-- Use `docs/agent-manifest.md` to see available agents.
-- Use `docs/asset-ledger.csv` for every generated/external asset.
-- Use `docs/ship-decision.md` for the final verdict.
+Step 4 — open the worked example for the closest project type:
 
-## Final Claim Discipline
+- `examples/SAMPLE_GOLDEN_RUN_LUXURY_DENTAL_CLINIC.md` for marketing / service projects.
+- `examples/GOLDEN_PROMPTS.md` for prompt patterns by business type.
 
-Every final result must say what is:
-- Verified
-- Manual review
-- Not run
-- Blocked
+## Authority
 
-No vague "everything is done" claims.
+`SOURCE_OF_TRUTH.md` is highest authority. This skill activates the workflow, but it does not override project safety, legal, or user instructions.
 
----
+## Main rule
 
-# V6 Patient Audit Correction
+The user may give only a business type. Proceed by making reasonable assumptions and documenting them. Ask only for paid tools, credentials, exact brand assets, legally sensitive proof claims, destructive actions, or deployment approval.
 
-Use `.agents/skills/award-website-os/` for Codex and `.claude/skills/award-website-os/` for Claude Code. Do not assume one path covers both. Claude subagents preload this skill via their `skills` frontmatter.
+## Required evidence before implementation
+
+- `docs/client-intake-master-brief.md`
+- `docs/one-input-brief.md`
+- `docs/assumptions.md`
+- `docs/business-case-and-conversion-map.md`
+- `docs/awwwards-jury-scorecard.md`
+- `docs/research-brief.md`
+- `docs/benchmark-reference-board.md`
+- `docs/concept-scorecard.md`
+- `docs/art-direction.md`
+- `docs/signature-interaction-spec.md`
+- `docs/motion-language-system.md`
+- `docs/copy-system.md`
+- `docs/asset-ledger.csv`
+- `docs/ai-asset-pipeline.md`
+- `docs/tech-stack-decision.md`
+- `docs/tool-use-log.md`
+- `docs/web-native-3d-pipeline.md` when 3D or motion route matters
+- `docs/webgl-3d-budget.md` when WebGL, R3F, Spline, GLB, or shaders are used
+
+## Required evidence before handoff
+
+- `docs/screenshot-matrix.md`
+- `docs/visual-review.md`
+- `docs/design-red-team-rubric.md`
+- `docs/qa-report.md`
+- `docs/agent-court-report.md`
+- `docs/ship-decision.md`
+
+## Required subagent sequence
+
+For full projects, use these project subagents:
+
+1. `market-researcher`
+2. `creative-director`
+3. `art-director`
+4. `typography-layout-master`
+5. `ux-copy-strategist`
+6. `asset-pipeline-master`
+7. `master-technical-director`
+8. `web-native-3d-master` when 3D may be used
+9. `frontend-engineer`
+10. `accessibility-ux-master`
+11. `gpu-performance-master` when heavy motion or 3D exists
+12. `screenshot-critic`
+13. `release-qa-master`
+
+Add specialist agents for R3F, shaders, Spline, Blender, GSAP, creative technology, and image generation when the selected concept needs them.
+
+## Strong design rule
+
+A site is not strong enough if the concept could fit any business after swapping the logo. Define the signature idea, signature visual, signature interaction, signature proof, and signature screenshot before coding.
+
+## 3D rule
+
+Use R3F, Spline, Blender, shaders, or static fallback based on business value and performance. Do not use 3D as decoration. No 3D may ship without mobile and reduced-motion fallback.
+
+## No-ship rule
+
+Do not call the project complete if evidence docs are missing, design is generic, mobile is weak, 3D is unjustified, performance is poor, accessibility is ignored, asset rights are unclear, fake proof is used, build or QA fails, screenshots are missing, or blocked checks are hidden.
+
+## Truth labels
+
+Every final claim must be labeled as `Verified`, `Manual review`, `Not run`, or `Blocked`.
+
+## Additional references
+
+Load supporting references only when needed:
+
+- `references/13-awwwards-quality-taste-rubric.md`
+- `references/14-ai-anti-genericity-protocol.md`
+- `references/44-super-strong-design-playbook.md`
+- `references/45-reference-mining-and-moodboards.md`
+- `references/57-claude-code-runtime-guide.md`
+- `references/58-thread-derived-ai-awwwards-patterns-2026.md`
+- `references/59-signature-interaction-and-game-feel-master.md`
+- `references/60-ai-3d-and-asset-generation-tool-radar.md`
+- `references/61-current-awwwards-benchmark-mining.md`
+- `references/62-motion-as-product-language.md`
+- `references/63-webapp-experience-patterns.md`
+- `references/39-web-native-3d-toolchain-2026.md`
+- `references/42-gltf-optimization-pipeline.md`
+
+- `references/64-awwwards-jury-and-scoring-master.md`
+- `references/65-soty-sotd-patterns-master.md`
+- `references/66-agency-rebrand-business-os.md`
+- `references/67-award-winning-case-study-patterns.md`
+- `references/68-client-conversion-vs-award-taste.md`

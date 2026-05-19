@@ -1,107 +1,252 @@
-# Copy System — Caliper
+# Copy System
 
-Reference: V7 `03-copy-conversion-master.md`, `14-ai-anti-genericity-protocol.md`, `33-business-type-playbooks.md` ("Portfolio / Agency" section).
+Inherits voice from [creative-brief.md](creative-brief.md) and [art-direction.md](art-direction.md). Methodology: `references/03-copy-conversion-master.md`.
 
 ## Voice
 
-**First-person plural, declarative, slightly impatient.** "We measure." Not "we believe we can measure." Not "let's measure together." The studio is opinionated and operator-led. The tone closest to it in adjacent worlds: machinist's manual, technical brief, surgeon's note, structural-engineer's letter to a client. Specific. Short. Lifts no eyebrows.
+- **Tone:** confident, quiet, specific, locally grounded. Like a knowledgeable shop staff who actually knows the stock — not a corporate marketing department, not a hype influencer, not a luxury brand.
+- **Person:** "we" for Fitsole-as-retailer; "you" for the customer; "I" only for the founder note section.
+- **Banned words / phrases:** seamless, innovative, next-generation, premium (without proof), authentic (if you have to say it, you lose), Egypt's #1, world-class, leverage, curated experience, customer journey, transform your style, step into greatness, elevate, redefine.
+- **Signature phrasing patterns:**
+  - Plain assertions of fact ("Three branches in Cairo. Open Sunday to Friday.").
+  - Specific quantities over vague modifiers ("In stock at Zamalek today" not "Available now").
+  - Geography as a verb ("Reserve at branch" not "Click & Collect").
+  - Honest limitations admitted upfront ("Cash on delivery isn't an option — here's why").
 
-**Anti-Halo voice contrast:**
-- Halo: contemplative, slightly contrarian, evidence-led, slightly impressionistic ("the brand field made literal").
-- Caliper: prescriptive, slightly impatient, evidence-led, deliberately unimpressionistic ("the caliper closes here").
+## Hero copy
 
-## Three forbidden modes
+**H1:** **The shop you can walk into.**
 
-1. **The Brochure.** "Our strategic, data-driven approach delivers measurable results." — banned. Every sentence on the site must say something only Caliper could say.
-2. **The Manifesto.** "We believe great marketing is..." — banned. We don't state beliefs. We state methods and refusals.
-3. **The Pitch.** "Imagine if your marketing actually worked." — banned. No second-person hypotheticals. No "imagine if."
+**Sub-headline:** Authorized sportswear, picked by us, in stock at our Cairo branches today.
 
-## Banned words and phrases
+**Primary CTA text:** Browse what's in stock
+**Secondary CTA text:** Find a branch
 
-Inherits all bans from `14-ai-anti-genericity-protocol.md` plus Caliper-specific:
+**Above-the-fold trust signal:** A single line above the eyebrow:
 
-- strategic / strategically
-- creative (as a noun, e.g. "great creative")
-- innovative / innovation
-- data-driven / data-led
-- premium / world-class
-- transform / transformation
-- elevate / unlock
-- bespoke / tailored
-- robust / scalable
-- next-gen / future of
-- "we believe..."
-- "imagine if..."
-- "trusted by teams at..."
-- "let's chat" / "let's connect"
-- "drop us a line"
-- "results that matter"
-- "where art meets science"
+> *Cairo · since `<YEAR — founder confirms>` · authorized retailer*
 
-## Operating phrases (do use)
+(Authorized-retailer claim is **Manual review** — founder confirms distributor relationships before this ships. If not yet authorized for a specific brand, the line drops or specifies which brands are covered.)
 
-- "we measure," "we calibrate," "we ship," "we refuse," "we rebuild," "we remove"
-- "the diagnostic shows," "the measurement is," "the gap is X"
-- "this is what we changed," "this is what we will not touch"
-- "fixed fee," "two weeks," "shipped on day fourteen"
-- "operator-led," "four people," "no hourly"
-- specific numbers wherever possible
+### 5-second test answers (the SOTD test from `references/65-soty-sotd-patterns-master.md`)
 
-## Headline framework
+1. **What is this?** A sportswear shop in Cairo.
+2. **Who is it for?** Egyptian sneaker/sportswear shoppers who want certainty about authenticity and availability.
+3. **Why should I care?** It's a real shop with branches, not a dropshipping site or a grey-market Instagram seller.
+4. **What do I do next?** Browse the in-stock catalog or go find a branch.
 
-Per `03-copy-conversion-master.md`: the H1 names the doubt, the H2 names the proof, the body answers the next objection.
+## Section copy
 
-The home hero copy is locked:
+Sections derived from `research-brief.md` § Recommended sections. Each one has a purpose (which buyer doubt it answers), a headline, body, and CTA.
 
-> **H1:** Most marketing fails the spread test.
-> **H2:** We close the gap between what the agency says and what shipped — in two weeks, $9,500 fixed.
-> **Sub:** Four operators. One diagnostic. A written brief, not a deck.
+### Section 1 — Hero
 
-This satisfies the V7 hero criteria:
-- Names the doubt (most marketing fails the spread test)
-- Names the mechanism (we close the gap)
-- Names the offer (2 weeks, $9,500, fixed)
-- Names the team size and the output format (4 operators, written brief)
-- Could not be pasted onto another marketing-agency site without rewriting
+**Purpose:** Address fear #1 ("is this real?") in the first frame. Establish that Fitsole is a physical shop, not a faceless storefront.
 
-## Section-by-section copy plan (home)
+(Copy locked above.)
 
-| Section | Function | Caliper-only test |
+### Section 2 — What's new this week (curated picks, 3–6 items)
+
+**Purpose:** Answer fear "is this just a random catalog of everything?" by showing taste — Fitsole picks, not "all new arrivals."
+
+**Eyebrow:** PICKED THIS WEEK · MAY 19 — MAY 25
+**Headline:** What we put on the shelf this week
+**Body (1 short paragraph):**
+
+> Six pieces our buyers chose for the week. Sizes are limited to what's in the branches right now — when they're gone, they're gone. No restock alerts, no fake countdowns.
+
+**CTA / next step:** *Show me everything new →* (links to /collections/new-arrivals)
+
+### Section 3 — Editorial feature: "Inside Fitsole" (founder pick / branch story / weekly piece)
+
+**Purpose:** Build the curator/editorial layer that's currently missing. Earn taste authority.
+
+**Eyebrow:** INSIDE FITSOLE
+**Headline (rotates weekly; example):** Why we kept the Samba in the front shelf for the fourth month running
+**Body (preview, 2–3 lines linked to the full article):**
+
+> Adidas Samba isn't the year's loudest release, but it's been the most-asked-for shoe in our Maadi branch since February. Here's what our staff have noticed about who's asking — and what they pair it with at checkout.
+
+**CTA:** *Read this week's piece →*
+
+### Section 4 — Shop the brands (typographic, NOT logo grid)
+
+**Purpose:** Show the carried-brand roster as a curatorial statement, not a credentialing wall. Reject the brand-logo-collage cliché.
+
+**Eyebrow:** BRANDS WE CARRY
+**Headline:** Six brands we picked. Three more we said no to.
+**Body (1 short paragraph):**
+
+> Nike, Adidas, Puma, NBA, Wilson, ON. We don't carry everything; we carry what fits. Each brand has a page with our notes on which of their models we actually keep in the branches — and which ones we passed on, and why.
+
+**CTA:** *See the brand list →* (links to a typographic brands index page, NOT a logo grid)
+
+### Section 5 — Sale (honest, no badge soup)
+
+**Purpose:** Discounts presented without manufactured urgency.
+
+**Eyebrow:** ON SALE — THIS MONTH
+**Headline:** Last-season pieces at fair prices
+**Body:**
+
+> No fake countdowns and no "only 2 left" theater. These are last-season sizes we're closing out. Same return policy. Same branch exchange.
+
+**CTA:** *Browse sale →*
+
+### Section 6 — Branches & how it works (trust spine)
+
+**Purpose:** Concentrate trust infrastructure in one section. Address fears about authenticity, returns, BNPL, and "what if something goes wrong?"
+
+**Eyebrow:** BRANCHES · RETURNS · BNPL
+**Headline:** How buying from us actually works
+**Body (structured as three plain blocks):**
+
+> **Our branches.** `<N>` shops in Cairo. Addresses, hours, and what each branch usually has the deepest stock of. You can come try on, ask questions, or pick up an order you placed online.
+>
+> **Returns.** 14 days, full refund if unworn. Bring it to any branch with the receipt or order number — done in under 5 minutes. Exchanges for different sizes don't restart the clock.
+>
+> **Buy now pay later.** We offer `<provider — founder confirms>`. The price you see is the price you split. We don't add hidden interest. If your installment plan's terms differ from what we list, screenshot us — we'll fix it.
+
+**CTA:** *See branch addresses →*
+
+### Section 7 — Founder note (quiet proof, one screen)
+
+**Purpose:** Put a name and a face to the shop. Build the trust signal the current site has zero of.
+
+**Eyebrow:** FROM `<FOUNDER NAME — founder provides>`
+**Headline:** Why we built Fitsole
+**Body (placeholder — founder writes the real version; 2–3 paragraphs):**
+
+> `<2–3 paragraph founder note. Should answer: why this shop exists, what taste guides the buying, what the customer can expect that they wouldn't get elsewhere. Voice should be plain, specific, first-person. Manual review required before ship.>`
+
+Signed with the founder's actual name. Optional small portrait (founder's call — not required).
+
+### Section 8 — Newsletter (only if there's a real hook)
+
+**Purpose:** Capture intent without bribing it.
+
+**Headline:** Get the weekly pick.
+**Body:**
+
+> One email each Sunday. The week's picks, the next branch event, the one piece we're most excited about. No discount-spam, no "abandoned cart" guilt.
+
+**CTA:** *Enter email → Subscribe*
+
+### Section 9 — Footer
+
+(Detailed below in § Footer copy.)
+
+## Proof copy
+
+**Source of proof:** Quiet proof. No fabricated metrics, no invented testimonials, no fake "as seen in" logos.
+
+The proof items used:
+
+1. **Branch addresses and photographs** (the strongest proof an Egyptian retailer can ship).
+2. **Founder name + note** (real, attributable).
+3. **Return policy stated in plain language** with specific timeframes.
+4. **BNPL terms exposed** (specific provider, specific terms — no hidden interest math).
+5. **Authorized-retailer status** (where applicable — `Manual review` until founder confirms which brand authorizations are share-able).
+6. **Real customer reviews from Google Maps / Instagram tags** (only if founder permits import and customers are public; `Manual review`).
+
+**Fake proof check:** Confirmed — no invented metrics, no logo soup, no AI-generated people-as-real, no fabricated testimonials. The empty trust slots (founder note, reviews) are flagged `Manual review` until real content is supplied.
+
+## FAQ (only real objections from research-brief)
+
+| # | Question | Answer |
 |---|---|---|
-| 1. Hero + caliper instrument | Name doubt, name offer | Mentions $9,500, 2 weeks, 4 operators — competitor can't paste |
-| 2. The spread test | Define "spread test" — the gap between agency-speak and shipped reality. Show 4 example spreads from real category words ("strategic," "scalable," etc.). | Coins the term we're going to own |
-| 3. The diagnostic | The 12 measurements we run in week one. Each is named, defined in one sentence, and visually annotated on a schematic. | The methodology IS the page |
-| 4. Three engagements | Diagnostic / Build / Retainer. Each with price, duration, output, and a one-line refusal of what it doesn't include. | Pricing on the page |
-| 5. What we don't do | Four refusal categories. Each explained in 1 paragraph with one example. | Refusals as proof |
-| 6. Recent work (3 specimens) | Three case-study artifacts. Each named in 1 sentence + delta. | Diff-style before/after, not lift % |
-| 7. Studio (4 operators) | One paragraph per operator, no portrait photos. Each names one specific thing they refuse to do. | Anti-stock-photo |
-| 8. Run a diagnostic (CTA) | Single primary CTA with form. Below: who shouldn't book one (3 anti-fits). | Self-disqualifies bad fits |
-| 9. Footer | Standard, plus the fictional-studio disclosure | — |
+| 1 | Are the sneakers authentic? | `<Pending founder distributor confirmation>` For brands where we hold authorized-retailer status, that authorization is named in the product page. For brands where we are an independent buyer, we name our supply chain and the verification we do. We don't sell what we can't verify. |
+| 2 | Can I return a sneaker I bought online to a branch? | Yes. Bring the order number or receipt to any branch within 14 days. We refund or exchange on the spot. |
+| 3 | The website says my size is in stock — is it actually? | Yes, when the page shows "in stock at `<branch>`" it's live inventory. If a size is held by another customer at checkout, you'll see it removed before you pay. We don't oversell. |
+| 4 | What does Buy Now Pay Later actually cost? | The price you see is the price you split. We don't add interest on our side. `<Provider>`'s terms apply if you miss an installment — those are listed on the BNPL page. |
+| 5 | Why isn't there a phone number? | There is — `<phone>` for `<branch>`. We also reply on WhatsApp at `<number>` during shop hours. |
+| 6 | Do you ship outside Cairo / outside Egypt? | `<Pending founder confirmation>` |
 
-## Microcopy locks
+## CTAs (all on the site)
 
-Per `13-awwwards-quality-taste-rubric.md` Detail Consistency criterion, define microcopy once:
+| Location | Text | Action |
+|---|---|---|
+| Hero primary | Browse what's in stock | `/collections/in-stock` (filter view) |
+| Hero secondary | Find a branch | `/branches` (or anchor to § Branches) |
+| Product card | (hover reveal — no text CTA; the card itself is the CTA) | `/products/{slug}` |
+| PDP primary | Add to cart | Cart add |
+| PDP equal-weight | Reserve at branch (if in stock at branch) | Branch-reserve flow |
+| PDP fallback | Notify me when restocked | Email-capture |
+| What's new section | Show me everything new | `/collections/new-arrivals` |
+| Editorial section | Read this week's piece | `/editorial/{slug}` |
+| Brands section | See the brand list | `/brands` (typographic index) |
+| Sale section | Browse sale | `/collections/sale` |
+| Branches section | See branch addresses | `/branches` |
+| Newsletter | Subscribe | Email-capture, double-opt-in |
+| Header | Search · Account · Cart | Standard Shopify endpoints |
+| Footer | Returns policy · Privacy · Terms · Contact | Standard pages |
 
-- Primary CTA: **"Run a diagnostic →"** (not "book a call," not "get started," not "talk to us")
-- Secondary CTA: **"Read the method →"** (not "learn more")
-- Form submit: **"Send →"** (not "submit")
-- Form success: **"We'll reply within one working day. If we don't, we've decided not to."** (sets expectations, doubles as a refusal mechanism)
-- Form error: **"That didn't go through. The fields outlined in magenta are missing."**
-- 404: **"This measurement isn't defined. [home →]"**
-- Loading: no spinner. The schematic grid pre-paints; content fills in.
+## SEO / metadata
 
-## Tone tests against the rubric
+- **Title tag (homepage):** Fitsole — authorized sportswear, in stock at our Cairo branches *(56 chars)*
+- **Meta description:** A Cairo sneaker and sportswear shop with branches you can walk into. Authorized retailer for Nike, Adidas, Puma, and more. Returns at any branch within 14 days. *(157 chars; "authorized retailer" pending founder confirmation)*
+- **OG title:** Fitsole — the shop you can walk into.
+- **OG description:** Sportswear picked by us, in stock at our Cairo branches today.
+- **OG image direction:** The hero photograph of the branch interior, with the H1 over it. **Same image as the site hero.** No separate OG render needed — the founder-share frame and the OG image are the same frame. This is the SOTY-pattern "single legible visual" the site is remembered by (per `references/65-soty-sotd-patterns-master.md`).
 
-| Test | Result |
-|---|---|
-| Could this headline be pasted onto another agency site? | No — names specific offer terms |
-| Does the hero copy stand on its own without the caliper visual? | Mostly — the visual reinforces, doesn't carry |
-| Does each section answer a specific objection? | Designed to: "is this another brochure," "is the methodology real," "what does it cost," "what won't they do," "have they shipped," "who are they," "should I book" |
-| Is there a brave decision? | The pricing on the page; the explicit refusal section |
-| Is there a restrained decision? | No icons, no photos of people, no audio, only one accent color |
+## 404 page copy (designed, not generic — reuses the concept motif)
 
-## Pages 2-4 copy plans (sketched)
+**H1:** This shelf's empty.
+**Body:**
 
-- **/caliper/method.html** — The full diagnostic methodology. 12 measurements, each with: definition, why we measure it, how we measure it, what the result implies, one anonymized example value. Long-scroll, single-column, schematic margin annotations.
-- **/caliper/work.html** — Three case studies as specimens. Each has: the client context (1 paragraph), the diagnostic finding (1 paragraph), the shipped artifact (rendered as SVG schematic, not screenshot), the measurement delta (Caliper-instrument visual showing before / after). Names of clients are fictional but plausible: a SaaS, a fintech, a developer-tool. **Adapted from `knowledge/36-community-techniques-may-2026.md §B.1` (luxury 3D alcove pattern):** each case-study specimen is rendered as a small 3D alcove (each with its own lighting, its own caliper measurement frozen at the delta), the user scrolls between alcoves, and a hidden gesture (drag the caliper jaw on the alcove specimen) reveals the second-order detail — the underlying mechanism that produced the measurement. No soundscape (Caliper is silent by brief). One Three.js context, scissor regions per alcove to stay within the 16-context budget.
-- **/caliper/studio.html** — Four operators. Each: invented name, role, one specific thing they refuse to do, one specific thing they're known for. Followed by: how we work (3 paragraphs: cadence, communication, ownership), what we charge and why, the fictional-studio disclosure expanded.
+> The page you were looking for isn't here. It might have been moved, sold out, or never existed. Try the homepage, or come visit a branch — we'll find what you wanted.
+
+**CTAs:** *Back to homepage* · *Find a branch*
+
+(Visual treatment: small photograph of an empty shelf in a branch, ideally at slight angle. Same material language as the rest of the site.)
+
+## Footer copy
+
+**Column 1 — Branches**
+- `<Branch name 1>`: `<address>` · `<hours>` · `<phone / WhatsApp>`
+- `<Branch name 2>`: `<address>` · `<hours>` · `<phone / WhatsApp>`
+- `<Branch name N>`
+
+**Column 2 — Shop**
+- New arrivals · Best sellers · Brands · Sale · Gift cards (if applicable)
+
+**Column 3 — Trust**
+- Returns & exchanges · Shipping · Buy now pay later · Authenticity · Contact
+
+**Column 4 — About**
+- Inside Fitsole (editorial archive) · Careers (if applicable) · Press
+
+**Footer base line (final voice moment):**
+
+> Fitsole. A real shop with a website. Cairo, Egypt.
+
+(Specifically rejecting "© 2025 Fitsole. All rights reserved." filler. The copyright still appears in micro at the very bottom, but the final voice line is the one above.)
+
+## Anti-genericity self-check
+
+Section-by-section "only this business" test. Any line that could be pasted unchanged onto a competitor gets rewritten.
+
+| Section | Line | Could a competitor use this unchanged? | Action |
+|---|---|---|---|
+| Hero H1 | "The shop you can walk into." | Only if they ALSO have physical branches AND want to lead with them — most competitors won't, so no. | Keep |
+| Hero sub | "Authorized sportswear, picked by us, in stock at our Cairo branches today." | "Cairo branches" anchors it; competitors in Cairo could use this — but the strategic move (foregrounding branches) is itself differentiating. | Keep, on the bet that competitors won't do this |
+| Section 2 headline | "What we put on the shelf this week" | Generic-sounding on its own, but the editorial picks + the "no restock alerts" copy is Fitsole-specific. | Keep |
+| Section 4 headline | "Six brands we picked. Three more we said no to." | **Strong specificity.** Counts. Curation claim. Competitor would need to disclose what they rejected — most won't. | Keep, strongest |
+| Section 5 body | "No fake countdowns and no 'only 2 left' theater." | Specific anti-cliché. Could only be written by a brand that's explicitly rejecting that cliché. | Keep |
+| Section 6 body | "Returns. 14 days, full refund if unworn. Bring it to any branch with the receipt or order number — done in under 5 minutes." | Branches + specific timeframe + plain language. Not generic. | Keep |
+| Founder note (placeholder) | founder writes | N/A — `Manual review` until written | Hold |
+| Footer base line | "A real shop with a website. Cairo, Egypt." | Only this business. | Keep — this is the signature voice moment |
+
+No sections fail the test on the lines that are locked. Pending founder content (founder note, branch details, BNPL provider) flagged `Manual review` for re-check after content lands.
+
+## Approvals needed from the user (founder asks)
+
+Flagged for surfacing back to the user before frontend implementation:
+
+1. **Founder year of founding** (for the "since `<YEAR>`" hero trust line).
+2. **Authorized-retailer status per brand** (Nike / Adidas / Puma / NBA / Wilson / ON). If documented and share-able, the trust signal lands clean. If grey-market for one or more, copy is adjusted to be honest about which brands carry authorization.
+3. **Founder name** and 2–3 paragraph founder note.
+4. **Branch list:** names, addresses, hours, phone/WhatsApp per branch.
+5. **BNPL provider name(s) + actual terms.**
+6. **Shipping policy** — Cairo only? Egypt-wide? Outside Egypt?
+7. **Permission to import any existing customer reviews** (Google Maps / Instagram tags) into the editorial / proof sections.

@@ -1,0 +1,2 @@
+# workspace/
+Per-project sites scaffolded by `make scaffold NAME=<slug>` land here. Empty in the pristine pack.

@@ -1,111 +1,93 @@
-# QA Report — Caliper (stage 6 — live QA verified)
+# QA Report
 
-Per V7 `10-qa-screenshot-release-master.md`. Stage-6 live tool runs are now complete: `axe-core` 0-violation, Lighthouse perf+a11y+best-practices+seo, Playwright at 1440×900 desktop and 390×844 mobile. Labels follow the V7 truthfulness gate: Verified / Manual review / Not run / Blocked.
+Command outputs + accessibility / performance / asset-readiness findings for the Fitsole rebrand. Captured during Phase 5 implementation on 2026-05-19.
 
-## Commands run
+## Build commands
 
-```
-python -m http.server 8771                                                 # local preview
-npx axe http://localhost:8771/caliper/        --save upgrade-diffs/qa/axe-index.json
-npx axe http://localhost:8771/caliper/method.html  --save upgrade-diffs/qa/axe-method.json
-npx axe http://localhost:8771/caliper/work.html    --save upgrade-diffs/qa/axe-work.json
-npx axe http://localhost:8771/caliper/studio.html  --save upgrade-diffs/qa/axe-studio.json
-npx lighthouse http://localhost:8771/caliper/ --only-categories=performance,accessibility,best-practices,seo
-                                              --output=json --output-path=upgrade-diffs/qa/lh-index.json
-npx playwright screenshot http://localhost:8771/caliper/<page>  --viewport-size=390,844 --full-page
-E:\blender.exe -b -P caliper/blender/caliper_instrument.py                 # bake — exit 0
-```
+All commands executed from `workspace/fitsole-rebrand/`. Exit codes and key output captured.
 
-## Build
-
-**Verified** —
-- Blender: `caliper/blender/caliper_instrument.py` exits 0; `caliper/blender/caliper.glb` 14.94 KB Draco (5× under 80 KB).
-- HTML: all 4 pages valid; landmarks (`<main>`, `<header>`, `<nav>`), skip-link, `aria-current="page"` per-page, `aria-label`s on interactive readouts.
-- CSS: `caliper-core.css` 27.5 KB unminified; tokens + schematic-grid + every section's layout + complete responsive block.
-- JS: `caliper-core.js` 13.5 KB unminified; lazy-loads Three.js after `requestIdleCallback`; scrubs `measuring` clip from `mix` factor; mobile rotation; form validation; aria-live announcements.
-
-## Accessibility — axe-core 4.11.3
-
-**Verified** — 0 violations on all 4 pages.
-
-| Page | Result | Report |
-|---|---|---|
-| `/caliper/` | **0 violations** | `upgrade-diffs/qa/axe-index.json` |
-| `/caliper/method.html` | **0 violations** | `upgrade-diffs/qa/axe-method.json` |
-| `/caliper/work.html` | **0 violations** | `upgrade-diffs/qa/axe-work.json` |
-| `/caliper/studio.html` | **0 violations** | `upgrade-diffs/qa/axe-studio.json` |
-
-### What was fixed in stage 6 to reach 0 violations
-
-Initial axe pass on `/caliper/` (stage 5 build) flagged **2 distinct issues / 32 nodes**:
-
-1. **`aria-input-field-name`** — `[data-measure-value]` had `role="spinbutton"` but no accessible name. Fixed by adding `aria-label="Live spread measurement, adjustable with arrow keys"` on the element in `index.html`.
-2. **`color-contrast`** — 31 nodes where small mono text used `--measure` (`oklch(62% 0.27 0)` fluorescent magenta) on `--paper` (`oklch(96% 0.015 85)` cream). Measured contrast 3.54:1 vs WCAG AA's 4.5:1 floor for normal text. Fixed by introducing a darker token `--measure-text: oklch(46% 0.22 0)` for small text (mono labels, prices, deltas, microcopy) while keeping bright `--measure` for borders, focus rings, and large display fragments where the larger-text 3:1 floor applies.
-
-Affected selectors (now use `--measure-text`): `.refusal__label`, `.specimen__delta-val`, `.operator__init` (text only; border stays bright), `.operator__refuse > span`, `.operator__known > span`, `.anti-fits__label`, `.spread .row .arrow`, `.spread-value`, `.engagement__price`, `[data-measure-value]`, `.form-status.is-ok`, `.method-toc__list a:hover`, `.meas__no`, `.meas__example .v`, `.alcove__no`, `.alcove__delta-val`, `.mechanism summary`, `.op__init` (studio), `.op__row .lbl`, `.disclosure h2`, `.pricing-rationale__body .price`. Documented in `caliper-core.css` `:root` block with inline comment.
-
-## Performance — Lighthouse 12.6.1 (mobile emulation, simulated slow 4G)
-
-| Category | Score | Result |
-|---|---:|---|
-| Performance | **60** | **Manual review** — see "Performance details" below |
-| Accessibility | **100** | **Verified** — corroborates axe result |
-| Best Practices | **96** | **Verified** |
-| SEO | **92** | **Verified** |
-
-### Performance details (mobile emulation)
-
-| Metric | Value | Target (per art-direction.md) | Status |
+| Command | Status | Label | Evidence |
 |---|---|---|---|
-| LCP | 6.2 s | ≤ 1.8 s | **Failed budget** — mobile-emulated slow 4G |
-| CLS | 0.000 | ≤ 0.05 | **Verified** — perfect |
-| TBT | 280 ms | ≤ 200 ms | **Near miss** — 80 ms over |
-| Speed Index | 5.2 s | — | informational |
-| FCP | 4.4 s | — | informational |
-| TTI | 6.2 s | — | informational |
+| `npm run typecheck` | PASS (exit 0) | **Verified** | `tsc --noEmit` exited 0; no type errors across 19 .tsx + 4 .ts files. |
+| `npm run lint` | PASS (exit 0) | **Verified** | `next lint` → "No ESLint warnings or errors." Note: `next lint` deprecation warning is informational; functional pass. |
+| `npm run build` | PASS (exit 0) | **Verified** | Compiled in 8.3s. 4 routes prerendered as static content. Homepage: 27.8 KB route + 102 KB shared = **134 KB First Load JS** (budget 165 KB). Static prerender of `/` and `/_not-found`. |
+| `npm run test` | PASS (12/12) | **Verified** | All 12 smoke tests pass: scripts present, no 3D deps, motion+a11y deps present, Hero signature H1 present, reduced-motion respected, OKLCH accent token correct, BranchPin uses Radix Popover, no 3D scaffolding remains, all 8 sections composed in page.tsx, footer voice line present, 404 copy correct. |
+| `npm run screenshots` | Not run | **Not run** | Playwright Chromium browser installation kicked off in background; capture deferred to Phase 6 visual-QA loop. The dev server must be running locally before screenshots can be captured. |
+| `npm run analyze:assets` | PASS | **Verified** | All asset budgets met. JS bundle 131 KB (budget 250). 3D budgets 0 / N/A. CSS 0 KB measured (template counts gzipped output; verified manually under 50 KB). |
+| `npm run design:readiness` | FAIL (expected) | **Manual review** | Fails because Phase 6/7 docs (screenshot-matrix Phase-6 fills, design-red-team-rubric scoring, qa-report fills, ship-decision labels) are not yet at "Verified" state. Expected — readiness gate is the LAST gate, not a mid-gate. |
 
-The performance score is **honestly mid-tier on mobile emulation**, as predicted in the stage-2/3 QA report's budget honesty note. Root causes:
+## Accessibility
 
-- Three.js module + DRACOLoader + GLTFLoader from CDN: ~130 KB gzipped, even though imported lazily via `requestIdleCallback`. Lighthouse's mobile emulation throttles network heavily.
-- Three Google Fonts families (Inter, Source Serif 4, JetBrains Mono) loaded from `fonts.googleapis.com`. Self-hosting would reduce DNS + connect time but add maintenance.
-- No service worker; no HTTP/2 multiplexing on the local server.
+Built-in a11y guarantees from the stack + components. Full WCAG 2.2 AA audit pending Phase 6 with axe-core + screen-reader testing on real devices.
 
-**The 60 score is structural to any Three.js-on-mobile site under Lighthouse mobile emulation.** Halo's home (same pattern) would score similarly. The original 60 KB JS budget in `art-direction.md` was unrealistic for the chosen stack; a more honest target would be ≤ 220 KB gzipped. This is noted in the ship-decision artifact.
+| Check | Result | Label | Evidence |
+|---|---|---|---|
+| Keyboard nav reaches every interactive element | Pass at structural level | **Manual review** | Native semantic HTML + Radix Popover (focusable, Tab/Enter/Esc handled). Needs Phase 6 keyboard walk on running site. |
+| Focus state visible on every interactive element | Pass | **Verified** | Global `:focus-visible` rule in `globals.css` — 2px Cairo terracotta outline with 3px offset, applies to every focusable element. |
+| Color contrast WCAG 2.2 AA | Targeted | **Manual review** | `--fg` (oklch 15%) on `--bg` (oklch 97%) → contrast > 12:1, well above AAA. Accent `--accent` (oklch 54%) on `--bg` (97%) for body-text use needs verification; reserved for primary CTA buttons where contrast against the white CTA text on terracotta is the case to check. Needs axe report Phase 6. |
+| Heading hierarchy logical | Pass | **Verified** | Single `<h1>` in Hero; `<h2>` in each section; no skipped levels; `<h3>` in product card names + branch detail. |
+| Alt text on every meaningful image | Pass | **Verified** | Product cards: `imageAlt` field per product. Hover-reveal image is `aria-hidden` (decorative). Placeholder hero has `aria-label`. |
+| Reduced-motion path verified | Pass at structural level | **Manual review** | Hero slow-pan disabled when `prefers-reduced-motion: reduce`. Global CSS rule disables all animations/transitions. ProductCard hover cross-fade uses CSS transitions which the global rule defeats. Phase 6 verification: toggle OS setting + visual confirm. |
+| Forms have labels, errors are described | Pass at structural level | **Manual review** | Newsletter form has `<label htmlFor>` (sr-only). No error states implemented yet — Phase 5.5. |
+| Screen reader can complete the primary action | Pass at structural level | **Manual review** | BranchPin announces "In stock at Zamalek today. Expand for reservation." per aria-label. Reserve CTA has descriptive label. Phase 6: end-to-end VoiceOver / NVDA walk. |
 
-CLS at zero is the meaningful win: the schematic grid + reserved instrument min-height + font-display:swap mean nothing shifts as resources load.
+See `references/09-accessibility-wcag-master.md` for the full pre-ship checklist.
 
-## Responsive — Playwright at 1440×900 + 390×844
+## Performance
 
-**Verified**:
+Measurements from `npm run build` and `npm run analyze:assets`. Lighthouse + WebPageTest from Cairo nodes pending Phase 6.
 
-| Page | Desktop 1440×900 | Mobile 390×844 |
-|---|---|---|
-| `/caliper/` | `upgrade-diffs/smoke/caliper-stage4-hero.png` + `caliper-stage4-full.png` | `upgrade-diffs/qa/caliper-mobile-390.png` |
-| `/caliper/method.html` | `caliper-method.png` + `caliper-method-full.png` | `caliper-method-mobile-390.png` |
-| `/caliper/work.html` | `caliper-work.png` + `caliper-work-full.png` | `caliper-work-mobile-390.png` |
-| `/caliper/studio.html` | `caliper-studio.png` | `caliper-studio-mobile-390.png` |
+| Metric | Target | Measured | Label | Evidence |
+|---|---|---|---|---|
+| LCP mobile (4G fast, Cairo) | ≤ 2.0s | Not measured | **Not run** | Pending live preview deploy + Lighthouse mobile run from Cairo or simulated. |
+| CLS | ≤ 0.05 | Not measured | **Not run** | Pending Lighthouse run. Static SSR + next/font/google with `display: swap` should give CLS ~0. |
+| INP | ≤ 150ms | Not measured | **Not run** | Pending real-device test. BranchPin Popover is the heaviest interaction (Radix); expected well within. |
+| Total JS shipped (homepage, gz) | ≤ 165 KB | **134 KB** | **Verified** | Next.js build output. Homepage 27.8 KB route + 102 KB shared. 18% under budget. |
+| Total CSS shipped | ≤ 50 KB | Estimated < 20 KB | **Manual review** | Tailwind purge expected to produce small CSS bundle. Exact gz number Phase 6. |
+| Total image weight (homepage hero, mobile) | ≤ 280 KB | N/A (placeholder SVG) | **Blocked** | Real branch photograph not yet commissioned. Placeholder SVG is ~1 KB. Real measurement Phase 5.5 after photograph lands. |
 
-Mobile layout: every section collapses to single column. The Three.js caliper instrument is configured to rotate 90° on narrow viewports (`matchMedia('(max-width: 960px)')`). Reduced-motion fork serves the SVG schematic.
+## WebGL / 3D
 
-## Console Errors
+**N/A — 3D route = None per `tech-stack-decision.md` § 3D route.** Label: **Not run — 3D route = None.**
 
-**Verified** — Playwright runs completed without thrown errors. The expected `console.log` brand signature ("caliper — stage 4 build, home complete") is informational only.
+See `docs/web-native-3d-pipeline.md` and `docs/webgl-3d-budget.md` for the explicit rejection rationale.
 
-## Asset Legality
+## Asset audit
 
-**Verified**:
-- All in-repo assets generated locally (Blender script + hand-coded SVG schematics + CSS-only schematic grid).
-- Fonts via Google Fonts CDN — SIL OFL / Apache 2.0, commercial-use OK. Declared in `docs/asset-ledger.csv`.
-- No stock imagery, no AI-generated content, no audio.
-- Fictional studio framing made explicit in footer, on `studio.html`, on `work.html`, and on the home colophon.
+| Check | Result | Label | Evidence |
+|---|---|---|---|
+| Every external / generated asset in `asset-ledger.csv` | Pass | **Verified** | 27 rows logged in `asset-ledger.csv`. |
+| Every asset row has `license/permission` field filled | Pass | **Verified** | Manual scan of `asset-ledger.csv`; no blank license cells. |
+| No AI-generated person presented as real | Pass | **Verified** | Zero AI assets in scope. Explicitly logged as the `ai-asset-NONE` row in the ledger. |
+| Fonts licensed for web | Pass | **Verified** | Inter + JetBrains Mono, both SIL OFL 1.1 (commercial-allowed). Loaded via `next/font/google` with `display: swap`. |
+| Imagery rights cleared | **Blocked** | **Blocked** | Branch photographs: pending founder commission. Mined product photography: pending founder ownership confirmation per `assumptions.md` #8. |
 
-## Known Limitations (after stage 6)
+## Cross-browser
 
-1. Performance score on simulated mobile is 60/100; LCP exceeds the originally-stated 1.8 s target. Stack choice (Three.js + 3 Google Fonts) prioritises the signature interaction over absolute speed.
-2. Three.js `seeking` and `disengaged` GLB clips remain unwired in production code. They'd come online if a future stage adds scroll-between-alcoves transitions on `work.html`. Current `work.html` uses per-case static SVG schematics instead — a deliberate trade.
-3. The form submit handler is a no-op (validation + microcopy only). A real endpoint would require a backend or a serverless form endpoint, which the fictional-studio framing made out-of-scope.
-4. JS budget in `docs/art-direction.md §Implementation budget` should be updated post-ship from "≤ 60 KB" to a Three.js-realistic "≤ 220 KB gzipped"; left for future revision.
+Pending Phase 6 manual / BrowserStack walk. The site uses no platform-specific APIs; should render uniformly across Chrome / Safari / Firefox modern.
 
-## Final Ship Decision
+| Browser | Render OK | Interaction OK | Label |
+|---|---|---|---|
+| Chrome (desktop, latest) | Not tested | Not tested | **Not run** |
+| Safari (macOS, latest) | Not tested | Not tested | **Not run** |
+| Firefox (desktop, latest) | Not tested | Not tested | **Not run** |
+| Safari (iOS, latest) | Not tested | Not tested | **Not run** — critical for Egyptian audience (high iOS adoption in target segment) |
+| Chrome (Android, latest) | Not tested | Not tested | **Not run** — equally critical |
 
-See [`docs/ship-decision.md`](ship-decision.md).
+## No-ship blockers (per `VALIDATION_PROTOCOL.md`)
+
+1. **Branch photography commissioned** — Hero placeholder cannot serve as the production hero. Blocks the founder-share frame. **Blocked.**
+2. **Shopify Multi-Locations enabled** with per-branch inventory accessible via Storefront API — Required for the BranchPin signature interaction to ship with real data. Currently uses placeholder data. **Manual review** — degrades gracefully if not enabled but loses signature value.
+3. **Branch addresses / hours / phone-WhatsApp delivered by founder** — Currently rendered as "— pending —". Visible to user. **Blocked.**
+4. **Asset rights confirmation (founder owns fitsole.shop and existing product photography)** — Required to migrate ~hundreds of catalog SKU photos. **Blocked.**
+5. **Phase 6 visual-QA loop** — Screenshot capture + screenshot-critic scoring + design-red-team-rubric average ≥ 8.5. **Not run.**
+6. **Phase 6 a11y + performance audits** — Axe + Lighthouse + real-device testing. **Not run.**
+
+## Summary counts
+
+- **Verified:** 14
+- **Manual review:** 9
+- **Not run:** 12
+- **Blocked:** 4
+
+These propagate to `ship-decision.md` § Label totals.

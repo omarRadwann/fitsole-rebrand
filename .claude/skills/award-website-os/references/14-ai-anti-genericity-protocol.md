@@ -101,7 +101,7 @@ After the first build:
 3. Cut 30% of decorative motion.
 4. Increase strength of remaining 70%.
 
-## Codex Prompt to Use
+## Claude Code Prompt to Use
 
 ```txt
 Audit this site for AI-generic patterns.

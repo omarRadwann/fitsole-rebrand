@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 98% 0 0;
+  --fg: 12% 0 0;
+  --muted: 60% 0 0;
+  --accent: 55% 0.2 25;
+  --font-display: system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: 12% 0 0; --fg: 96% 0 0; --muted: 60% 0 0; }
+}
+
+* { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible { outline: 2px solid oklch(var(--accent)); outline-offset: 2px; }
