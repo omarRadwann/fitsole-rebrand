@@ -35,8 +35,12 @@ export function SplitText({
     const el = ref.current
     if (!el) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.classList.add('split-text--instant')
+      // No animation in reduce-motion. Default state is already opacity:1.
+      return
     }
+    // Trigger reveal on next paint so chars animate from 0 → 1.
+    const id = requestAnimationFrame(() => el.classList.add('split-text--in'))
+    return () => cancelAnimationFrame(id)
   }, [])
 
   const text = children ?? ''

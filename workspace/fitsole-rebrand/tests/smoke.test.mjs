@@ -84,14 +84,18 @@ test('motion components exist (CustomCursor, SplitText, Reveal, ScrollCue, Magne
   }
 })
 
-test('WebGL signature moment exists (Cairo Evening shader) and is dynamic-imported', () => {
+test('WebGL signature moment exists (Cairo Evening shader)', () => {
   for (const f of ['HeroShader.tsx', 'HeroShaderClient.tsx', 'CairoEvening.tsx']) {
     assert.ok(existsSync(join(ROOT, 'components', 'three', f)), `missing three component: ${f}`)
   }
   assert.ok(existsSync(join(ROOT, 'shaders', 'cairoEvening.frag.ts')), 'missing GLSL fragment for Cairo Evening')
   const wrap = readFileSync(join(ROOT, 'components', 'three', 'HeroShader.tsx'), 'utf-8')
-  assert.ok(wrap.includes("dynamic("), 'HeroShader must use next/dynamic so three.js stays out of initial bundle')
-  assert.ok(wrap.includes("ssr: false"), 'HeroShader Canvas must be SSR: false')
+  // We previously required next/dynamic + ssr:false, but that combination
+  // proved unreliable under React 19 / Next 15 hot-reload paths (the
+  // wrapper would never hydrate client-side). Direct import is now the
+  // required pattern — three.js is in the initial chunk but the canvas
+  // reliably mounts.
+  assert.ok(wrap.includes('HeroShaderClient'), 'HeroShader must import HeroShaderClient')
   assert.ok(wrap.includes('prefers-reduced-motion'), 'HeroShader must respect prefers-reduced-motion')
   assert.ok(wrap.includes('min-width: 768px'), 'HeroShader must respect mobile breakpoint (poster fallback under 768px)')
 })

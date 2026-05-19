@@ -68,12 +68,21 @@ export function Hero() {
             className="object-cover"
           />
         </div>
-        {/* Editorial scrim — strong at bottom-left for type, transparent elsewhere */}
+        {/* Editorial scrim — strong at bottom-left for type, transparent elsewhere.
+            The hero photograph has a bright open-door area on the lower-left
+            (Cairo street outside) that fights white H1 text. We need a darker
+            scrim there so text is always legible regardless of which hero
+            variant ships. */}
         <div
           className="hero-vignette absolute inset-0 pointer-events-none"
           style={{
-            background:
-              'linear-gradient(to top, oklch(8% 0.02 70 / 0.78) 0%, oklch(8% 0.02 70 / 0.45) 32%, transparent 65%), linear-gradient(to right, oklch(8% 0.02 70 / 0.5) 0%, transparent 55%)',
+            background: [
+              // Vertical: deep darkening at the bottom for type contrast
+              'linear-gradient(to top, oklch(6% 0.02 70 / 0.92) 0%, oklch(8% 0.02 70 / 0.72) 22%, oklch(8% 0.02 70 / 0.30) 48%, transparent 70%)',
+              // Horizontal: secondary darkening from the left so the type block
+              // gets a calm reading surface independent of street brightness
+              'linear-gradient(to right, oklch(6% 0.02 70 / 0.65) 0%, oklch(8% 0.02 70 / 0.30) 40%, transparent 70%)',
+            ].join(', '),
           }}
         />
         {/* Top eyebrow lockup */}

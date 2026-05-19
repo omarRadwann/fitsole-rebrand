@@ -226,32 +226,26 @@ html.has-custom-cursor * { cursor: none !important; }
 .split-text { display: inline; }
 .split-text__word { display: inline-block; white-space: nowrap; }
 .split-text__space { display: inline; }
+/* SplitText chars: visible by default. The reveal animation only runs when
+ * the parent gets the `.split-text--in` class (toggled by the SplitText
+ * component AFTER mount via IntersectionObserver). This avoids the
+ * never-resolves-from-0 trap that bit us in dev with animation-fill-mode. */
 .split-text__char {
   display: inline-block;
-  /* Final visible state. The split-rise animation transitions FROM
-     (opacity:0; translateY(.55em)) → this state.
-     animation-fill-mode 'both' was unreliable across browsers — the chars
-     stayed at opacity 0 indefinitely in dev. So we set the final state as
-     the rule's default and use the keyframe FROM to start the reveal. */
   opacity: 1;
   transform: none;
+  will-change: opacity, transform;
+}
+.split-text--in .split-text__char {
   animation: split-rise 720ms var(--ease-smooth) both;
   animation-delay: calc(var(--delay, 0ms) + (var(--i, 0) * var(--stagger, 22ms)));
-  will-change: opacity, transform;
 }
 @keyframes split-rise {
   from { opacity: 0; transform: translateY(0.55em); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.split-text--instant .split-text__char {
-  animation: none !important;
-}
 @media (prefers-reduced-motion: reduce) {
-  .split-text__char {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
+  .split-text--in .split-text__char { animation: none !important; }
 }
 
 /* --- Reveal — IntersectionObserver-driven section reveals --------------- */

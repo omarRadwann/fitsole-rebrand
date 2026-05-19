@@ -1,32 +1,51 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
+import { CairoSkyline3DClient } from './CairoSkyline3DClient'
 
 /*
  * CairoSkyline3DContainer — server-safe wrapper.
  *
- * - Wraps the Canvas in next/dynamic + ssr:false (keeps three.js in its own chunk).
- * - Falls back to a static SVG poster on mobile (≤768px) or prefers-reduced-motion.
- *   Poster image is the same /brand/pattern-cairo.svg already in the footer —
- *   so the 3D and 2D versions read as the same scene at the same moment.
- * - IntersectionObserver computes "section progress" (0..1) as the user scrolls
- *   through the host element, and passes it to the 3D scene as the rotation bias.
+ * - Static SVG poster (/brand/pattern-cairo.svg) paints always — even when
+ *   the Canvas can't mount, the user sees the Cairo skyline silhouette.
+ * - On capable surfaces (desktop + no reduce-motion), the R3F Canvas
+ *   layers the Blender-baked 3D skyline on top.
+ * - Direct import instead of next/dynamic because next/dynamic + ssr:false
+ *   was unreliable under React 19 / Next 15 hot-reload paths — the wrapper
+ *   would render but the client-side hydration of mountCanvas state never
+ *   landed. Direct import costs a bit of bundle weight but the canvas
+ *   reliably mounts.
  */
-const CairoSkyline3DClient = dynamic(
-  () => import('./CairoSkyline3DClient').then((m) => m.CairoSkyline3DClient),
-  { ssr: false },
-)
+
+function decideShouldMount(): boolean {
+  if (typeof window === 'undefined') return false
+  const wide = window.matchMedia('(min-width: 768px)').matches
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  return wide && !reduce
+}
 
 export function CairoSkyline3DContainer() {
   const hostRef = useRef<HTMLDivElement>(null)
-  const [mountCanvas, setMountCanvas] = useState(false)
+  // Lazy initializer reads matchMedia synchronously on first client render —
+  // the canvas mounts on the first paint without depending on a useEffect
+  // turn that proved unreliable under React 19 / Next 15 hot-reload paths.
+  const [mountCanvas, setMountCanvas] = useState<boolean>(decideShouldMount)
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const wide = window.matchMedia('(min-width: 768px)').matches
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    setMountCanvas(wide && !reduce)
+    const update = () => setMountCanvas(decideShouldMount())
+    // CRITICAL: re-evaluate on mount. The lazy useState initializer ran on
+    // SSR (returned false because window is undefined). Without this, the
+    // client never flips mountCanvas to true even on capable surfaces.
+    update()
+    const wideMQ = window.matchMedia('(min-width: 768px)')
+    const motionMQ = window.matchMedia('(prefers-reduced-motion: reduce)')
+    wideMQ.addEventListener('change', update)
+    motionMQ.addEventListener('change', update)
+    return () => {
+      wideMQ.removeEventListener('change', update)
+      motionMQ.removeEventListener('change', update)
+    }
   }, [])
 
   useEffect(() => {
