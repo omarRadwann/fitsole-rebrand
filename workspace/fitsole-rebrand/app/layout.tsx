@@ -43,8 +43,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body className="bg-bg text-fg antialiased font-body">
+    /*
+     * suppressHydrationWarning on <html> and <body>:
+     * Browser extensions (ColorZilla 'cz-shortcut-listen', Grammarly
+     * 'data-gr-*', dark-reader 'data-darkreader-*', etc.) inject DOM
+     * attributes before React hydrates. These attributes are user-side noise,
+     * not application state, and the hydration warning they trigger is a
+     * false positive that drowns out real ones. Per Next.js docs, scoping
+     * the suppression to the root html/body is the standard remediation.
+     * See: https://nextjs.org/docs/messages/react-hydration-error
+     */
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="bg-bg text-fg antialiased font-body" suppressHydrationWarning>
         <PageTransition />
         <Header />
         {children}

@@ -30,6 +30,7 @@ export function BranchPin({ stock, productName }: { stock: ProductStock[]; produ
       <Popover.Trigger asChild>
         <button
           type="button"
+          suppressHydrationWarning
           className="font-mono text-eyebrow text-fg-muted text-left inline-flex items-center gap-1.5 hover:text-fg transition-colors duration-[--dur-micro] ease-smooth focus:outline-none focus-visible:text-fg"
           aria-label={`${productName}: in stock at ${branch.name} today. Expand for reservation.`}
         >

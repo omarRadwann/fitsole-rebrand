@@ -53,6 +53,8 @@ workspace/**/node_modules/
 workspace/**/.turbo/
 workspace/**/dist/
 workspace/**/build/
+workspace/**/tsconfig.tsbuildinfo
+workspace/**/next-env.d.ts
 
 # Playwright artifacts
 **/test-results/

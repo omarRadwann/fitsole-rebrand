@@ -40,6 +40,7 @@ export function Header() {
             <button
               aria-label="Search"
               data-cursor="Search"
+              suppressHydrationWarning
               className="hover:opacity-70 transition-opacity focus:outline-none focus-visible:opacity-70"
             >
               <SearchIcon className="w-5 h-5" />

@@ -73,9 +73,10 @@ export default function JournalIndex() {
               id="journal-email"
               type="email"
               placeholder="your@email"
+              suppressHydrationWarning
               className="flex-1 px-4 py-3 bg-bg-elevated border border-rule font-mono text-sm focus:outline-none focus-visible:border-accent transition-colors duration-[--dur-micro] ease-smooth"
             />
-            <button type="submit" className="px-6 py-3 bg-accent text-[oklch(98%_0_0)] font-medium text-sm hover:opacity-90 transition-opacity duration-[--dur-micro] ease-smooth">
+            <button type="submit" suppressHydrationWarning className="px-6 py-3 bg-accent text-[oklch(98%_0_0)] font-medium text-sm hover:opacity-90 transition-opacity duration-[--dur-micro] ease-smooth">
               Subscribe
             </button>
           </form>

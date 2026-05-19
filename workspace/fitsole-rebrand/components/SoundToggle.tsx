@@ -25,6 +25,10 @@ export function SoundToggle() {
       aria-pressed={enabled}
       aria-label={enabled ? 'Sound on — click to mute' : 'Sound off — click to enable'}
       data-cursor={enabled ? 'Mute' : 'Sound'}
+      // Browser extensions (Edge autofill / 1Password / LastPass) inject
+      // `fdprocessedid` onto buttons before React hydrates. Per React docs,
+      // suppressHydrationWarning is the documented escape hatch for that.
+      suppressHydrationWarning
       className="hover:opacity-70 transition-opacity focus:outline-none focus-visible:opacity-70 inline-flex items-center gap-1.5 font-mono text-eyebrow tracking-[0.18em] text-fg-muted"
     >
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

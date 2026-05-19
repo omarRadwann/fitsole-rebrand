@@ -19,10 +19,12 @@ export function Newsletter() {
               required
               autoComplete="email"
               placeholder="your@email.com"
+              suppressHydrationWarning
               className="flex-1 px-4 py-3 border border-rule bg-bg focus:border-accent focus:outline-none transition-colors duration-[--dur-micro] ease-smooth"
             />
             <button
               type="submit"
+              suppressHydrationWarning
               className="px-7 py-3 bg-fg text-bg font-medium hover:opacity-90 transition-opacity duration-[--dur-micro] ease-smooth"
             >
               Subscribe
