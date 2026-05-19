@@ -303,6 +303,29 @@ html.has-custom-cursor * { cursor: none !important; }
 /* --- Magnetic CTA — keep transforms isolated to a wrapper --------------- */
 .magnetic { backface-visibility: hidden; }
 
+/* --- Particle burst (cart open) ----------------------------------------- */
+.particle-burst__dot {
+  position: absolute;
+  left: 0; top: 0;
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  margin-left: calc(var(--size, 6px) / -2);
+  margin-top: calc(var(--size, 6px) / -2);
+  border-radius: 999px;
+  background: oklch(var(--accent));
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: particle-burst var(--dur, 720ms) cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+@keyframes particle-burst {
+  0%   { transform: translate3d(0, 0, 0) scale(0.6); opacity: 1; }
+  60%  { opacity: 1; }
+  100% { transform: translate3d(var(--dx, 0), var(--dy, 0), 0) scale(0.05); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .particle-burst__dot { display: none !important; }
+}
+
 /* --- Marquee ------------------------------------------------------------ */
 .marquee {
   position: relative;
@@ -427,6 +450,43 @@ html[data-pt='enter'] body {
   background-repeat: repeat-x;
   background-size: auto 64px;
   background-position: center bottom;
+}
+
+/* --- Cairo map — scroll-into-view zoom + staggered pin reveal ---------- */
+.cairo-map { transform-origin: 50% 60%; }
+.cairo-map .cairo-map__layer { opacity: 1; }
+.cairo-map .cairo-map__pin {
+  opacity: 0;
+  transform: translateY(-6px) scale(0.85);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: opacity 540ms var(--ease-smooth), transform 540ms var(--ease-snap);
+  transition-delay: calc(140ms + (var(--pin-i, 0) * 180ms));
+}
+.cairo-map .cairo-map__pin-ring {
+  animation: cairo-pin-ring 2.4s ease-in-out infinite;
+  animation-play-state: paused;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.cairo-map--in {
+  animation: cairo-map-zoom 1100ms var(--ease-smooth) both;
+}
+.cairo-map--in .cairo-map__pin { opacity: 1; transform: none; }
+.cairo-map--in .cairo-map__pin-ring { animation-play-state: running; }
+@keyframes cairo-map-zoom {
+  from { transform: scale(0.96); filter: blur(2px); }
+  to   { transform: scale(1); filter: none; }
+}
+@keyframes cairo-pin-ring {
+  0%, 100% { transform: scale(1); opacity: 0.12; }
+  50%      { transform: scale(1.6); opacity: 0.02; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cairo-map,
+  .cairo-map--in,
+  .cairo-map__pin { animation: none !important; transform: none !important; opacity: 1 !important; transition: none !important; }
+  .cairo-map__pin-ring { animation: none !important; }
 }
 
 /* --- Hero shader signature moment (Cairo Evening) ---------------------- */

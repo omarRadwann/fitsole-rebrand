@@ -1,14 +1,18 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { CartIcon, CloseIcon } from './ui/Icon'
 import { useSfx } from '@/lib/audio/useSfx'
+import { ParticleBurst } from './motion/ParticleBurst'
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false)
   const [count] = useState(0) // Placeholder until Shopify Storefront API wires in.
   const sfx = useSfx()
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const [burstSeed, setBurstSeed] = useState(0)
+  const [burstOrigin, setBurstOrigin] = useState<{ x: number; y: number } | null>(null)
 
   return (
     <Dialog.Root
@@ -16,10 +20,17 @@ export function CartDrawer() {
       onOpenChange={(o) => {
         setOpen(o)
         sfx(o ? 'cartOpen' : 'cartClose')
+        if (o && triggerRef.current) {
+          // Particle burst from the cart icon center on open.
+          const r = triggerRef.current.getBoundingClientRect()
+          setBurstOrigin({ x: r.left + r.width / 2, y: r.top + r.height / 2 })
+          setBurstSeed(Date.now())
+        }
       }}
     >
       <Dialog.Trigger asChild>
         <button
+          ref={triggerRef}
           aria-label={`Cart · ${count} items`}
           data-cursor="Cart"
           className="hover:opacity-70 transition-opacity focus:outline-none focus-visible:opacity-70 relative"
@@ -32,6 +43,7 @@ export function CartDrawer() {
           )}
         </button>
       </Dialog.Trigger>
+      <ParticleBurst trigger={burstSeed} origin={burstOrigin} />
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-[oklch(8%_0_0_/_0.5)] data-[state=open]:animate-in data-[state=closed]:animate-out fade-in-0 fade-out-0 duration-[--dur-base]" />
         <Dialog.Content

@@ -1,5 +1,9 @@
+'use client'
+
 import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import { BRANCHES } from '@/lib/data/branches'
+import { CairoSkyline3DContainer } from '@/components/three/CairoSkyline3DContainer'
 
 const MAP_PINS = [
   { id: 'br_zamalek', x: 305, y: 165, label: 'Zamalek' },
@@ -28,7 +32,11 @@ const BRANCH_DETAILS = [
 export function Branches() {
   return (
     <section id="branches" className="border-y border-rule bg-bg-elevated">
-      <div className="max-w-editorial mx-auto px-6 py-24 md:py-32">
+      {/* Blender-baked Cairo skyline — 3D signature for the section header.
+          Concept tie: you land in Cairo before the map shows where in it. */}
+      <CairoSkyline3DContainer />
+
+      <div className="max-w-editorial mx-auto px-6 py-20 md:py-24">
         <header className="mb-14 md:mb-20 grid md:grid-cols-12 gap-6 md:gap-12">
           <div className="md:col-span-8">
             <p className="font-mono text-eyebrow tracking-[0.18em] mb-4">Branches · Returns · BNPL</p>
@@ -105,9 +113,40 @@ export function Branches() {
 }
 
 function CairoMap() {
+  const mapRef = useRef<SVGSVGElement>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = mapRef.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInView(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setInView(true)
+            io.unobserve(e.target)
+          }
+        }
+      },
+      { threshold: 0.32 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
     <div className="relative aspect-[5/4] bg-bg border border-rule overflow-hidden">
-      <svg viewBox="0 0 600 480" className="w-full h-full" role="img" aria-label="Stylized map of Cairo with three Fitsole branches">
+      <svg
+        ref={mapRef}
+        viewBox="0 0 600 480"
+        className={`w-full h-full cairo-map ${inView ? 'cairo-map--in' : ''}`}
+        role="img"
+        aria-label="Stylized map of Cairo with three Fitsole branches"
+      >
         <defs>
           <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
             <path d="M 32 0 L 0 0 0 32" fill="none" stroke="oklch(85% 0.01 80)" strokeWidth="0.5" opacity="0.4" />
@@ -117,34 +156,40 @@ function CairoMap() {
             <stop offset="100%" stopColor="oklch(60% 0.08 220)" stopOpacity="0.7" />
           </linearGradient>
         </defs>
-        <rect width="600" height="480" fill="url(#grid)" />
-        <path
-          d="M 200 -10 C 230 80, 220 160, 260 220 S 295 320, 270 400 C 260 440, 240 470, 230 490"
-          fill="none"
-          stroke="url(#nile)"
-          strokeWidth="44"
-          strokeLinecap="round"
-          opacity="0.85"
-        />
-        <path
-          d="M 200 -10 C 230 80, 220 160, 260 220 S 295 320, 270 400 C 260 440, 240 470, 230 490"
-          fill="none"
-          stroke="oklch(75% 0.05 220)"
-          strokeWidth="22"
-          strokeLinecap="round"
-          opacity="0.45"
-        />
-        <ellipse cx="247" cy="160" rx="14" ry="62" fill="oklch(93% 0.012 80)" opacity="0.85" />
-        <ellipse cx="380" cy="240" rx="220" ry="180" fill="none" stroke="oklch(80% 0.012 80)" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.45" />
-        <ellipse cx="380" cy="240" rx="155" ry="115" fill="none" stroke="oklch(80% 0.012 80)" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.35" />
-        <g fontFamily="JetBrains Mono, monospace" fontSize="9" letterSpacing="2.5" fill="oklch(55% 0.01 80)">
-          <text x="14" y="22">N ↑</text>
-          <text x="14" y="468">CAIRO · EGYPT</text>
-          <text x="500" y="468" textAnchor="end">SCALE · INDICATIVE</text>
+        <g className="cairo-map__layer">
+          <rect width="600" height="480" fill="url(#grid)" />
+          <path
+            d="M 200 -10 C 230 80, 220 160, 260 220 S 295 320, 270 400 C 260 440, 240 470, 230 490"
+            fill="none"
+            stroke="url(#nile)"
+            strokeWidth="44"
+            strokeLinecap="round"
+            opacity="0.85"
+          />
+          <path
+            d="M 200 -10 C 230 80, 220 160, 260 220 S 295 320, 270 400 C 260 440, 240 470, 230 490"
+            fill="none"
+            stroke="oklch(75% 0.05 220)"
+            strokeWidth="22"
+            strokeLinecap="round"
+            opacity="0.45"
+          />
+          <ellipse cx="247" cy="160" rx="14" ry="62" fill="oklch(93% 0.012 80)" opacity="0.85" />
+          <ellipse cx="380" cy="240" rx="220" ry="180" fill="none" stroke="oklch(80% 0.012 80)" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.45" />
+          <ellipse cx="380" cy="240" rx="155" ry="115" fill="none" stroke="oklch(80% 0.012 80)" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.35" />
+          <g fontFamily="JetBrains Mono, monospace" fontSize="9" letterSpacing="2.5" fill="oklch(55% 0.01 80)">
+            <text x="14" y="22">N ↑</text>
+            <text x="14" y="468">CAIRO · EGYPT</text>
+            <text x="500" y="468" textAnchor="end">SCALE · INDICATIVE</text>
+          </g>
         </g>
         {MAP_PINS.map((p, i) => (
-          <g key={p.id}>
-            <circle cx={p.x} cy={p.y} r="18" fill="oklch(54% 0.13 35)" opacity="0.12" />
+          <g
+            key={p.id}
+            className="cairo-map__pin"
+            style={{ ['--pin-i' as never]: i }}
+          >
+            <circle cx={p.x} cy={p.y} r="18" fill="oklch(54% 0.13 35)" opacity="0.12" className="cairo-map__pin-ring" />
             <circle cx={p.x} cy={p.y} r="10" fill="oklch(54% 0.13 35)" opacity="0.22" />
             <circle cx={p.x} cy={p.y} r="4.5" fill="oklch(54% 0.13 35)" />
             <text

@@ -2,11 +2,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Price } from './Price'
 import { BranchPin } from './BranchPin'
+import { MagneticCTA } from './motion/MagneticCTA'
 import type { Product } from '@/lib/data/products'
 
 export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="group">
+      <MagneticCTA strength={0.18} radius={140} className="block w-full">
       <Link
         href={`/products/${product.slug}`}
         data-cursor="Open"
@@ -42,6 +44,7 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         )}
       </Link>
+      </MagneticCTA>
       <div className="mt-4 space-y-1.5">
         <p className="eyebrow">{product.brand}</p>
         <Link
