@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="branch marker">
+  <title>Fitsole branch marker</title>
+  <desc>Terracotta dot atop a vertical stem. Used as a list marker, branch pin on the Cairo map, and bullet point in editorial copy. The visual signature of "a real shop you can walk into."</desc>
+  <circle cx="12" cy="6" r="5" fill="oklch(54% 0.13 35)"/>
+  <rect x="11" y="11" width="2" height="11" fill="oklch(54% 0.13 35)" opacity="0.55" rx="0.4"/>
+</svg>

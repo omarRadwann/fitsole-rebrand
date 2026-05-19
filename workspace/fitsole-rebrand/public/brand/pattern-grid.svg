@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Fitsole pattern — dot grid</title>
+  <desc>Terracotta dot grid. Background ornament for section dividers and editorial overlays. Tiles seamlessly via &lt;pattern&gt;.</desc>
+  <defs>
+    <pattern id="dotgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1.2" fill="oklch(54% 0.13 35)" opacity="0.55"/>
+    </pattern>
+  </defs>
+  <rect width="80" height="80" fill="url(#dotgrid)"/>
+</svg>

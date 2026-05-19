@@ -2,6 +2,7 @@
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
+import { CartIcon, CloseIcon } from './ui/Icon'
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false)
@@ -104,20 +105,3 @@ function FilledCart() {
   )
 }
 
-function CartIcon({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden>
-      <path d="M3 5h2l2.5 11h12L22 8H6" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="9" cy="20" r="1.5" />
-      <circle cx="18" cy="20" r="1.5" />
-    </svg>
-  )
-}
-
-function CloseIcon({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden>
-      <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
-    </svg>
-  )
-}

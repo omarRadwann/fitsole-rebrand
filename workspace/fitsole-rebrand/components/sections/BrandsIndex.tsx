@@ -1,9 +1,36 @@
 import Link from 'next/link'
 import { BRANDS } from '@/lib/data/products'
+import { Marquee } from '@/components/motion/Marquee'
+
+const MARQUEE_PHRASES = [
+  'AUTHORIZED RETAILER',
+  'NIKE',
+  'ADIDAS',
+  'PUMA',
+  'NEW BALANCE',
+  'ON',
+  'ASICS',
+  'WILSON',
+  'NBA',
+  'SAUCONY',
+  '— AND THREE WE SAID NO TO',
+]
 
 export function BrandsIndex() {
   return (
-    <section className="bg-fg text-bg">
+    <section className="bg-fg text-bg relative overflow-hidden">
+      {/* Marquee strip — sits above the section heading; pauses on hover, scroll-velocity reactive */}
+      <div className="border-b border-bg/15 py-6 md:py-8">
+        <Marquee speed={45} label="Brands we carry">
+          {MARQUEE_PHRASES.map((phrase, i) => (
+            <span key={`${phrase}-${i}`} className="font-mono text-eyebrow tracking-[0.22em] text-bg/70 flex items-center gap-10">
+              {phrase}
+              <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-accent" />
+            </span>
+          ))}
+        </Marquee>
+      </div>
+
       <div className="max-w-editorial mx-auto px-6 py-24 md:py-32">
         <header className="grid md:grid-cols-12 gap-6 md:gap-12 mb-16 md:mb-20">
           <div className="md:col-span-7">

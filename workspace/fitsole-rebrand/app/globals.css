@@ -352,6 +352,83 @@ html[data-pt='enter'] body {
   html[data-pt='enter'] body { animation: none !important; }
 }
 
+/* --- Brand identity layer ----------------------------------------------- */
+.wordmark { color: inherit; display: inline-block; vertical-align: middle; }
+.wordmark__glyph rect,
+.wordmark__glyph path { fill: currentColor; }
+.wordmark__idot { fill: oklch(var(--accent)); }
+
+.wordmark--animated .wordmark__glyph {
+  opacity: 0;
+  transform: translateY(8%);
+  transform-origin: center;
+  animation: wm-glyph-rise 700ms var(--ease-smooth) both;
+}
+.wordmark--animated .wordmark__glyph--f { animation-delay: 60ms; }
+.wordmark--animated .wordmark__glyph--i { animation-delay: 160ms; }
+.wordmark--animated .wordmark__idot {
+  opacity: 0;
+  transform: scale(0.4);
+  transform-origin: 54.5px 16.5px;
+  transform-box: fill-box;
+  animation: wm-dot-pop 580ms var(--ease-snap) 320ms both;
+}
+.wordmark--animated .wordmark__glyph--t { animation-delay: 240ms; }
+.wordmark--animated .wordmark__glyph--s { animation-delay: 320ms; }
+.wordmark--animated .wordmark__glyph--o { animation-delay: 400ms; }
+.wordmark--animated .wordmark__glyph--l { animation-delay: 480ms; }
+.wordmark--animated .wordmark__glyph--e { animation-delay: 560ms; }
+
+.wordmark--pulse .wordmark__idot { animation: wm-dot-pulse 2.4s ease-in-out infinite; }
+
+@keyframes wm-glyph-rise {
+  to { opacity: 1; transform: none; }
+}
+@keyframes wm-dot-pop {
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes wm-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); transform-box: fill-box; transform-origin: 54.5px 16.5px; }
+  50%      { opacity: 0.55; transform: scale(1.14); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wordmark--animated .wordmark__glyph,
+  .wordmark--animated .wordmark__idot { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .wordmark--pulse .wordmark__idot { animation: none !important; }
+}
+
+/* --- Loading sequence --- */
+.loading-pulse {
+  display: block;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: oklch(var(--accent));
+  animation: loading-pulse 1.4s ease-in-out infinite;
+}
+@keyframes loading-pulse {
+  0%, 100% { transform: scale(0.84); opacity: 0.55; }
+  50%      { transform: scale(1.0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading-pulse { animation: none; opacity: 0.85; }
+}
+
+/* --- Branch-mark ornament (used in lists) --- */
+.branch-mark { display: inline-block; vertical-align: middle; }
+
+/* --- Pattern overlays --- */
+.pattern-dotgrid {
+  background-image: url('/brand/pattern-grid.svg');
+  background-size: 64px 64px;
+  background-repeat: repeat;
+}
+.pattern-cairo {
+  background-image: url('/brand/pattern-cairo.svg');
+  background-repeat: repeat-x;
+  background-size: auto 64px;
+  background-position: center bottom;
+}
+
 /* --- Cinematic hero shifts — 4-act scrub progress ---------------------- */
 .hero-act {
   /* progress 0..1 inherited via --p (set by Hero.tsx) */
