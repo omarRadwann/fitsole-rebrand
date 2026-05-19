@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { SplitText } from './motion/SplitText'
 import { MagneticCTA } from './motion/MagneticCTA'
+import { HeroShader } from './three/HeroShader'
 
 const HERO = {
   src: '/images/branch/hero-v4.webp',
@@ -51,6 +52,11 @@ export function Hero() {
     <section id="hero" ref={rootRef} className="hero-act relative">
       {/* Desktop hero — full-bleed branch photo + soft scrim + type bottom-left */}
       <div className="hidden md:block relative h-screen min-h-[680px] overflow-hidden bg-[oklch(14%_0.02_60)]">
+        {/* Cairo Evening signature shader — sits behind the photo. As scroll
+            progresses, the photo opacity drops and the warm terracotta haze
+            bleeds through. Reduce-motion + mobile fall back to the static
+            gradient poster baked into .hero-shader__poster. */}
+        <HeroShader />
         <div className="hero-photo absolute inset-0">
           <Image
             src={HERO.src}

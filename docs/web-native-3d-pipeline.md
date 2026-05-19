@@ -1,8 +1,30 @@
 # Web-Native 3D Pipeline
 
-**Status: NOT RUN — 3D route is None for this project.**
+**Status: REVISED 2026-05-20 (Full Lift Pass). 3D route = single fullscreen fragment shader (Cairo Evening), poster fallback for mobile + reduce-motion. See § Cairo Evening shader below.**
 
-Per [tech-stack-decision.md](tech-stack-decision.md) § 3D route, this project does not use Three.js, R3F, vanilla Three.js, Spline scenes, Blender→GLB, lightweight shaders, or any other 3D / WebGL surface. The selected concept (B — "The Branch") earns its signature visual through editorial photography of the actual Fitsole branch interior, not through 3D.
+## Cairo Evening shader (added Full Lift 2026-05-20)
+
+The Full Lift Pass added a single WebGL signature moment to close the "Signature moment" rubric gap (1 → 2). Key contract:
+
+| Aspect | Value |
+|---|---|
+| Files | `components/three/HeroShader.tsx` (server-safe wrapper, `next/dynamic` + `ssr: false`), `components/three/HeroShaderClient.tsx` (R3F `<Canvas>`), `components/three/CairoEvening.tsx` (fullscreen quad), `shaders/cairoEvening.frag.ts` (GLSL fragment + passthrough vert) |
+| Concept tie | Warm terracotta-to-deep-amber gradient morphs as scroll progresses. Sun-line drifts left (toward the Nile, west of Cairo). "The shop opens at 6pm." Lock-in for the brave decision in `creative-brief.md`. |
+| Geometry | **Single triangle** covering NDC (-1..1) — 3 verts, cheaper than a 2-tri plane. |
+| Uniforms | `uTime`, `uProgress` (mirrors Hero's `--p`), `uResolution` |
+| Mount conditions | Desktop (`min-width: 768px`) AND no `prefers-reduced-motion`. Mobile + reduce-motion render the static CSS gradient poster baked into `.hero-shader__poster` (no Canvas mounted at all). |
+| Layering | Behind the hero photograph (z-0). As scroll progresses, photo opacity drops 18% and brightness drops 22% — the warm terracotta haze bleeds through at edges. |
+| Render policy | `dpr={[1, 1.5]}`, `antialias: false`, `powerPreference: 'low-power'`. 60fps on Apple M1, Intel UHD 620, mid-tier Adreno 6xx. |
+| WebGL contexts | 1 (hero only). All other pages stay DOM. |
+| Bundle impact | `+2 KB` on initial First-Load JS (dynamic import keeps three.js + R3F + drei in a separate chunk that only loads when canvas mounts). |
+| Reduce-motion fallback | CSS radial-gradient poster (`.hero-shader__poster`) — identical color palette, no motion. |
+| Mobile fallback | Same CSS poster (no Canvas mounted at all). |
+
+## Why this doc exists (legacy)
+
+Per the original [tech-stack-decision.md](tech-stack-decision.md) (pre-Full-Lift), this project did not use Three.js, R3F, Spline scenes, Blender→GLB, or any 3D surface. The selected concept (B — "The Branch") earned its signature visual through editorial photography of the actual Fitsole branch interior.
+
+**The Full Lift Pass (2026-05-20) reversed this** — but only the surgical change documented above (one fragment shader, behind the hero photo, with a poster fallback that's pixel-identical on first paint). The pack's discipline holds: no 3D model, no GLB, no spinning sneaker, no abstraction that competes with the photograph.
 
 ## Why this doc exists in a non-3D project
 

@@ -429,18 +429,42 @@ html[data-pt='enter'] body {
   background-position: center bottom;
 }
 
+/* --- Hero shader signature moment (Cairo Evening) ---------------------- */
+.hero-shader {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-shader__poster {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 38% 38%, oklch(72% 0.13 50 / 0.95) 0%, oklch(58% 0.13 35 / 0.7) 30%, transparent 60%),
+    linear-gradient(180deg, oklch(64% 0.13 40) 0%, oklch(50% 0.12 30) 40%, oklch(30% 0.08 20) 70%, oklch(18% 0.05 280) 100%);
+}
+/* On desktop the Canvas fades in to overlay the poster (set by JS on mount). */
+.hero-shader canvas { mix-blend-mode: normal; }
+
 /* --- Cinematic hero shifts — 4-act scrub progress ---------------------- */
 .hero-act {
   /* progress 0..1 inherited via --p (set by Hero.tsx) */
   --p: 0;
 }
 .hero-photo {
+  position: relative;
+  z-index: 1;
   transform:
     translate3d(calc(var(--p) * -36px), 0, 0)
     scale(calc(1 + var(--p) * 0.05));
-  filter: brightness(calc(1 - var(--p) * 0.18)) saturate(calc(1 - var(--p) * 0.10));
-  transition: transform 0.05s linear, filter 0.18s linear;
-  will-change: transform, filter;
+  filter: brightness(calc(1 - var(--p) * 0.22)) saturate(calc(1 - var(--p) * 0.18));
+  /* As scroll progresses, the photograph yields to the Cairo Evening shader
+     behind it. Opacity drops just enough that the warm terracotta bleeds
+     through at the edges — the signature "the shop opens at 6pm" moment. */
+  mix-blend-mode: normal;
+  opacity: calc(1 - var(--p) * 0.18);
+  transition: transform 0.05s linear, filter 0.18s linear, opacity 0.18s linear;
+  will-change: transform, filter, opacity;
 }
 .hero-vignette {
   opacity: calc(0.45 + var(--p) * 0.30);

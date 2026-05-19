@@ -84,6 +84,35 @@ test('motion components exist (CustomCursor, SplitText, Reveal, ScrollCue, Magne
   }
 })
 
+test('WebGL signature moment exists (Cairo Evening shader) and is dynamic-imported', () => {
+  for (const f of ['HeroShader.tsx', 'HeroShaderClient.tsx', 'CairoEvening.tsx']) {
+    assert.ok(existsSync(join(ROOT, 'components', 'three', f)), `missing three component: ${f}`)
+  }
+  assert.ok(existsSync(join(ROOT, 'shaders', 'cairoEvening.frag.ts')), 'missing GLSL fragment for Cairo Evening')
+  const wrap = readFileSync(join(ROOT, 'components', 'three', 'HeroShader.tsx'), 'utf-8')
+  assert.ok(wrap.includes("dynamic("), 'HeroShader must use next/dynamic so three.js stays out of initial bundle')
+  assert.ok(wrap.includes("ssr: false"), 'HeroShader Canvas must be SSR: false')
+  assert.ok(wrap.includes('prefers-reduced-motion'), 'HeroShader must respect prefers-reduced-motion')
+  assert.ok(wrap.includes('min-width: 768px'), 'HeroShader must respect mobile breakpoint (poster fallback under 768px)')
+})
+
+test('brand identity components exist (Wordmark, Monogram, BranchMark) + custom icons', () => {
+  for (const f of ['Wordmark.tsx', 'Monogram.tsx', 'BranchMark.tsx']) {
+    assert.ok(existsSync(join(ROOT, 'components', 'brand', f)), `missing brand component: ${f}`)
+  }
+  assert.ok(existsSync(join(ROOT, 'components', 'ui', 'Icon.tsx')), 'custom icon set must exist (replaces Lucide-default look)')
+  for (const f of ['wordmark.svg', 'monogram-fs.svg', 'branch-mark.svg', 'pattern-grid.svg', 'pattern-cairo.svg']) {
+    assert.ok(existsSync(join(ROOT, 'public', 'brand', f)), `missing brand asset: ${f}`)
+  }
+  assert.ok(existsSync(join(ROOT, 'app', 'icon.svg')), 'app/icon.svg must exist (favicon)')
+  assert.ok(existsSync(join(ROOT, 'app', 'loading.tsx')), 'app/loading.tsx must exist (orchestrated loader)')
+})
+
+test('Header uses the new custom Wordmark, not raw font text', () => {
+  const header = readFileSync(join(ROOT, 'components', 'Header.tsx'), 'utf-8')
+  assert.ok(header.includes('Wordmark'), 'Header must render the custom <Wordmark>, not plain font text')
+})
+
 test('layout wires the Full-Lift motion shell', () => {
   const layout = readFileSync(join(ROOT, 'app', 'layout.tsx'), 'utf-8')
   for (const sym of ['CustomCursor', 'PageTransition', 'ScrollCue']) {
