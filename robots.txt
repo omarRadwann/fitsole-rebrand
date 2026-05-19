@@ -5,4 +5,4 @@ Disallow: /.codex/
 Disallow: /.agents/
 Disallow: /blender/
 
-Sitemap: https://omarradwann.github.io/halo/sitemap.xml
+Sitemap: https://fitsole.shop/sitemap.xml

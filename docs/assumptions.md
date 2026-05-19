@@ -1,40 +1,82 @@
-# One-Input Website Brief — Caliper
+# Assumptions - Fitsole Awwwards Commerce Rebrand Audit
 
-Per V7 `01-business-research-master.md`. The user said: "this is a website for a marketing agency." Halo already exists at the root as a *fictional* growth-marketing practice; this build must be deliberately differentiated so the two coexist as distinct portfolio pieces. Choices below were inferred via the V7 protocol; any can be challenged.
+## Evidence Rules
 
-**Business type:** marketing agency (fictional, used as a portfolio piece in this repo)
-**Working name:** **Caliper** — a precision instrument metaphor; opposite pole to Halo's ethereal "field/gravity" metaphor. Short, distinctive, mechanical.
-**Assumed business model:** small operator-led studio. Mixed-engagement fee model (project + retainer, no hourly). 4 named operators, not 9 (smaller than Halo deliberately).
-**Primary audience:** product-led B2B founders (Series A → Series C) who have hired and fired one or more performance-marketing agencies because the math stopped working. Not enterprise CMOs.
-**Secondary audience:** SaaS marketing leads inheriting a stalled pipeline, who need a partner to diagnose first and execute second.
-**Tertiary audience:** the studio's own next hire — engineers who can write, writers who can ship.
-**Primary conversion:** "Run a diagnostic" — a defined 2-week paid engagement, $9,500 fixed fee, that ends with a written brief, not a pitch deck.
-**Audience fears:**
-- "I'm going to get an agency that confuses 'creative' with 'expensive.'"
-- "Three months in, the deliverables will be slides, not shipped."
-- "I'll pay for a strategy I'll have to translate into work myself."
-- "The case studies will be from companies that were going to grow anyway."
-**Required trust signals:**
-- A real diagnostic methodology, written publicly. Not a brochure.
-- Engagement outcomes named in shipped artifacts (a landing page, a sequence, a pricing change) — not in lift percentages.
-- Public refusals: what kinds of engagements the studio turns down.
-- Pricing on the page. No "let's chat."
-**Category cliches to avoid (from `14-ai-anti-genericity-protocol.md`):**
-- "Powerful, scalable marketing." — banned.
-- "Trusted by teams at..." logo wall. — banned.
-- Hockey-stick growth graph as hero visual. — banned.
-- Stock photos of "the team in a meeting." — banned.
-- Animated gradient blob. — banned.
-- "Book a discovery call" as the only CTA. — banned (we have a $9,500 fixed-fee diagnostic instead).
-- Generic 3-card "services" grid. — banned.
-- Testimonial cards with stock-photo people. — banned (we'll use named quotes with role+company only, or none).
-**Creative opportunity:** the marketing-agency website category is exhausted with two failure modes — gallery-pretty (no proof of method) and dashboard-cold (no taste). Caliper can occupy the gap: **a working tool, not a brochure.** The site itself behaves like the diagnostic — measurable, opinionated, and shipping.
-**Site type:** four-page brand-led studio site with a working interactive diagnostic preview as the signature interaction. Editorial but not Halo-editorial — schematic / engineering-drawing aesthetic.
-**Stack assumption:** plain HTML/CSS/JS (matches Halo so the workbench stays consistent). Three.js for the signature interactive instrument. GSAP + Lenis on the home only. View Transitions for navigation. Type system: Berkeley Mono + Times New Roman variant + Inter. No frameworks.
-**Asset assumption:** all assets generated in-repo. Blender for the central instrument (a kinetic caliper that opens/closes against a measured line as scroll progresses). All other visuals: SVG schematics drawn in code, not images. No stock photography. No image-gen API used (per user's tool selection).
-**Legal/payment/credential blockers:**
-- Fictional studio — must be clearly framed as such on the site so it's not mistaken for a real entity.
-- Fictional client outcomes — must be plausibly attributed but flagged as illustrative.
-- No fictional named individuals impersonating real people; only generic role labels or invented names.
-- No fake awards, certifications, or proof-of-trust.
-- No newsletter signup that promises a real product unless we wire a no-op.
+Every assumption below is labeled:
+
+- Verified: observed in live site, rendered capture, or local repo inspection.
+- Manual review required: inferred from observed evidence but not proven by owner materials.
+- Unknown / requires owner confirmation: cannot be verified from current repo/site.
+- Blocked: needs access, credentials, source files, analytics, or owner approval.
+- Not run: possible check was not executed in this audit pass.
+
+## Verified
+
+- Fitsole live site is a Shopify storefront with Shopify CDN/storefront assets and Shopify checkout/cart/account patterns.
+- The local repo does not contain the Fitsole Shopify theme source.
+- The live store sells footwear, apparel, and accessories across Men, Women, Kids, Brands, Sale, and seasonal/product sections.
+- The homepage and collection pages expose real ecommerce affordances: product images, price, sale price, regular price, labels, product grids, filters, sort, cart, search, account, footer support, legal links.
+- PDP content is present for at least one product in web fetch: gallery, title, color, sale price, regular price, size guide, size selection, add to cart, description, material, shipping, return/exchange, and size chart.
+- FAQ states authenticity, licensed retailer status, delivery timing, order steps, payment methods, BNPL/installment options, support hours, and physical stores.
+- Footer exposes `info@fitsole.shop`, `+20 106 843 3440`, tax number `374-666-873`, legal links, and social links.
+- Rendered mobile homepage shows a strong image-led hero with Fitsole logo centered and search/cart/menu visible.
+- Rendered mobile collection page shows very large uppercase collection copy, filter/sort controls, grid toggle, product cards, prices, sale labels, and product images.
+- A rendered desktop Playwright capture returned a temporary `502 Server Error` once, while other live fetches and mobile/collection captures loaded. This is a reliability signal, not a general downtime conclusion.
+
+## Manual Review Required
+
+- Fitsole's current brand impression is credible and retail-functional, but not yet premium or highly distinctive.
+- The current visual system appears heavily product-grid/template-led, with the Fitsole brand mark less developed than the product catalog.
+- Product photography quality varies by section and source; some product images are strong, some alt/image placeholders appear weak or inconsistent in text extraction.
+- The store already has enough trust primitives to support conversion if rebrand work does not bury them.
+- The most valuable creative move is likely an editorial commerce system around movement, fit, product detail, and local trust rather than a separate fantasy brand world.
+- 3D/WebGL is not automatically justified; it becomes justified only if tied to product desire, fit confidence, material inspection, or a signature retail interaction that still works on mobile.
+
+## Unknown / Requires Owner Confirmation
+
+- Shopify theme repository or theme export.
+- Store analytics: conversion rate, add-to-cart rate, checkout completion, search usage, filter usage, top landing pages, device split, Core Web Vitals field data.
+- Brand strategy, brand book, typography licenses, tone-of-voice rules, photography standards, campaign calendar.
+- Priority commercial goals: sale conversion, full-price drops, Fitsole private-label growth, brand partner launches, kids category growth, newsletter/community, branch footfall.
+- Product-margin and inventory priorities.
+- Legal permission to use Nike/adidas/Puma/ON/NBA/Wilson/Birkenstock/Converse brand assets in a redesigned campaign context.
+- Source and commercial-use rights for current product photography, model/lifestyle photography, social images, payment logos, and promotional graphics.
+- Whether the contact page placeholder content is visible to customers in normal rendering or only exposed in page markup/app blocks.
+- Whether `checkout.fitsole.shop` is intentionally used for many category links and whether that host is fully owned/configured by Fitsole.
+- Whether Fitsole has branch/store photography, staff imagery, warehouse/logistics imagery, or customer-generated content that can be used legally.
+- Whether checkout customizations are available under the current Shopify plan.
+- Whether third-party Shopify apps can be removed, consolidated, or deferred.
+
+## Blocked
+
+- Production implementation audit is blocked without Shopify theme source or admin/theme export.
+- Checkout redesign is blocked without Shopify plan/admin access and explicit owner approval.
+- Legal asset clearance is blocked without owner-provided license/partnership documentation.
+- Full performance audit is blocked until Lighthouse/WebPageTest can be run consistently against the live theme or a local theme preview.
+- Accessibility remediation planning is blocked at code level until theme source is available.
+
+## Not Run
+
+- Lighthouse performance audit.
+- axe automated accessibility scan.
+- Full keyboard walkthrough.
+- Cart/checkout transaction test.
+- Live competitor crawl.
+- SEO crawler export.
+- Analytics review.
+- Heatmap/session replay review.
+- Customer support transcript review.
+
+## Working Rebrand Premise
+
+Fitsole should become a premium Egyptian sneaker and sportswear commerce experience that feels curated, physical, and fast. The brand should not imitate global sportswear brands; it should act as the local discovery layer between shoppers and authentic movement products.
+
+## Non-Negotiable Guardrails
+
+- Preserve visible price, discount, size, filter, sort, search, cart, checkout, shipping, return, exchange, and authenticity signals.
+- Do not make ecommerce users wait through cinematic scenes before seeing products.
+- Do not use AI-generated or external brand assets without rights.
+- Do not use 3D/WebGL unless it improves product desire, fit confidence, material understanding, or brand memory.
+- Do not hide trust copy behind hover-only or scroll-only interactions.
+- Do not weaken mobile browsing for desktop spectacle.
+

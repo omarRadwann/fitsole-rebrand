@@ -1,0 +1,613 @@
+/* Drop Floor — unified design system (test1/shared/dropfloor.css) */
+/* This file is loaded from every HTML page and provides the shared rebrand layer. */
+/* Per-page inline <style> blocks still cascade as page-specific overrides. */
+
+:root {
+  /* === Brand palette === */
+  --df-red: #d71920;
+  --df-red-deep: #b8141a;
+  --df-ink: #151515;
+  --df-paper: #fff9f1;
+  --df-paper-2: #f1ebe2;
+  --df-paper-3: #e3dbcf;
+  --df-asphalt: #202020;
+  --df-white: #fff;
+  --df-tape-yellow: #f4c200;
+  --df-line: rgba(21, 21, 21, .16);
+  --df-line-dim: rgba(21, 21, 21, .08);
+
+  /* === Dark floor variant === */
+  --df-dark-bg: #0e0e0e;
+  --df-dark-ink: #fff9f1;
+  --df-dark-line: rgba(255, 249, 241, .14);
+
+  /* === Floor tape pattern === */
+  --df-tape: repeating-linear-gradient(135deg, var(--df-red) 0 10px, var(--df-tape-yellow) 10px 20px);
+  --df-tape-thick: repeating-linear-gradient(135deg, var(--df-red) 0 14px, var(--df-tape-yellow) 14px 28px);
+
+  /* === Shadow tokens === */
+  --df-drop-soft: 0 18px 32px -14px rgba(26, 20, 16, .22);
+  --df-drop-strong: 0 32px 56px -12px rgba(26, 20, 16, .38);
+  --df-glow-red: 0 0 64px -16px rgba(215, 25, 32, .55);
+
+  /* === Typography === */
+  --df-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --df-display: "Archivo", "Inter", system-ui, sans-serif;
+  --df-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* === Easings === */
+  --df-ease: cubic-bezier(.22, 1, .36, 1);
+  --df-snap: cubic-bezier(.2, .8, .2, 1);
+  --df-fall: cubic-bezier(.6, .04, .98, .335);
+  --df-bounce: cubic-bezier(.34, 1.56, .64, 1);
+
+  /* === Cursor tracking (set by JS) === */
+  --df-cx: 50vw;
+  --df-cy: 50vh;
+  --df-cursor-active: 0;
+  --df-scroll-progress: 0;
+}
+
+/* === Reduced motion: nuke all kinetic transforms === */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --df-cursor-active: 0;
+  }
+  .df-kinetic-letter,
+  .df-kinetic-word {
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .df-cursor-ring,
+  .df-cursor-dot {
+    display: none !important;
+  }
+}
+
+/* === Skip link === */
+.df-skip-link {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 2000;
+  transform: translateY(-140%);
+  background: var(--df-ink);
+  color: var(--df-white);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-family: var(--df-mono);
+  text-transform: uppercase;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.df-skip-link:focus,
+.df-skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid var(--df-red);
+  outline-offset: 2px;
+}
+
+/* === Cursor (desktop only) === */
+.df-cursor-ring,
+.df-cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1900;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  opacity: calc(var(--df-cursor-active) * 1);
+  transition: opacity .25s var(--df-ease);
+}
+.df-cursor-ring {
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  border: 1.5px solid rgba(255, 249, 241, .82);
+  transform: translate(var(--df-cx), var(--df-cy)) scale(var(--df-cursor-scale, 1));
+  transition: transform .14s var(--df-snap), opacity .25s var(--df-ease), background-color .2s var(--df-ease), border-color .2s var(--df-ease);
+}
+.df-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--df-white);
+  transform: translate(var(--df-cx), var(--df-cy));
+}
+.df-cursor-ring[data-state="floor"] {
+  background: var(--df-tape);
+  border-color: var(--df-tape-yellow);
+  --df-cursor-scale: 1.18;
+}
+.df-cursor-ring[data-state="link"] {
+  --df-cursor-scale: 1.6;
+  background: rgba(215, 25, 32, .18);
+  border-color: var(--df-red);
+}
+.df-cursor-ring[data-state="drop"] {
+  --df-cursor-scale: 2.2;
+  background: rgba(215, 25, 32, .32);
+  border-color: var(--df-tape-yellow);
+}
+.df-cursor-label {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1901;
+  top: 0;
+  left: 0;
+  transform: translate(calc(var(--df-cx) + 24px), calc(var(--df-cy) + 12px));
+  font-family: var(--df-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--df-white);
+  background: var(--df-ink);
+  padding: 4px 8px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity .2s var(--df-ease);
+  white-space: nowrap;
+}
+.df-cursor-label.is-on {
+  opacity: 1;
+}
+@media (pointer: coarse), (hover: none) {
+  .df-cursor-ring,
+  .df-cursor-dot,
+  .df-cursor-label {
+    display: none !important;
+  }
+}
+
+/* === Kinetic typography === */
+.df-kinetic-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.df-kinetic-letter {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: 50% 100%;
+}
+html[data-drop-ready="1"] .df-kinetic-letter {
+  opacity: 0;
+  transform: translateY(-110%);
+}
+html[data-drop-ready="1"] [data-kinetic-pre-hide] {
+  opacity: 0;
+}
+
+/* === Hero 3D scene container === */
+.df-hero-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 320px;
+  display: block;
+}
+.df-hero-scene canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+.df-hero-scene__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 20%, rgba(215, 25, 32, .12), transparent 60%), var(--df-paper-2);
+  font-family: var(--df-mono);
+  text-transform: uppercase;
+  color: var(--df-ink);
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+.df-hero-scene[data-loaded] .df-hero-scene__fallback {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* === Hero landing word — large kinetic display === */
+.df-hero-kicker {
+  font-family: var(--df-mono);
+  font-size: clamp(14px, 1.2vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--df-ink);
+  margin: 24px 0 6px;
+  opacity: .82;
+}
+.df-hero-word {
+  font-family: var(--df-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(120px, 22vw, 360px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin: 12px 0 32px;
+  color: var(--df-red);
+  display: block;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.df-hero-word--red {
+  color: var(--df-red);
+}
+/* When the hero word is "Open." alone, the whole thing is brand red */
+/* Hero layout: kinetic copy left, 3D scene right */
+.df-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 1.05fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+  width: min(1500px, calc(100vw - clamp(24px, 5vw, 88px)));
+  margin: 0 auto;
+  padding: clamp(36px, 7vw, 98px) 0;
+}
+@media (max-width: 1100px) {
+  .df-hero-grid { grid-template-columns: 1fr; }
+}
+
+/* === Floor tape eyebrow (canonical) === */
+.df-eyebrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: 64px;
+  color: var(--df-ink);
+  font-family: var(--df-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.df-eyebrow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 10px;
+  background: var(--df-tape);
+  border-radius: 1px;
+  box-shadow: 0 2px 0 rgba(21, 21, 21, .18), inset 0 0 0 1px rgba(0, 0, 0, .08);
+}
+
+/* === Dark floor section === */
+.df-dark {
+  background: var(--df-dark-bg);
+  color: var(--df-dark-ink);
+}
+.df-dark .df-eyebrow {
+  color: var(--df-paper-2);
+}
+.df-dark .df-eyebrow::before {
+  filter: brightness(1.22) saturate(1.08);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .42), inset 0 0 0 1px rgba(255, 255, 255, .12);
+}
+.df-dark .df-hero-word {
+  color: var(--df-paper);
+}
+
+/* === Section floor line === */
+.df-floor-line {
+  position: relative;
+}
+.df-floor-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0, transparent 8%, var(--df-red) 22%, var(--df-tape-yellow) 50%, var(--df-red) 78%, transparent 92%, transparent 100%);
+  opacity: .45;
+  pointer-events: none;
+}
+
+/* === Parallax sneaker silhouettes (journal page) === */
+.df-parallax-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: .14;
+  z-index: 0;
+}
+.df-parallax-layer svg {
+  position: absolute;
+  width: 380px;
+  height: auto;
+  filter: drop-shadow(0 16px 24px rgba(215, 25, 32, .12));
+  transform: translate3d(var(--silhouette-x, 0), calc(var(--df-scroll-progress, 0) * var(--silhouette-speed, -180px)), 0) rotate(var(--silhouette-rotate, 0deg));
+  will-change: transform;
+}
+
+/* === ASCII footer === */
+.df-ascii-footer {
+  display: block;
+  font-family: var(--df-mono);
+  white-space: pre;
+  line-height: 1.05;
+  font-size: 10px;
+  letter-spacing: 0;
+  color: var(--df-red);
+  background: var(--df-ink);
+  padding: 24px 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 24px 0 0;
+}
+.df-dark .df-ascii-footer {
+  color: var(--df-tape-yellow);
+}
+
+/* === Case rail (work.html) === */
+.df-case-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(520px, 78vw);
+  gap: 24px;
+  padding: 0 clamp(24px, 5vw, 88px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.df-case-rail::-webkit-scrollbar { display: none; }
+.df-case-card {
+  scroll-snap-align: start;
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  min-height: clamp(360px, 56vh, 520px);
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--df-paper-2);
+  border: 1px solid var(--df-line);
+  border-radius: 6px;
+  box-shadow: var(--df-drop-soft);
+  transition: transform .28s var(--df-ease), box-shadow .28s var(--df-ease), border-color .28s var(--df-ease);
+  overflow: hidden;
+}
+.df-case-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--df-tape);
+}
+.df-case-card:hover,
+.df-case-card:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--df-red);
+  box-shadow: var(--df-drop-strong);
+}
+.df-case-card__kpi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 24px;
+}
+.df-case-card__kpi-item {
+  font-family: var(--df-display);
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 54px);
+  line-height: 1;
+  color: var(--df-red);
+}
+.df-case-card__kpi-item span {
+  display: block;
+  font-family: var(--df-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--df-ink);
+  margin-top: 6px;
+  font-weight: 600;
+}
+.df-case-card h3 {
+  font-family: var(--df-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: .9;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  max-width: 14ch;
+}
+.df-case-card p {
+  margin: 0;
+  max-width: 50ch;
+  color: var(--df-ink);
+}
+
+/* === Partner card (studio.html) === */
+.df-partner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.df-partner-card {
+  position: relative;
+  aspect-ratio: 1 / 1.15;
+  background: var(--df-paper-2);
+  border: 1px solid var(--df-line);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform .3s var(--df-ease), box-shadow .3s var(--df-ease);
+  perspective: 1000px;
+}
+.df-partner-card::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 36px;
+  height: 6px;
+  background: var(--df-tape);
+  z-index: 2;
+}
+.df-partner-card:hover,
+.df-partner-card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: var(--df-drop-strong);
+}
+.df-partner-card__front,
+.df-partner-card__back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: space-between;
+  padding: clamp(18px, 2vw, 28px);
+  transition: opacity .35s var(--df-ease), transform .5s var(--df-ease);
+  backface-visibility: hidden;
+}
+.df-partner-card__back {
+  opacity: 0;
+  transform: translateY(8px);
+  background: var(--df-ink);
+  color: var(--df-paper);
+}
+.df-partner-card:hover .df-partner-card__back,
+.df-partner-card:focus-within .df-partner-card__back {
+  opacity: 1;
+  transform: translateY(0);
+}
+.df-partner-card h3 {
+  font-family: var(--df-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1;
+  margin: 0;
+}
+.df-partner-card small {
+  font-family: var(--df-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--df-red);
+  display: block;
+  margin-top: 8px;
+}
+
+/* === 404 falling shoe scene === */
+.df-falling-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+  margin: 32px auto;
+  overflow: hidden;
+}
+.df-falling-stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* === View transitions === */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .42s;
+  animation-timing-function: var(--df-ease);
+}
+::view-transition-group(wordmark) {
+  animation-duration: .55s;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* === Mobile floor strip (cart bar) === */
+.df-mobile-floor {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 60;
+  display: none;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--df-ink) 94%, transparent);
+  color: var(--df-white);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 6px;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--df-drop-strong);
+  font-family: var(--df-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  align-items: center;
+}
+.df-mobile-floor::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--df-tape);
+  border-radius: 6px 6px 0 0;
+}
+.df-mobile-floor strong {
+  display: block;
+  font-family: var(--df-display);
+  font-size: 14px;
+  letter-spacing: .01em;
+  line-height: 1;
+}
+.df-mobile-floor small {
+  display: block;
+  color: rgba(255, 255, 255, .6);
+  font-size: 10px;
+  margin-top: 3px;
+}
+.df-mobile-floor a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  background: var(--df-red);
+  color: var(--df-white);
+  border-radius: 4px;
+  font-weight: 900;
+  font-size: 12px;
+  text-decoration: none;
+}
+@media (max-width: 760px) {
+  .df-mobile-floor { display: grid; }
+  body { padding-bottom: 84px; }
+}
+
+/* === Helper: cursor-skew variable applied to letters near cursor === */
+.df-kinetic-letter[data-skew] {
+  transform: translateY(0) skewX(calc(var(--df-letter-skew, 0) * 1deg));
+  transition: transform .25s var(--df-snap);
+}
+
+/* === Focus management — universal === */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 3px solid var(--df-red);
+  outline-offset: 4px;
+  border-radius: 2px;
+}

@@ -2,360 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="dark" />
-<title>Page between engagements — Halo</title>
-<meta name="description" content="The page you were looking for either moved, never existed, or was retired in last quarter's recalibration. Try the casework, the studio, or come back to the field." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, follow" />
-
-<meta property="og:title" content="Page between engagements — Halo" />
-<meta property="og:description" content="The page you were looking for either moved, never existed, or was retired in last quarter's recalibration." />
+<title>Page not found - Fitsole</title>
+<meta name="description" content="The Fitsole page could not be found. Return to new drops, sneakers, sale, search, or cart." />
+<meta property="og:site_name" content="Fitsole" />
+<meta property="og:title" content="Page not found - Fitsole" />
+<meta property="og:description" content="Return to Fitsole new drops, sneakers, sale, search, or cart." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://omarradwann.github.io/halo/404.html" />
-<meta name="twitter:card" content="summary" />
-
+<meta property="og:url" content="https://fitsole.shop/404.html" />
 <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 <link rel="manifest" href="./manifest.webmanifest" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" />
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-}}
-</script>
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@500;600;700;800&display=swap" />
+<link rel="stylesheet" href="./shared/dropfloor.css" />
 <style>
-  :root {
-    --ink: oklch(96% 0.012 85); --ink-dim: oklch(78% 0.012 85); --ink-mute: oklch(58% 0.012 250);
-    --paper: oklch(10% 0.014 260); --paper-2: oklch(13.5% 0.016 260);
-    --rule: color-mix(in oklch, var(--ink) 14%, transparent);
-    --rule-2: color-mix(in oklch, var(--ink) 22%, transparent);
-    --accent: oklch(76% 0.18 70); --accent-2: oklch(72% 0.16 245);
-    --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-    --serif: "Instrument Serif", ui-serif, Georgia, serif;
-    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --fs-mono: clamp(.7rem, .55rem + .35vw, .8rem);
-    --fs-body: clamp(.95rem, .85rem + .4vw, 1.05rem);
-    --fs-hero: clamp(3rem, 1.4rem + 6vw, 7.4rem);
-    --ease-smooth: cubic-bezier(.22,1,.36,1);
-    --ease-expressive: cubic-bezier(.32,.72,0,1);
-    --gutter: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
-    --maxw: 1480px;
-  }
-  @view-transition { navigation: auto; }
-  ::view-transition-old(root), ::view-transition-new(root) {
-    animation-duration: .55s;
-    animation-timing-function: cubic-bezier(.22,1,.36,1);
-  }
-  .topbar { view-transition-name: halo-topbar; }
-  .wordmark { view-transition-name: halo-wordmark; }
-  .footer__brand { view-transition-name: halo-footer-brand; }
-
-  *,*::before,*::after { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--fs-body); font-weight: 360; line-height: 1.55; letter-spacing: -0.005em; overflow-x: clip; cursor: none; min-height: 100vh; -webkit-font-smoothing: antialiased; }
-  @media (hover: none), (pointer: coarse) { body, a, button { cursor: auto; } }
-  ::selection { background: var(--accent); color: var(--paper); }
-  a { color: inherit; text-decoration: none; }
-  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-
-  body::after {
-    content: ""; position: fixed; inset: -10%; pointer-events: none; z-index: 9999;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 .25 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.4'/></svg>");
-    opacity: .07; mix-blend-mode: overlay;
-  }
-
-  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9000; will-change: transform; }
-  .cursor-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-left: -3px; margin-top: -3px; }
-  .cursor-ring { width: 36px; height: 36px; border-radius: 50%; border: 1px solid color-mix(in oklch, var(--ink) 50%, transparent); margin-left: -18px; margin-top: -18px; transition: width .35s var(--ease-smooth), height .35s var(--ease-smooth), margin .35s var(--ease-smooth), border-color .35s, opacity .3s; }
-  .cursor-ring.is-hover { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; border-color: var(--accent); background: color-mix(in oklch, var(--accent) 8%, transparent); }
-  .is-cursor-hidden .cursor-dot, .is-cursor-hidden .cursor-ring { opacity: 0; }
-  @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
-
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
-
-  .topbar { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: clamp(1rem, 1.4vw, 1.5rem) var(--gutter); background: color-mix(in oklch, var(--paper) 70%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--rule); }
-  .wordmark { font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: .55rem; color: var(--ink); }
-  .wordmark::before { content: "●"; color: var(--accent); font-size: .9rem; animation: dotPulse 3.4s ease-in-out infinite; }
-  @keyframes dotPulse { 0%, 100% { opacity: .65; transform: scale(1); } 50% { opacity: 1; transform: scale(1.16); } }
-  .nav { display: flex; gap: 1.5rem; justify-self: center; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
-  .nav a { position: relative; padding: .25rem 0; transition: color .3s; }
-  .nav a::after { content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background: var(--accent); transform: scaleX(0); transform-origin: right center; transition: transform .45s var(--ease-expressive), transform-origin 0s .45s; }
-  .nav a:hover, .nav a:focus-visible { color: var(--ink); }
-  .nav a:hover::after, .nav a:focus-visible::after { transform: scaleX(1); transform-origin: left center; transition: transform .45s var(--ease-expressive), transform-origin 0s 0s; }
-  .topbar__right { justify-self: end; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
-  @media (max-width: 720px) { .nav { display: none; } .topbar { grid-template-columns: 1fr auto; } }
-
-  /* The 404 hero — Lost form 3D moment + editorial copy */
-  .lost {
-    position: relative;
-    min-height: calc(100vh - 64px);
-    display: grid; place-items: center;
-    padding: clamp(4rem, 8vw, 8rem) 0;
-    overflow: hidden;
-  }
-  .lost__3d {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 1.4s var(--ease-smooth);
-    z-index: 0;
-  }
-  .lost__3d.is-ready { opacity: .55; }
-  .lost__3d canvas { width: 100%; height: 100%; display: block; }
-  .lost__inner {
-    position: relative; z-index: 1;
-    text-align: center;
-    max-width: 56ch;
-    padding: 0 var(--gutter);
-  }
-  .lost__mark {
-    font-family: var(--mono);
-    font-size: var(--fs-mono);
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.4rem;
-    display: inline-flex; align-items: center; gap: .8rem;
-  }
-  .lost__mark::before, .lost__mark::after { content: ""; display: inline-block; width: 24px; height: 1px; background: var(--rule-2); }
-  .lost__h1 {
-    font-family: var(--serif);
-    font-size: var(--fs-hero);
-    line-height: .95;
-    letter-spacing: -0.025em;
-    font-weight: 400;
-    margin: 0 0 1.6rem;
-    text-wrap: balance;
-  }
-  .lost__h1 em { font-style: italic; color: color-mix(in oklch, var(--ink) 80%, var(--accent) 35%); }
-  .lost__sub {
-    font-family: var(--serif);
-    font-size: clamp(1.1rem, 1rem + .6vw, 1.4rem);
-    line-height: 1.5;
-    color: var(--ink-dim);
-    margin: 0 auto 2.5rem;
-    max-width: 48ch;
-    text-wrap: pretty;
-  }
-  .lost__sub em { font-style: italic; color: var(--ink); }
-  .lost__nav {
-    display: inline-flex; flex-wrap: wrap; gap: .7rem;
-    margin-top: .5rem;
-    justify-content: center;
-  }
-  .lost__btn {
-    display: inline-flex; align-items: center; gap: .55rem;
-    padding: .9rem 1.4rem;
-    border: 1px solid var(--rule-2);
-    border-radius: 999px;
-    font-family: var(--mono); font-size: var(--fs-mono);
-    letter-spacing: .14em; text-transform: uppercase;
-    color: var(--ink-dim);
-    transition: color .3s, border-color .3s, background-color .3s;
-    cursor: none;
-  }
-  .lost__btn:hover, .lost__btn:focus-visible { color: var(--ink); border-color: var(--accent); background: color-mix(in oklch, var(--accent) 8%, transparent); }
-  .lost__btn--primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .lost__btn--primary:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
-  .lost__footer {
-    margin-top: clamp(2.5rem, 4vw, 4rem);
-    font-family: var(--mono); font-size: var(--fs-mono);
-    letter-spacing: .12em; text-transform: uppercase;
-    color: var(--ink-mute);
-    display: flex; flex-wrap: wrap; gap: 1.4rem;
-    justify-content: center;
-  }
-  .lost__footer em { font-style: italic; font-family: var(--serif); font-size: 1.05rem; text-transform: none; letter-spacing: .02em; color: var(--ink-dim); }
-
-  footer.bottombar { padding: clamp(1.5rem, 2.5vw, 2rem) 0; border-top: 1px solid var(--rule); }
-  .footer__brand { font-family: var(--serif); font-style: italic; font-size: 1.5rem; letter-spacing: -0.025em; }
-  .footer__inner { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
-
-  @media (prefers-reduced-motion: reduce) {
-    *,*::before,*::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-    .lost__3d { display: none; }
-    .cursor-dot, .cursor-ring { display: none; }
-    body { cursor: auto; }
-  }
+:root{--red:#d71920;--ink:#151515;--paper:#fff9f1;--muted:#6d6761;--line:rgba(21,21,21,.16);--display:"Archivo","Inter",system-ui,sans-serif;--sans:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;background:linear-gradient(90deg,rgba(21,21,21,.04) 1px,transparent 1px) 0 0/12px 12px,var(--paper);color:var(--ink);font-family:var(--sans)}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100vw - 32px));margin:auto;display:grid;gap:28px;padding:56px 0}.brand{display:inline-grid;grid-template-columns:42px auto;gap:10px;align-items:center;font-family:var(--display);font-weight:900;text-transform:uppercase}.mark{width:42px;height:42px;display:grid;place-items:center;border-radius:4px;background:var(--red);color:#fff}.eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;text-transform:uppercase;color:var(--muted)}h1{max-width:9ch;margin:0;font-family:var(--display);font-size:clamp(58px,12vw,150px);line-height:.82;text-transform:uppercase}p{max-width:58ch;margin:0;color:#333;font-size:18px}.actions{display:flex;flex-wrap:wrap;gap:10px}.btn{min-height:46px;display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:1px solid var(--ink);border-radius:4px;font-size:12px;font-weight:900;text-transform:uppercase}.btn--red{background:var(--red);border-color:var(--red);color:#fff}.panel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;border:1px solid var(--line);background:var(--line)}.panel a{min-height:112px;display:grid;align-content:end;padding:16px;background:#fff;font-family:var(--display);font-weight:900;text-transform:uppercase}.footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;text-transform:uppercase}@media(max-width:720px){.panel{grid-template-columns:1fr 1fr}h1{font-size:clamp(48px,18vw,82px)}}
 </style>
 </head>
 <body>
-
-<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-
-<header class="topbar" role="banner">
-  <a href="./index.html" class="wordmark" aria-label="Halo — home">Halo</a>
-  <nav class="nav" aria-label="Primary">
-    <a href="./work.html">Work</a>
-    <a href="./studio.html">Studio</a>
-    <a href="./journal.html">Journal</a>
-    <a href="./index.html#contact">Contact</a>
+<main class="wrap">
+  <a class="brand" href="./" aria-label="Fitsole home"><span class="mark">FS</span><span>Fitsole<br />Drop Floor</span></a>
+  <div class="eyebrow">404 / route missed</div>
+  <h1>Wrong floor.</h1>
+  <p>The product, collection, or support page you tried to open is not here. Jump back into the live Fitsole shopping routes.</p>
+  <div class="actions">
+    <a class="btn btn--red" href="./">Back to drop floor</a>
+    <a class="btn" href="https://fitsole.shop/search">Search Fitsole</a>
+    <a class="btn" href="https://fitsole.shop/cart">Open cart</a>
+  </div>
+  <nav class="panel" aria-label="Recovery links">
+    <a href="https://fitsole.shop/collections/new-arrivals">New in</a>
+    <a href="https://fitsole.shop/collections/sneakers">Sneakers</a>
+    <a href="https://fitsole.shop/collections/sale">Sale</a>
+    <a href="https://fitsole.shop/pages/contact">Support</a>
   </nav>
-  <div class="topbar__right">404 · Off route</div>
-</header>
-
-<main>
-
-<section class="lost" aria-labelledby="lost-title">
-  <div class="lost__3d" id="lost3d" aria-hidden="true"><canvas></canvas></div>
-  <div class="lost__inner">
-    <div class="lost__mark">404 · The halo broke</div>
-    <h1 class="lost__h1" id="lost-title">This page is <em>between engagements.</em></h1>
-    <p class="lost__sub">
-      The page you were looking for either <em>moved,</em> never existed,
-      or was quietly retired in last quarter's <em>recalibration.</em>
-      A practice with a mandate, not a roster.
-    </p>
-    <div class="lost__nav">
-      <a href="./index.html" class="lost__btn lost__btn--primary" data-cursor="enter">
-        ← Back to the field
-      </a>
-      <a href="./work.html" class="lost__btn" data-cursor="view">Casework</a>
-      <a href="./studio.html" class="lost__btn" data-cursor="view">Studio</a>
-      <a href="./journal.html" class="lost__btn" data-cursor="view">Field notes</a>
-    </div>
-    <div class="lost__footer">
-      <span><em>Brand is a system, not a logo</em></span>
-      <span><span style="color:var(--accent)">●</span> All other systems nominal</span>
-    </div>
-  </div>
-</section>
-
+  <div class="footer"><span>Fitsole Drop Floor</span><span>Product, size, price, policy</span></div>
 </main>
-
-<footer class="bottombar">
-  <div class="wrap">
-    <div class="footer__inner">
-      <span class="footer__brand">Halo.</span>
-      <span>© MMXXVI · Halo Practice Lda.</span>
-      <span><span style="color:var(--accent)">●</span> hello@halo.studio</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer  = matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-// JS fade fallback for non-Chromium VT support
-(function() {
-  const supportsXdocVT = (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('view-transition-name', 'halo-topbar'));
-  if (supportsXdocVT || reduceMotion) return;
-  document.body.style.opacity = '0';
-  requestAnimationFrame(() => { document.body.style.transition = 'opacity .42s cubic-bezier(.22,1,.36,1)'; document.body.style.opacity = '1'; });
-  addEventListener('click', (e) => {
-    const a = e.target && e.target.closest && e.target.closest('a[href]');
-    if (!a) return;
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-    const href = a.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
-    let u; try { u = new URL(href, location.href); } catch { return; }
-    if (u.origin !== location.origin) return;
-    if (!/\.html$/i.test(u.pathname)) return;
-    e.preventDefault();
-    document.body.style.transition = 'opacity .32s cubic-bezier(.22,1,.36,1)';
-    document.body.style.opacity = '0';
-    setTimeout(() => { location.href = u.href; }, 320);
-  });
-  addEventListener('pageshow', (e) => { if (e.persisted) document.body.style.opacity = '1'; });
-})();
-
-const dot = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-let dx=-200,dy=-200,rx=dx,ry=dy,tx=dx,ty=dy,cursorAwake=false;
-if (finePointer && !reduceMotion) {
-  document.body.classList.add('is-cursor-hidden');
-  addEventListener('pointermove', (e) => {
-    if (!cursorAwake) { cursorAwake=true; dx=rx=tx=e.clientX; dy=ry=ty=e.clientY; document.body.classList.remove('is-cursor-hidden'); }
-    else { tx=e.clientX; ty=e.clientY; }
-  }, { passive: true });
-  addEventListener('pointerleave', () => document.body.classList.add('is-cursor-hidden'));
-  addEventListener('pointerenter', () => document.body.classList.remove('is-cursor-hidden'));
-  const tick = () => {
-    dx += (tx-dx)*0.5; dy += (ty-dy)*0.5; rx += (tx-rx)*0.18; ry += (ty-ry)*0.18;
-    dot.style.transform = `translate3d(${dx}px,${dy}px,0)`;
-    ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
-    requestAnimationFrame(tick);
-  };
-  tick();
-  document.querySelectorAll('a, button, [data-cursor]').forEach(el => {
-    el.addEventListener('pointerenter', () => { dot.classList.add('is-hover'); ring.classList.add('is-hover'); });
-    el.addEventListener('pointerleave', () => { dot.classList.remove('is-hover'); ring.classList.remove('is-hover'); });
-  });
-}
-</script>
-
-<script type="module">
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const container = document.getElementById('lost3d');
-    const canvas = container?.querySelector('canvas');
-    if (canvas) {
-      try {
-        const THREE = await import('three');
-        const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
-        const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
-        const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
-        renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
-        const fit = () => { const w=container.clientWidth,h=container.clientHeight; renderer.setSize(w,h,false); return [w,h]; };
-        const [w0,h0] = fit();
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(35, w0/h0, 0.1, 100);
-        camera.position.set(0, 0.1, 5.0);
-        const pmrem = new THREE.PMREMGenerator(renderer);
-        scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-        const mat = new THREE.MeshPhysicalMaterial({
-          color: 0xffffff, metalness: 0, roughness: 0.06,
-          ior: 1.45, thickness: 1.3,
-          transmission: 1, transparent: true,
-          iridescence: 0.85, iridescenceIOR: 1.3,
-          iridescenceThicknessRange: [140, 460],
-          clearcoat: 1, clearcoatRoughness: 0.04,
-          attenuationColor: new THREE.Color(0xffd29a),
-          attenuationDistance: 1.6,
-          envMapIntensity: 1.1,
-          side: THREE.DoubleSide,
-        });
-        // Procedural fallback — a thin torus
-        let mesh = new THREE.Mesh(new THREE.TorusGeometry(1.0, 0.04, 32, 200), mat);
-        scene.add(mesh);
-        scene.add(new THREE.DirectionalLight(0xfff0d6, 1.5).position.set(2, 3, 2));
-        scene.add(new THREE.DirectionalLight(0x88aaff, 0.7).position.set(-2, 1, -2));
-        const draco = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-        new GLTFLoader().setDRACOLoader(draco).load('./blender/apogee_lost.glb',
-          (gltf) => { let b=null; gltf.scene.traverse(o => { if(!b && o.isMesh) b=o; }); if(b){ mesh.geometry.dispose(); mesh.geometry=b.geometry; } },
-          undefined, (err) => console.warn('[lost-3d] glb failed', err)
-        );
-        addEventListener('resize', () => { const [w,h]=fit(); camera.aspect=w/h; camera.updateProjectionMatrix(); });
-        let running = true;
-        addEventListener('visibilitychange', () => { running = !document.hidden; });
-        const start = performance.now();
-        function tick(now) {
-          if (running) {
-            const t = (now - start) * 0.001;
-            // Slow, melancholy rotation — the broken halo turns gently
-            mesh.rotation.y = t * 0.14;
-            mesh.rotation.x = 0.3 + Math.sin(t * 0.12) * 0.08;
-            mesh.rotation.z = Math.sin(t * 0.09) * 0.06;
-            renderer.render(scene, camera);
-          }
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-        container.classList.add('is-ready');
-      } catch (e) { console.warn('[lost-3d] init failed', e); }
-    }
-  }
-</script>
-
 </body>
 </html>
