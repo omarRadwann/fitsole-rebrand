@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { CartDrawer } from './CartDrawer'
 import { Wordmark } from './brand/Wordmark'
 import { SearchIcon, AccountIcon } from './ui/Icon'
+import { SoundToggle } from './SoundToggle'
 
 export function Header() {
   return (
@@ -35,6 +36,7 @@ export function Header() {
             <Link href="/collections/sale" className="hover:opacity-70 transition-opacity">Sale</Link>
           </nav>
           <div className="flex items-center gap-5">
+            <SoundToggle />
             <button
               aria-label="Search"
               data-cursor="Search"

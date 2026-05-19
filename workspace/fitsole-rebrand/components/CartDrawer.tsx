@@ -3,13 +3,21 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import { CartIcon, CloseIcon } from './ui/Icon'
+import { useSfx } from '@/lib/audio/useSfx'
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false)
   const [count] = useState(0) // Placeholder until Shopify Storefront API wires in.
+  const sfx = useSfx()
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(o) => {
+        setOpen(o)
+        sfx(o ? 'cartOpen' : 'cartClose')
+      }}
+    >
       <Dialog.Trigger asChild>
         <button
           aria-label={`Cart · ${count} items`}

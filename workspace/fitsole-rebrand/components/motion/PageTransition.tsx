@@ -1,7 +1,8 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { getSoundManager } from '@/lib/audio/SoundManager'
 
 /*
  * Cross-document View Transitions for App Router.
@@ -11,9 +12,12 @@ import { useEffect } from 'react'
  *
  * App Router navigations are SPA — we use document.startViewTransition on
  * pathname change. SSR-safe via dynamic check.
+ *
+ * Also: fires a quiet page-navigate sfx if sound is enabled.
  */
 export function PageTransition() {
   const pathname = usePathname()
+  const first = useRef(true)
 
   useEffect(() => {
     if (typeof document === 'undefined') return
@@ -21,6 +25,14 @@ export function PageTransition() {
     const html = document.documentElement
     html.setAttribute('data-pt', 'enter')
     const t = setTimeout(() => html.removeAttribute('data-pt'), 420)
+
+    // Skip sfx on first paint (we don't ring on mount).
+    if (!first.current) {
+      const s = getSoundManager()
+      if (s.isEnabled) s.play('pageNavigate')
+    } else {
+      first.current = false
+    }
     return () => clearTimeout(t)
   }, [pathname])
 

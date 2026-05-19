@@ -4,9 +4,11 @@ import * as Popover from '@radix-ui/react-popover'
 import { useState } from 'react'
 import { BRANCHES } from '@/lib/data/branches'
 import type { ProductStock } from '@/lib/data/products'
+import { useSfx } from '@/lib/audio/useSfx'
 
 export function BranchPin({ stock, productName }: { stock: ProductStock[]; productName: string }) {
   const [open, setOpen] = useState(false)
+  const sfx = useSfx()
 
   if (stock.length === 0) {
     return (
@@ -55,6 +57,8 @@ export function BranchPin({ stock, productName }: { stock: ProductStock[]; produ
           </div>
           <button
             type="button"
+            onClick={() => sfx('reserveBranch')}
+            data-cursor="Reserve"
             className="mt-5 w-full bg-accent text-bg py-3 font-medium text-sm hover:opacity-90 transition-opacity duration-[--dur-micro] ease-smooth"
           >
             Reserve at {branch.name}

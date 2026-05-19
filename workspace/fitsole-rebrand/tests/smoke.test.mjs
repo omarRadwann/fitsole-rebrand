@@ -113,6 +113,26 @@ test('Header uses the new custom Wordmark, not raw font text', () => {
   assert.ok(header.includes('Wordmark'), 'Header must render the custom <Wordmark>, not plain font text')
 })
 
+test('Sound design layer exists and is default-muted, gesture-gated', () => {
+  for (const f of ['SoundManager.ts', 'useSfx.ts']) {
+    assert.ok(existsSync(join(ROOT, 'lib', 'audio', f)), `missing audio file: ${f}`)
+  }
+  assert.ok(existsSync(join(ROOT, 'components', 'SoundToggle.tsx')), 'SoundToggle must exist')
+  const mgr = readFileSync(join(ROOT, 'lib', 'audio', 'SoundManager.ts'), 'utf-8')
+  assert.ok(mgr.includes('this.enabled = false'), 'SoundManager must default to muted')
+  assert.ok(mgr.includes('ensureContext'), 'SoundManager must gate AudioContext on first gesture')
+  assert.ok(mgr.includes('localStorage'), 'SoundManager must persist enabled state')
+})
+
+test('Sound is wired to CartDrawer, BranchPin, and PageTransition', () => {
+  const cd = readFileSync(join(ROOT, 'components', 'CartDrawer.tsx'), 'utf-8')
+  assert.ok(cd.includes('useSfx') && cd.includes("'cartOpen'"), 'CartDrawer must fire cartOpen sfx')
+  const bp = readFileSync(join(ROOT, 'components', 'BranchPin.tsx'), 'utf-8')
+  assert.ok(bp.includes('useSfx') && bp.includes("'reserveBranch'"), 'BranchPin reserve button must fire reserveBranch sfx')
+  const pt = readFileSync(join(ROOT, 'components', 'motion', 'PageTransition.tsx'), 'utf-8')
+  assert.ok(pt.includes("pageNavigate"), 'PageTransition must fire pageNavigate sfx on route change')
+})
+
 test('layout wires the Full-Lift motion shell', () => {
   const layout = readFileSync(join(ROOT, 'app', 'layout.tsx'), 'utf-8')
   for (const sym of ['CustomCursor', 'PageTransition', 'ScrollCue']) {
