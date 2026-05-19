@@ -228,18 +228,30 @@ html.has-custom-cursor * { cursor: none !important; }
 .split-text__space { display: inline; }
 .split-text__char {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(0.55em);
+  /* Final visible state. The split-rise animation transitions FROM
+     (opacity:0; translateY(.55em)) → this state.
+     animation-fill-mode 'both' was unreliable across browsers — the chars
+     stayed at opacity 0 indefinitely in dev. So we set the final state as
+     the rule's default and use the keyframe FROM to start the reveal. */
+  opacity: 1;
+  transform: none;
   animation: split-rise 720ms var(--ease-smooth) both;
   animation-delay: calc(var(--delay, 0ms) + (var(--i, 0) * var(--stagger, 22ms)));
   will-change: opacity, transform;
 }
 @keyframes split-rise {
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(0.55em); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.split-text--instant .split-text__char,
+.split-text--instant .split-text__char {
+  animation: none !important;
+}
 @media (prefers-reduced-motion: reduce) {
-  .split-text__char { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .split-text__char {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 /* --- Reveal — IntersectionObserver-driven section reveals --------------- */
@@ -512,7 +524,10 @@ html[data-pt='enter'] body {
   --p: 0;
 }
 .hero-photo {
-  position: relative;
+  /* Stay in the absolute-inset-0 box set by Tailwind utility classes on the
+     JSX element. The earlier `position: relative` here collapsed the box to
+     h:0 because it overrode the Tailwind .absolute that gives the box
+     dimensions via inset-0. */
   z-index: 1;
   transform:
     translate3d(calc(var(--p) * -36px), 0, 0)
